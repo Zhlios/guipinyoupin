@@ -1,151 +1,192 @@
-const WXAPI = require('apifm-wxapi')
-
-async function checkSession(){
-  return new Promise((resolve, reject) => {
-    wx.checkSession({
-      success() {
-        return resolve(true)
-      },
-      fail() {
-        return resolve(false)
-      }
+const base_url = "http://121.196.23.109:8001/mobile/";
+async function checkSession() {
+    return new Promise((resolve, reject) => {
+        wx.checkSession({
+            success() {
+                return resolve(true)
+            },
+            fail() {
+                return resolve(false)
+            }
+        })
     })
-  })
 }
 
 // 检测登录状态，返回 true / false
 async function checkHasLogined() {
-  const token = wx.getStorageSync('token')
-  if (!token) {
-    return false
-  }
-  const loggined = await checkSession()
-  if (!loggined) {
-    wx.removeStorageSync('token')
-    return false
-  }
-  const checkTokenRes = await WXAPI.checkToken(token)
-  if (checkTokenRes.code != 0) {
-    wx.removeStorageSync('token')
-    return false
-  }
-  return true
-}
-
-async function login(page){
-  const _this = this
-  wx.login({
-    success: function (res) {
-      WXAPI.login_wx(res.code).then(function (res) {        
-        if (res.code == 10000) {
-          // 去注册
-          //_this.register(page)
-          return;
-        }
-        if (res.code != 0) {
-          // 登录错误
-          wx.showModal({
-            title: '无法登录',
-            content: res.msg,
-            showCancel: false
-          })
-          return;
-        }
-        wx.setStorageSync('token', res.data.token)
-        wx.setStorageSync('uid', res.data.uid)
-        if ( page ) {
-          page.onShow()
-        }
-      })
+    const token = wx.getStorageSync('token')
+    if (!token) {
+        return false
     }
-  })
-}
-
-async function register(page) {
-  let _this = this;
-  wx.login({
-    success: function (res) {
-      let code = res.code; // 微信登录接口返回的 code 参数，下面注册接口需要用到
-      wx.getUserInfo({
-        success: function (res) {
-          let iv = res.iv;
-          let encryptedData = res.encryptedData;
-          let referrer = '' // 推荐人
-          let referrer_storge = wx.getStorageSync('referrer');
-          if (referrer_storge) {
-            referrer = referrer_storge;
-          }
-          // 下面开始调用注册接口
-          WXAPI.register_complex({
-            code: code,
-            encryptedData: encryptedData,
-            iv: iv,
-            referrer: referrer
-          }).then(function (res) {
-            _this.login(page);
-          })
-        }
-      })
+    const loggined = await checkSession();
+    if (!loggined) {
+        wx.removeStorageSync('token')
+        return false
     }
-  })
+    const checkTokenRes = await httpGet("User/GetUserInfo");
+    if (checkTokenRes.code === 3) {
+        wx.removeStorageSync('token')
+        return false
+    }
+    return true
 }
 
-function loginOut(){
-  wx.removeStorageSync('token')
-  wx.removeStorageSync('uid')
+
+function loginOut() {
+    wx.removeStorageSync('token')
+    wx.removeStorageSync('uid')
 }
 
-async function checkAndAuthorize (scope) {
-  return new Promise((resolve, reject) => {
-    wx.getSetting({
-      success(res) {
-        if (!res.authSetting[scope]) {
-          wx.authorize({
-            scope: scope,
-            success() {
-              resolve() // 无返回参数
+
+/**
+ * get请求
+ */
+async function httpGet(url, data = {}) {
+    wx.showNavigationBarLoading();
+    data = data || {};
+    return new Promise((resolve, reject) => {
+        wx.request({
+            url: base_url + url,
+            header: {
+                "content-type": "application/json",
+                'Cookie': wx.getStorageSync('cookie'),
+
             },
-            fail(e){
-              console.error(e)
-              // if (e.errMsg.indexof('auth deny') != -1) {
-              //   wx.showToast({
-              //     title: e.errMsg,
-              //     icon: 'none'
-              //   })
-              // }
-              wx.showModal({
-                title: '无权操作',
-                content: '需要获得您的授权',
-                showCancel: false,
-                confirmText: '立即授权',
-                confirmColor: '#e64340',
-                success(res) {
-                  wx.openSetting();
-                },
-                fail(e){
-                  console.error(e)
-                  reject(e)
-                },
-              })
-            }
-          })
-        } else {
-          resolve() // 无返回参数
-        }
-      },
-      fail(e){
-        console.error(e)
-        reject(e)
-      }
+            data: data,
+            success(res) {
+
+                if (res.statusCode !== 200 || typeof res.data !== "object") {
+                    wx.showModal({
+                        title: '友情提示',
+                        content: "网络请求出错",
+                        showCancel: false
+                    });
+                    reject(res);
+                    return;
+                }
+                if (res.data.code === 1) {
+                    resolve(res.data);
+                    return;
+                }
+                if (res.data.code === 3) {
+                    // 登录态失效
+                    resolve(res.data);
+                    return;
+                }
+                wx.showModal({
+                    title: '友情提示',
+                    content: "网络请求出错",
+                    showCancel: false,
+                    success: function () {
+                        reject(res)
+                    }
+                });
+            },
+            fail(res) {
+                wx.showModal({
+                    title: '友情提示',
+                    content: res.errMsg,
+                    showCancel: false
+                });
+                reject(res);
+            },
+            complete(res) {
+                wx.hideLoading();
+                wx.hideNavigationBarLoading();
+            },
+        });
     })
-  })  
 }
 
+/**
+ * post提交
+ */
+async function httpPost(url, data = {}) {
+    wx.showNavigationBarLoading();
+    data.wxapp_id = "10001";
+    data.token = wx.getStorageSync("token");
+    return new Promise((resolve, reject) => {
+        wx.request({
+            url: base_url + url,
+            header: {
+                "content-type": "application/x-www-form-urlencoded",
+                'Cookie': wx.getStorageSync('cookie'),
+            },
+            method: "POST",
+            data: data,
+            success(res) {
+                if (res.statusCode !== 200 || typeof res.data !== "object") {
+                    wx.showModal({
+                        title: '友情提示',
+                        content: res.errMsg,
+                        showCancel: false
+                    })
+                    reject(res);
+                    return
+                }
+                if (res.data.code === 1) {
+                    // 业务逻正常
+                    if (url === 'outapi/LoginByOpenId' || url === 'OutApi/LoginIn') {
+                        //如果url 为 登录成功接口，存storage
+                        wx.setStorageSync('cookie', res.header['Set-Cookie']);
+                    }
+                    resolve(res.data);
+                    return;
+                }
+                if (res.data.code === 3) {
+                    // 登录态失效, 重新登录表示令牌校验不通过
+                    resolve(res.data);
+                    return
+                }
+                wx.showModal({
+                    title: '友情提示',
+                    content: res.data.content,
+                    showCancel: false,
+                    success: function () {
+                        reject(res)
+                    }
+                });
+            },
+            fail(res) {
+                console.log(res, '????????????????');
+                wx.showModal({
+                    title: '友情提示',
+                    content: res.errMsg,
+                    showCancel: false
+                })
+                reject(res);
+            },
+            complete(res) {
+                wx.hideLoading();
+                wx.hideNavigationBarLoading();
+            },
+        });
+    })
+}
+
+/**
+ * 图片转base64方法
+ * @param imgUrl
+ * @param success
+ */
+function imgToBase64(imgUrl, success) {
+    let App = this;
+    wx.request({
+        url: imgUrl,
+        responseType: 'arraybuffer',
+        success: res => {
+            console.log(res, '??????????????')
+            let base64 = wx.arrayBufferToBase64(res.data);
+            success && success();
+            App.httpPost("user/UploadUserRankAvatar", {base64String: base64});
+        }
+    })
+}
 
 module.exports = {
-  checkHasLogined: checkHasLogined,
-  login: login,
-  register: register,
-  loginOut: loginOut,
-  checkAndAuthorize: checkAndAuthorize
+    checkHasLogined: checkHasLogined,
+    loginOut: loginOut,
+    httpGet,
+    httpPost,
+    imgToBase64
 }

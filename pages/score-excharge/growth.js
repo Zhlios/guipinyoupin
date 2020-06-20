@@ -125,6 +125,5 @@ Page({
       })
       return;
     }
-    AUTH.register(this);
   },
 })

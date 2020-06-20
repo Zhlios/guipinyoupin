@@ -155,9 +155,7 @@ App({
 		}
 		// 自动登录
 		AUTH.checkHasLogined().then(isLogined => {
-			if (!isLogined) {
-				AUTH.login()
-			}
+			console.log(`登录状态------------>${isLogined?"已登录":"失效"}`)
 		})
 	},
 	globalData: {

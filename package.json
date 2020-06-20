@@ -13,17 +13,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/EastWorld/wechat-app-mall.git"
+    "url": " https://github.com/baguosiji/fire-shop-lite.git"
   },
   "keywords": [
     "微店",
     "小店",
     "微商城"
   ],
-  "author": "gooking",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/EastWorld/wechat-app-mall/issues"
-  },
-  "homepage": "https://github.com/EastWorld/wechat-app-mall#readme"
+  "license": "ISC"
 }

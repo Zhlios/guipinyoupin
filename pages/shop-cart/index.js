@@ -50,7 +50,7 @@ Page({
       if (isLogined) {
         this.shippingCarInfo()
       }
-    })    
+    })
   },
   async shippingCarInfo(){
     const token = wx.getStorageSync('token')
@@ -162,7 +162,6 @@ Page({
       })
       return;
     }
-    AUTH.register(this);
   },
 
 

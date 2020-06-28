@@ -1,31 +1,28 @@
 <import src="../../wxParse/wxParse.wxml" />
 <view class="container">
-	<view class="swiper-container" wx:if="{{!goodsDetail.basicInfo.videoId}}">
+	<view class="swiper-container">
 		<swiper class="screen-swiper {{dotStyle?'square-dot':'round-dot'}}" indicator-dots="true" circular="true" autoplay="true"
 		 interval="5000" duration="500">
-			<swiper-item wx:for="{{goodsDetail.pics}}" wx:key="id">
-				<image src="{{item.pic}}" class="slide-image" mode="aspectFill" lazy-load="true" />
+			<swiper-item wx:for="{{goodsDetail.ProductImageInfo}}" wx:key="id">
+				<image src="{{imagePath+img800+item.ShowImg}}" class="slide-image" mode="aspectFill" lazy-load="true" />
 			</swiper-item>
 		</swiper>
 	</view>
-	<view class="swiper-container" wx:if="{{goodsDetail.basicInfo.videoId}}">
-		<video src="{{videoMp4Src}}" autoplay="true" loop="true" style='width:100%'></video>
-	</view>
 	<view class="goods-info">
 		<view class="goods-left">
-			<view class="goods-title">{{goodsDetail.basicInfo.name}}</view>
+			<view class="goods-title">{{goodsDetail.Name}}</view>
 			<view class="goods-characteristic">
 				<text> {{goodsDetail.basicInfo.characteristic}} </text>
-				<block wx:if="{{goodsDetail.basicInfo.weight != 0}}">
-				    <text> \t {{goodsDetail.basicInfo.weight}}千克 </text>
-				</block>
+<!--				<block wx:if="{{goodsDetail.basicInfo.weight != 0}}">-->
+<!--				    <text> \t {{goodsDetail.basicInfo.weight}}千克 </text>-->
+<!--				</block>-->
 			</view>
 		</view>
-		<block wx:if="{{goodsDetail.basicInfo.pingtuan == false}}">
-			<view class="goods-price">¥ {{selectSizePrice}}</view>
-			<view class="goods-originalPrice">¥ {{goodsDetail.basicInfo.originalPrice}}</view>
+		<block>
+			<view class="goods-price">¥ {{goodsDetail.ShopPrice}}</view>
+			<view class="goods-originalPrice">¥ {{goodsDetail.MarketPrice}}</view>
 			<view class="piangjia">
-				已售 {{goodsDetail.basicInfo.numberOrders}}
+				已售 {{goodsDetail.SaleCount}}
 			</view>
 		</block>
 	</view>
@@ -76,17 +73,17 @@
 	<view class="padding-lr padding-bottom flex justify-center" wx:if="{{curGoodsKanjia && curKanjiaprogress}}" style="width: 100%;">
 	    <button class="cu-btn bg-red round" bindtap="tobuy">用当前价购买</button>
 	  </view>
-	<block wx:if="{{goodsDetail.basicInfo.pingtuan == true}}">
+	<block wx:if="{{spellproductcfgInfo}}">
 		<view class="bg-gray" style="width: 100%;padding: 20rpx 0;">
 			<countdown date="{{pingtuanSet.dateEnd}}"></countdown>
 			<view class="pt-box bg-gradual-red shadow">
 				<view class="goods-ptuan">
 					拼团价 ¥
-					<text>{{goodsDetail.basicInfo.pingtuanPrice}}</text>
+					<text>{{spellproductcfgInfo.price}}</text>
 				</view>
 				<view class="goods-ptuan-info">
 					<text class="txa">{{pingtuanSet.numberPersion}}人开团</text>
-					<text class="txb">原价 ¥ {{selectSizePrice}}</text>
+					<text class="txb">原价 ¥ {{goodsDetail.ShopPrice}}</text>
 				</view>
 				<view class="goods-right">
 					<button class="cu-btn bg-cyan round" open-type="share" wx:if="{{isInPintuan}}">邀请好友</button>
@@ -202,7 +199,7 @@
 			</block>
 		</view>
 	</block>
-	<block wx:if="{{goodsDetail.basicInfo.pingtuan == false}}">
+	<block>
 		<view class="footer-box">
 			<view class="box-list">
 				<image src="../../images/goods_service.png"></image>
@@ -229,23 +226,23 @@
 		<view class="popup-contents">
 			<view class="pop-goods-info">
 				<view class="pop-img-box">
-					<image src="{{goodsDetail.basicInfo.pic}}" class="goods-thumbnail" />
+					<image src="{{imagePath+img180+goodsDetail.ShowImg}}" class="goods-thumbnail" />
 				</view>
 				<view class="pop-goods-des">
-					<view class="pop-goods-title">{{goodsDetail.basicInfo.name}}</view>
-					<view class="pop-goods-price">¥ {{selectSizePrice}}</view>
+					<view class="pop-goods-title">{{goodsDetail.Name}}</view>
+					<view class="pop-goods-price">¥ {{goodsDetail.ShopPrice}}</view>
 
 				</view>
 				<view class="pop-goods-close" bindtap="closePopupTap"></view>
 			</view>
 			<view class="size-label-box">
-				<block wx:for="{{goodsDetail.properties}}" wx:for-item="property" wx:for-index="idx" wx:key="id">
-					<view class="label">{{property.name}}</view>
+				<block wx:for="{{goodsDetail.SKUListInfo}}" wx:for-item="property" wx:for-index="idx" wx:key="id">
+					<view class="label">{{property.ItemAttrInfo.Key.AttrName}}</view>
 					<view class="label-item-box">
-						<view class="label-item {{item.active ? 'active' : '' }}" wx:for="{{property.childsCurGoods}}" wx:key="id"
-						 bindtap="labelItemTap" data-propertyindex="{{idx}}" data-propertyid="{{property.id}}" data-propertyname="{{property.name}}"
-						 data-propertychildindex="{{index}}" data-propertychildid="{{item.id}}" data-propertychildname="{{item.name}}">
-							{{item.name}}
+						<view class="label-item {{item.Checked ? 'active' : '' }}" wx:for="{{property.ItemAttrInfo.Value}}" wx:key="id"
+						 bindtap="labelItemTap" data-propertyindex="{{idx}}" data-propertyid="{{property.AttrId}}" data-propertyname="{{property.ItemAttrInfo.Key.AttrName}}"
+						 data-propertychildindex="{{index}}" data-propertychildid="{{item.Pid}}" data-propertychildname="{{item.AttrValue}}">
+							{{item.AttrValue}}
 						</view>
 					</view>
 				</block>

@@ -1,25 +1,26 @@
 <view class="container">
-  <view class="address-list">
-    <view class="a-address" wx:for-items="{{addressList}}" wx:key="id">
-      <view class="left-text" bindtap="selectTap" data-id="{{item.id}}">
-        <view class="name-tel">
-          {{item.linkMan}} {{item.mobile}}
+    <view class="address-list">
+        <view class="a-address" wx:for-items="{{addressList}}" wx:key="id">
+            <view class="left-text" bindtap="selectTap" data-id="{{item.id}}">
+                <view class="name-tel">
+                    {{item.linkMan}} {{item.mobile}}
+                </view>
+                <view class="address-box">
+                    <text wx:if="{{item.isdefault==1}}" style="padding:5rpx 10rpx;background-color: #ff0000;color:#ffffff;font-size: 12px;border-radius: 5rpx">默认</text>
+                    {{item.regionTxt+item.address}}
+                </view>
+            </view>
+            <view class="right-edit" bindtap="editAddess" data-id="{{item.said}}">
+                <image src="/images/icon/edit.svg"></image>
+            </view>
         </view>
-        <view class="address-box">
-          {{item.address}}
+    </view>
+    <view class="bottom-box bg-white" bindtap="addAddess">
+        <view class="add-btn">
+            <image src="/images/add-addr.png"></image>
+            <view>新增收货地址</view>
         </view>
-      </view>
-      <view class="right-edit" bindtap="editAddess" data-id="{{item.id}}">
-        <image src="/images/icon/edit.svg"></image>
-      </view>
+        <image class="next" src="/images/icon/next.png"></image>
     </view>
-  </view>
-  <view class="bottom-box bg-white" bindtap="addAddess">
-    <view class="add-btn">
-      <image src="/images/add-addr.png"></image>
-      <view>新增收货地址</view>
-    </view>
-    <image class="next" src="/images/icon/next.png"></image>
-  </view>
 </view>
 <auth is-hidden="{{wxlogin}}" bind:afterAuth="afterAuth" bind:closeAuth="closeAuth"></auth>

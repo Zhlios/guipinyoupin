@@ -12,32 +12,30 @@ Page({
         img420: CONFIG.imgType.img420,
         img800: CONFIG.imgType.img800,
         wxlogin: true,
-        totalScoreToPay: 0,
-        goodsList: [],
-        isNeedLogistics: 0, // 是否需要物流信息
-        allGoodsPrice: 0,
-        yunPrice: 0,
-        allGoodsAndYunPrice: 0,
-        goodsJsonStr: "",
-        orderType: "", //订单类型，购物车下单或立即支付下单，默认是购物车，
-        pid: "",    //商品id
-        buyNumber: 0,    //购买数量
-        pingtuanOpenId: undefined, //拼团的话记录团号
-
-        hasNoCoupons: true,
+        options: {},
         coupons: [],
-        youhuijine: 0, //优惠券金额
         curCoupon: null, // 当前选择使用的优惠券
-        peisongType: 'kd', // 配送方式 kd,zq 分别表示快递/到店自取
         remark: '',
         showModal: false, //是否显示微信支付modal
         payAmount: null,
         payId: null,
+
+        OrderProductsModel: [], //订单商品详情
+        CouponMM: [], // 优惠券
+        PointsInfo: {}, // 积分。可以兑换
+        LessMoney: 0, // 总牛牛豆
+        TotalMoney: 0, // 总价格
+        CutMoney: 0, // 满减价格. 满减在最后
+        RegionOrderInfo: null, //地址信息
+        commission: 0, // 牛牛豆兑换
+        realMoney: 0, // 实际支付金额
+        selectCoupon: 0,      //优惠券 减去的价格
+        integral: 0, // 积分兑换
+        showcommission: true,  //是否需要展示牛牛豆购买
     },
     onShow() {
         AUTH.checkHasLogined().then(isLogined => {
             if (isLogined) {
-                // this.initShippingAddress()
                 this.doneShow();
             } else {
                 this.setData({
@@ -54,51 +52,40 @@ Page({
         this.doneShow()
     },
     async doneShow() {
-        // if (!allowSelfCollection || allowSelfCollection != '1') {
-        //     allowSelfCollection = '0'
-        //     this.data.peisongType = 'kd'
-        // }
-        let shopList = [];
-        let allGoodsAndYunPrice = 0;
-        const token = wx.getStorageSync('token')
         //立即购买下单
-        if ("buyNow" == this.data.orderType) {
-            const {pid, buyNumber} = this.data;
-            const result =await AUTH.httpPost("order/BuyNowSubmitOrder", {
+        const options = this.data.options;
+        if (options.orderType === "buyNow") {
+            const {pid, buyNumber} = options;
+            const result = await AUTH.httpPost("order/BuyNowSubmitOrder", {
                 pid,
                 buycount: buyNumber,
-            })
-            // var buyNowInfoMem = wx.getStorageSync('buyNowInfo');
-            // this.data.kjId = buyNowInfoMem.kjId;
-            shopList = result.content.OrderProductsModel;
-            allGoodsAndYunPrice=result.content.TotalMoney;
-            console.log(shopList, "-------------------")
-        } else {
-            //购物车下单
-            const res = await WXAPI.shippingCarInfo(token)
-            if (res.code == 0) {
-                shopList = res.data.items
-            }
+            });
+            this.setData({
+                ...result.content,
+            }, () => {
+                this.getRealMonery();
+            });
+            return;
         }
-        this.setData({
-            goodsList: shopList,
-            allGoodsAndYunPrice,
-        });
-        this.initShippingAddress()
+        //拼团购买
+        if (options.orderType === "toPintuan") {
+            const sType = options.pintuanType;
+            const id = options.pintuanID;
+            const result = await AUTH.httpPost("order/SpellSubmitOrder", {sType, id})
+            this.setData(result.content, function () {
+                this.getRealMonery()
+            })
+            return;
+        }
+        //购物车下单
+        const res = await WXAPI.shippingCarInfo(token)
+        if (res.code == 0) {
+            shopList = res.data.items
+
+        }
     },
     onLoad(e) {
-        let _data = {
-            isNeedLogistics: 1
-        }
-        if (e.orderType) {
-            _data.orderType = e.orderType;
-            _data.buyNumber = e.buyNumber;
-            _data.pid = e.pid;
-        }
-        if (e.pingtuanOpenId) {
-            _data.pingtuanOpenId = e.pingtuanOpenId
-        }
-        this.setData(_data);
+        this.data.options = e;
     },
 
     getDistrictId: function (obj, aaa) {
@@ -113,189 +100,88 @@ Page({
     remarkChange(e) {
         this.data.remark = e.detail.value
     },
-    goCreateOrder() {
-        wx.requestSubscribeMessage({
-            tmplIds: ['Z0hQYItP4ct2VbxbWMGp61SH0_4zmDB-52WQpHQ1jco'],
-            //订单状态通知    温馨提示
-            // {{thing1.DATA}}
-            // 订单编号
-
-            // {{character_string2.DATA}}
-            // 订单状态
-
-            // {{phrase5.DATA}}
-            success(res) {
-
-            },
-            fail(e) {
-                console.error(e)
-            },
-            complete: (e) => {
-                this.createOrder(true)
-            },
-        })
-    },
-    createOrder: function (e) {
-        var that = this;
-        var loginToken = wx.getStorageSync('token') // 用户登录 token
-        var remark = this.data.remark; // 备注信息
-
+    createOrder: function () {
+        wx.showLoading();
+        let that = this;
+        let remark = this.data.remark; // 备注信息
+        const options = this.data.options;
         let postData = {
-            token: loginToken,
-            goodsJsonStr: that.data.goodsJsonStr,
-            remark: remark,
-            peisongType: that.data.peisongType
+            PayEcurr: 0,  //账户余额
+            BuyerRemark: remark,
+            BuyCount: options.buyNumber,
         };
-        if (that.data.kjId) {
-            postData.kjid = that.data.kjId
-        }
-        if (that.data.pingtuanOpenId) {
-            postData.pingtuanOpenId = that.data.pingtuanOpenId
-        }
-        if (that.data.isNeedLogistics > 0 && postData.peisongType == 'kd') {
-            if (!that.data.curAddressData && loginToken) {
-                wx.hideLoading();
-                wx.showModal({
-                    title: '友情提示',
-                    content: '请先设置您的收货地址！',
-                    showCancel: false
-                })
-                return;
-            }
-            if (postData.peisongType == 'kd') {
-                postData.provinceId = that.data.curAddressData.provinceId;
-                postData.cityId = that.data.curAddressData.cityId;
-                if (that.data.curAddressData.districtId) {
-                    postData.districtId = that.data.curAddressData.districtId;
-                }
-                postData.address = that.data.curAddressData.address;
-                postData.linkMan = that.data.curAddressData.linkMan;
-                postData.mobile = that.data.curAddressData.mobile;
-                postData.code = that.data.curAddressData.code;
-            }
-        }
-        if (that.data.curCoupon) {
-            postData.couponId = that.data.curCoupon.id;
-        }
-        if (!e) {
-            postData.calculate = "true";
-        }
-
-        WXAPI.orderCreate(postData).then(function (res) {
-            if (res.code != 0) {
-                wx.showModal({
-                    title: '错误',
-                    content: res.msg,
-                    showCancel: false
-                })
-                return;
-            }
-
-            if (e && "buyNow" != that.data.orderType) {
-                // 清空购物车数据
-                WXAPI.shippingCarInfoRemoveAll(loginToken)
-            }
-            if (!e) {
-                that.setData({
-                    totalScoreToPay: res.data.score,
-                    isNeedLogistics: res.data.isNeedLogistics,
-                    allGoodsPrice: res.data.amountTotle,
-                    allGoodsAndYunPrice: res.data.amountLogistics + res.data.amountTotle,
-                    yunPrice: res.data.amountLogistics
-                });
-                that.getMyCoupons();
-                return;
-            }
-            // 下单成功，跳转到订单管理界面
-            that.setData({
-                showModal: true,
-                payAmount: res.data.amountReal,
-                payId: res.data.id
+        if (!that.data.RegionOrderInfo) {
+            wx.hideLoading();
+            wx.showModal({
+                title: '友情提示',
+                content: '请先设置您的收货地址！',
+                showCancel: false
             })
-            // wx.redirectTo({
-            //   url: "/pages/order-list/index"
-            // });
-        })
-    },
-    toPay() {
-        if (this.data.totalScoreToPay > 0) {
-            WXAPI.userAmount(wx.getStorageSync('token')).then(res => {
-                if (res.data.score < this.data.totalScoreToPay) {
-                    wx.showToast({
-                        title: '您的积分不足，无法支付',
-                        icon: 'none'
+            return;
+        }
+        if (options.orderType === "toPintuan") {
+            const param = {
+                ...postData,
+                Stype: options.pintuanType,
+                Id: options.pintuanID,
+                Said: this.data.RegionOrderInfo.said,
+                BuyCount: options.buyNumber,
+            }
+            AUTH.httpPost('order/SpellCreateOrder', param)
+                .then(result => {
+                    that.setData({
+                        showModal: true,
                     })
-                    return;
-                } else {
-                    wxpay.wxpay('order', this.data.payAmount, this.data.payId,
-                        "/pages/order-list/index?type=0");
-                }
-            })
-        } else {
-            wxpay.wxpay('order', this.data.payAmount, this.data.payId,
-                "/pages/order-list/index?type=1");
+                    this.toPay(result.content);
+                })
+                .catch((err) => {
+
+                })
         }
+        if (options.orderType === "buyNow") {
+            const params = {
+                ...postData,
+                Pid: options.pid,
+                Said: this.data.RegionOrderInfo.said,
+                CouponId: this.data.CouponMM.length ? this.data.CouponMM[0].CouponId : 0,
+                PaycReditCount: this.data.integral,
+            }
+            AUTH.httpPost('order/BuyNowCreateOrder', params)
+                .then((result) => {
+                    that.setData({
+                        showModal: true,
+                    })
+                    this.toPay(result.content);
+                })
+                .catch((err) => {
+
+                });
+            return
+        }
+        console.log("?")
+    },
+    toPay(data) {
+        if (data.Flag) {
+            wx.showToast({title: '支付成功', icon: "success"});
+            wx.redirectTo({
+                url: '/pages/order-list/index?type=1',
+            });
+            return;
+        }
+        let json = {
+            timeStamp: data.TimeStamp + "",
+            nonceStr: data.NonceStr,
+            package: 'prepay_id=' + data.PrepayId,
+            signType: 'MD5',
+            paySign: data.PaySign,
+        }
+        // 发起微信支付
+        wxpay.wxpay(json, "/pages/order-list/index?type=1");
     },
     hideModal() {
         wx.redirectTo({
             url: "/pages/order-list/index"
         });
-    },
-    async initShippingAddress() {
-        const res = await WXAPI.defaultAddress(wx.getStorageSync('token'))
-        if (res.code == 0) {
-            this.setData({
-                curAddressData: res.data.info
-            });
-        } else {
-            this.setData({
-                curAddressData: null
-            });
-        }
-        this.processYunfei();
-    },
-    processYunfei() {
-        var goodsList = this.data.goodsList;
-        var goodsJsonStr = "[";
-        var isNeedLogistics = 0;
-        var allGoodsPrice = 0;
-
-
-        let inviter_id = 0;
-        let inviter_id_storge = wx.getStorageSync('referrer');
-        if (inviter_id_storge) {
-            inviter_id = inviter_id_storge;
-        }
-        for (let i = 0; i < goodsList.length; i++) {
-            let carShopBean = goodsList[i];
-            if (carShopBean.logistics || carShopBean.logisticsId) {
-                isNeedLogistics = 1;
-            }
-            allGoodsPrice += carShopBean.price * carShopBean.number;
-
-            var goodsJsonStrTmp = '';
-            if (i > 0) {
-                goodsJsonStrTmp = ",";
-            }
-            if (carShopBean.sku && carShopBean.sku.length > 0) {
-                let propertyChildIds = ''
-                carShopBean.sku.forEach(option => {
-                    propertyChildIds = propertyChildIds + ',' + option.optionId + ':' + option.optionValueId
-                })
-                carShopBean.propertyChildIds = propertyChildIds
-            }
-            goodsJsonStrTmp += '{"goodsId":' + carShopBean.goodsId + ',"number":' + carShopBean.number +
-                ',"propertyChildIds":"' + carShopBean.propertyChildIds + '","logisticsType":0, "inviter_id":' + inviter_id + '}';
-            goodsJsonStr += goodsJsonStrTmp;
-
-
-        }
-        goodsJsonStr += "]";
-        this.setData({
-            isNeedLogistics: isNeedLogistics,
-            goodsJsonStr: goodsJsonStr
-        });
-        this.createOrder();
     },
     addAddress: function () {
         wx.navigateTo({
@@ -316,7 +202,7 @@ Page({
             if (res.code == 0) {
                 // 过滤不满足满减最低金额的优惠券
                 var coupons = res.data.filter(entity => {
-                    return entity.moneyHreshold <= that.data.allGoodsAndYunPrice;
+                    return entity.moneyHreshold <= that.data.TotalMoney;
                 });
 
                 var dayTime = tools.formatTime(new Date());
@@ -349,10 +235,92 @@ Page({
             curCoupon: this.data.coupons[selIndex]
         });
     },
-    radioChange(e) {
+
+
+    // 显示金额计算
+    getRealMonery: function () {
+        // 实际支付金额
+        // 实际支付金额= 总金额 - 满减金额 - 优惠券  - 积分兑换
+        let coupop = 0;
+        if (this.data.CouponMM.length) {
+            coupop = this.data.CouponMM[0].Money;
+        }
+        let pointMoney = this.data.integral / this.data.PointsInfo.MoneyToPoints;
+        let realMonery = (this.data.TotalMoney - this.data.CutMoney - coupop - pointMoney - this.data.commission).toFixed(2);
         this.setData({
-            peisongType: e.detail.value
-        })
-        this.processYunfei()
+            realMoney: realMonery,
+        });
+
+    },
+    integral: 0,
+    commission: 0,
+    //最终金额实时计算
+    getRealMoneyRealTime: function () {
+        let coupop = 0;
+        if (this.data.CouponMM.length) {
+            coupop = this.data.CouponMM[0].Money;
+        }
+        let pointMoney = this.integral / this.data.PointsInfo.MoneyToPoints;
+
+        let realMonery = (this.data.TotalMoney - this.data.CutMoney - coupop - pointMoney - this.commission);
+        return realMonery;
+    },
+    // 积分
+    bindPointsInput: function (e) {
+        //
+        let _this = this;
+        let value = !e.detail.value ? 0 : e.detail.value;
+        let currentValue = parseInt(value);
+        this.integral = currentValue;
+        if (currentValue > this.data.PointsInfo.Points) {
+            currentValue = this.data.PointsInfo.Points;
+            this.setData({
+                integral: currentValue,
+            })
+        } else {
+            //如果实时计算价格小于等于0  则将积分设置为实付款金额 * 积分兑换比例
+            if (this.getRealMoneyRealTime() <= 0) {
+                let coupop = 0;
+                if (this.data.CouponMM.length) {
+                    coupop = this.data.CouponMM[0].Money;
+                }
+                currentValue = (this.data.TotalMoney - this.data.commission - this.data.CutMoney - coupop) * this.data.PointsInfo.MoneyToPoints;
+                this.integral = currentValue;
+            }
+
+            this.setData({
+                integral: currentValue,
+            }, function () {
+                _this.getRealMonery()
+            })
+        }
+    },
+
+    // 牛牛豆
+    bindCommissionInput: function (e) {
+        let _this = this;
+        let value = !e.detail.value ? 0 : e.detail.value;
+        let currentValue = parseInt(value);
+        this.commission = currentValue;
+        if (currentValue > this.data.LessMoney) {
+            currentValue = this.data.LessMoney;
+            this.setData({
+                commission: currentValue,
+            })
+        } else {
+            if (this.getRealMoneyRealTime() <= 0) {
+                let coupop = 0;
+                if (this.data.CouponMM.length) {
+                    coupop = this.data.CouponMM[0].Money;
+                }
+                currentValue = this.data.TotalMoney - this.integral / this.data.PointsInfo.MoneyToPoints - this.data.CutMoney - coupop;
+                this.commission = currentValue;
+            }
+            this.setData({
+                commission: currentValue,
+            }, function () {
+                _this.getRealMonery()
+            })
+        }
     },
 })

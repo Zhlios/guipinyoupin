@@ -26,6 +26,12 @@ page{
   font-size: 66rpx;
   font-weight: bold;
 }
+
+.score-des {
+  margin-top: 30rpx;
+  color: #b4a078;
+  font-size: 30rpx;
+}
 .score-center{
   text-align:center;
   padding-top:30px;

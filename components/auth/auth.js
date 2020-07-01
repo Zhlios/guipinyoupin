@@ -79,9 +79,11 @@ Component({
                 .then((res) => {
                     wx.setStorageSync("token",res.content.UserToken);
                     wx.setStorageSync("userImg", userInfo.avatarUrl);
+                    that.pageClose();
+                    return;
                     authUtils.imgToBase64(userInfo.avatarUrl,function () {
                         that.setData({openId: ""})
-                        that.pageClose();
+                       
                     })
                 })
                 .catch((err) => {

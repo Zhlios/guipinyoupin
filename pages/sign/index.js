@@ -2,160 +2,109 @@ const WXAPI = require('apifm-wxapi')
 const AUTH = require('../../utils/auth')
 Page({
 	data: {
-		score: 0, //积分
+		score: 0, // 通政票
 		scoreSignContinuous: 0, //连续签到次数
 		isSigned: false, //今天是否已签到
 		wxlogin: true, //是否隐藏登录弹窗
 	},
 
 	onShow() {
+	//	console.log('kkkkkk');
+		let that = this;
 		AUTH.checkHasLogined().then(isLogined => {
+			console.log(isLogined,'lllll');
 			this.setData({
 				wxlogin: isLogined
 			})
-		})
-	},
-	showAuth() {
-		this.setData({
-			isHidden: false
+			if(isLogined) {
+				that.getAllScore();
+				that.getTodayisSign();
+				that.getSignHistory();
+				// 如果登录成功了 就去 获取所有的通证票， 获取是否已经签到 。 获取到当月的签到
+			}
 		})
 	},
 	afterAuth(e) {
 		this.setData({
-			isHidden: true,
-			token: e.detail
+			wxlogin: true, 
 		})
-		this.checkScoreSign();
-		this.getUserScore();
-		this.doneShow()
+		that.getAllScore();
+		that.getTodayisSign();
+		that.getSignHistory();
 	},
-	doneShow: function() {
-		setTimeout(() => {
-			this.calendar.jump()
-		}, 1000)
-		WXAPI.scoreSignLogs({
-			token: wx.getStorageSync('token')
-		}).then(res => {
-			if (res.code == 0) {
-				res.data.result.forEach(ele => {
-					const _data = ele.dateAdd.split(" ")[0]
-					this.calendar.setTodoLabels({
-						pos: 'bottom',
-						dotColor: '#40',
-						days: [{
-							year: parseInt(_data.split("-")[0]),
-							month: parseInt(_data.split("-")[1]),
-							day: parseInt(_data.split("-")[2]),
-							todoText: '已签到'
-						}],
-					});
+	// 获取所有的通政票
+	getAllScore: function() {
+		let that = this;
+		AUTH.httpGet('user/GetAccountInfo', {},)
+				.then((result) => {
+						that.setData({score: result.content.CpassTicketLessCount})
 				})
-			}
+				.catch((err) => {
+				})
+	},
+
+	// 获取今天是否签到
+	getTodayisSign: function() {
+		let that = this;
+		AUTH.httpGet('user/GetSignInTodayFlag', {},)
+		.then((result) => {
+			console.log(result,'isSign')
+			that.setData({isSigned: result.content})
+		})
+		.catch((err) => {
 		})
 	},
-	afterTapDay(e) {
-		//已签到的直接返回
-		if (this.data.isSigned) {
-			wx.showToast({
-				title: '今天已签到',
-				icon: 'none'
+	// 获取到本月签到列表
+	getSignHistory: function(year,month) {
+		let that = this;
+		console.log(this.calendar.getCurrentYM(),'calender')	
+		let json = this.calendar.getCurrentYM();
+		AUTH.httpGet('user/GetSignInInfo', json,)
+		.then((result) => {
+			console.log(result)
+			result.content.forEach(ele => {
+				const _data = ele.dateAdd.split(" ")[0]
+				that.calendar.setTodoLabels({
+					pos: 'bottom',
+					dotColor: '#40',
+					days: [{
+						year: parseInt(_data.split("-")[0]),
+						month: parseInt(_data.split("-")[1]),
+						day: parseInt(_data.split("-")[2]),
+						todoText: '已签到'
+					}],
+				});
 			})
-			return
-		}
-		
-		// 不是今天，直接 return 
-		const myDate = new Date();
-		// console.log('y:', myDate.getFullYear())
-		// console.log('m:', myDate.getMonth() + 1)
-		// console.log('d:', myDate.getDate())
-		if (myDate.getFullYear() != e.detail.year ||
-			(myDate.getMonth() + 1) != e.detail.month ||
-			myDate.getDate() != e.detail.day) {
-			return
-		}
-		if (e.detail.showTodoLabel) {
-			wx.showToast({
-				title: '今天已签到',
-				icon: 'none'
-			})
-			return
-		}
-		
-		if(this.data.isSigned){
-			wx.showToast({
-				title: '今天已签到',
-				icon: 'none'
-			})
-			return 
-		}
-		
-		WXAPI.scoreSign(wx.getStorageSync('token')).then(r => {
-			wx.showToast({
-				title: '签到成功',
-				icon: 'none'
-			})
-			this.setData({
-				isSigned:true
-			})
-			this.calendar.setTodoLabels({
-				pos: 'bottom',
-				dotColor: '#40',
-				days: [{
-					year: e.detail.year,
-					month: e.detail.month,
-					day: e.detail.day,
-					todoText: '已签到'
-				}],
-			});
 		})
+		.catch((err) => {
+		})	
+	},
+	// 当改变日期
+	whenChangeDate:function(e) {
+		console.log(e);
+		this.getSignHistory();
 	},
 	//签到按钮
 	scoreSign: function() {
-		WXAPI.scoreSign(wx.getStorageSync('token')).then(res => {
-			if (res.code == 0) {
-				//设置签到标签
-				// this.onLoad();
-				this.checkScoreSign();
-				this.getUserScore();
-				this.doneShow()
-			}
+	 // 进行签到
+	 let that = this; 
+		AUTH.httpPost('user/DailySignIn',{})
+		.then(result => {
+			console.log(result,'sign')
 			wx.showToast({
 				title: '签到成功',
-				icon: 'success',
+				icon: 'none',
 				duration: 2000
 			})
+			that.getAllScore();
+			that.getTodayisSign();
+			that.getSignHistory();
 		})
+		.catch(error =>{
+		})	
 	},
-	checkScoreSign: function() {
-		WXAPI.scoreTodaySignedInfo(wx.getStorageSync('token')).then(res => {
-			console.log(res)
-			if (res.code == 0) {
-				this.setData({
-					isSigned: true,
-					scoreSignContinuous: res.data.continuous
-				});
-			}
-		})
-	},
-	getUserScore() {
-		WXAPI.userAmount(wx.getStorageSync('token')).then(res => {
-			if (res.code == 0) {
-				this.setData({
-					balance: res.data.balance,
-					freeze: res.data.freeze,
-					score: res.data.score
-				});
-			}
-		})
-	},
+
 	onLoad: function() {
-		//获取签到规则
-		WXAPI.scoreSignRules().then(res => {
-			if (res.code == 0) {
-				this.setData({
-					rules: res.data
-				});
-			}
-		})
+
 	},
 })

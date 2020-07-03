@@ -1,6 +1,7 @@
 <navigation id='Navigation' show-search='{{true}}'></navigation>
 <view class="container">
-	<view class="type-container-boxx">
+
+	<!-- <view class="type-container-boxx">
 		<view class="scroll-view-container">
 			<scroll-view scroll-y="true" scroll-into-view="true" scroll-with-animation="true" class="type-container">
 				<view scroll-y="true" wx:for-items="{{categories}}" wx:key="id" class="type-box" bindtap="tabClick" id="{{item.id}}" data-index="{{index}}">
@@ -57,10 +58,31 @@
 							<text>{{item.name}}</text>
 						</view>
 					</view>
-				</view> -->
+				</view> 
+			</view>  
+		</view> 
+	</view>  -->
+<view class="category-header">
+		<view class="category-header-left" bindtap='btn'>分类</view>
+		<view class="category-header-search" bindtap="headerSearch"><image class="cate-search-image" src="../../images/search.png"></image><text class="cate-search-text">搜索你关注的内容</text></view>
+</view>
+<view class="category-content-center">
+	<!-- 这里放置侧滑 -->
+	<view wx:if='{{if_show}}' class="category-left">
+		<scroll-view  class='{{show_centent?"show":"hide"}}' >
+		<view class="category-content">
+			<view wx:for="{{categoryList}}"  wx:for-index="idx" wx:for-item="item" wx:key="cateid">
+			<view class="category-title">{{item.name}}</view>
+			<view class="category-list" wx:for="{{item.children}}" wx:for-item="item2" wx:key="cateid">
+				{{item2.name}}
+			</view>
 			</view>
 		</view>
+	</scroll-view>
 	</view>
+</view>
+
+
 </view>
 <view class="top-line"></view>
 <view class="bottom-lin"></view>

@@ -32,6 +32,7 @@ Page({
         selectCoupon: 0,      //优惠券 减去的价格
         integral: 0, // 积分兑换
         showcommission: true,  //是否需要展示牛牛豆购买
+        wechatPayContent: {},
     },
     onShow() {
         AUTH.checkHasLogined().then(isLogined => {
@@ -77,6 +78,15 @@ Page({
             })
             return;
         }
+
+        if (options.orderType === "car") {
+            let recordIds = JSON.parse(options.recordIds)
+            const result = await AUTH.httpPost('order/SubmitOrder', {ids: options.recordIds});
+            this.setData(result.content, function () {
+                this.getRealMonery()
+            })
+            return
+        }
         //购物车下单
         const res = await WXAPI.shippingCarInfo(token)
         if (res.code == 0) {
@@ -106,9 +116,8 @@ Page({
         let remark = this.data.remark; // 备注信息
         const options = this.data.options;
         let postData = {
-            PayEcurr: 0,  //账户余额
+            PayEcurr: this.data.commission,  //账户余额
             BuyerRemark: remark,
-            BuyCount: options.buyNumber,
         };
         if (!that.data.RegionOrderInfo) {
             wx.hideLoading();
@@ -131,8 +140,9 @@ Page({
                 .then(result => {
                     that.setData({
                         showModal: true,
-                    })
-                    this.toPay(result.content);
+                        wechatPayContent:result.content
+                    });
+                    // this.toPay(result.content);
                 })
                 .catch((err) => {
 
@@ -145,22 +155,44 @@ Page({
                 Said: this.data.RegionOrderInfo.said,
                 CouponId: this.data.CouponMM.length ? this.data.CouponMM[0].CouponId : 0,
                 PaycReditCount: this.data.integral,
+                BuyCount: options.buyNumber,
             }
             AUTH.httpPost('order/BuyNowCreateOrder', params)
                 .then((result) => {
                     that.setData({
                         showModal: true,
-                    })
-                    this.toPay(result.content);
+                        wechatPayContent:result.content
+                    });
+                    // this.toPay(result.content);
                 })
                 .catch((err) => {
 
                 });
             return
         }
+        if (options.orderType === "car") {
+            const params = {
+                ...postData,
+                RecordId: JSON.parse(this.data.options.recordIds),
+                Said: this.data.RegionOrderInfo.said,
+                CouponId: this.data.CouponMM.length ? this.data.CouponMM[0].CouponId : 0,
+                PaycReditCount: this.data.integral
+            }
+            AUTH.httpPost('order/CreateOrder', {jsonString: JSON.stringify(params)})
+                .then((result) => {
+                    that.setData({
+                        showModal: true,
+                        wechatPayContent:result.content
+                    });
+                })
+                .catch((err) => {
+
+                })
+        }
         console.log("?")
     },
-    toPay(data) {
+    toPay() {
+        const data = this.data.wechatPayContent;
         if (data.Flag) {
             wx.showToast({title: '支付成功', icon: "success"});
             wx.redirectTo({

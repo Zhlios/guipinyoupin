@@ -1,4 +1,5 @@
-const baseUrl = "http://121.196.23.109:8001";
+const baseUrl = "https://www.ynhcn.net";
+// const baseUrl = "http://121.196.23.109:8001";
 const type = "/mobile/"
 module.exports = {
     baseUrl: baseUrl + type,

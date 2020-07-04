@@ -61,7 +61,6 @@
 .a-goods-conts {
   display: flex;
   justify-content: space-between;
-  padding-left: 30rpx;
   width: 870rpx;
   box-sizing: border-box;
   transition: margin-left 0.2s ease-in-out;
@@ -71,7 +70,7 @@
   border-bottom: 1px solid #eee;
   display: flex;
   padding: 30rpx 0 30rpx 0;
-  width: 720rpx;
+  width: 700rpx;
   box-sizing: border-box;
 }
 
@@ -85,7 +84,7 @@
 }
 
 .goods-info .text-box {
-  width: 540rpx;
+  width: 520rpx;
   position: relative;
 }
 
@@ -213,12 +212,12 @@
 .jiesuan-box  .left-price {
   display: flex;
   width: 510rpx;
-  justify-content: space-between;
   line-height: 100rpx;
-  padding: 0 30rpx 0 32rpx;
+  padding: 0 10rpx 0 10rpx;
   font-size: 28rpx;
   box-sizing: border-box;
 }
 .jiesuan-box .total {
   color: #e64340;
+  margin-left: 20rpx;
 }

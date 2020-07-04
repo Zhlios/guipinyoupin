@@ -169,57 +169,36 @@ Page({
     /**
      * 加入购物车
      */
-    async addShopCar() {
-        if (this.data.goodsDetail.properties && !this.data.canSubmit) {
-            if (!this.data.canSubmit) {
-                wx.showToast({
-                    title: '请选择规格',
-                    icon: 'none'
+    addShopCar() {
+        let that = this;
+        const pID = this.data.goodsDetail.Pid;
+        const buyNumber = this.data.buyNumber;
+        AUTH.checkHasLogined().then((isLogined) => {
+            that.setData({
+                wxlogin: isLogined
+            });
+            if (this.data.buyNumber < 1) {
+                wx.showModal({
+                    title: '提示',
+                    content: '请选择正确数量！',
+                    showCancel: false
                 })
+                return;
             }
-            this.bindGuiGeTap()
-            return
-        }
-        if (this.data.buyNumber < 1) {
-            wx.showToast({
-                title: '请选择购买数量',
-                icon: 'none'
-            })
-            return
-        }
-        const isLogined = await AUTH.checkHasLogined()
-        if (!isLogined) {
-            this.setData({
-                wxlogin: false
-            })
-            return
-        }
-        const token = wx.getStorageSync('token')
-        const goodsId = this.data.goodsDetail.basicInfo.id
-        const sku = []
-        if (this.data.goodsDetail.properties) {
-            this.data.goodsDetail.properties.forEach(p => {
-                sku.push({
-                    optionId: p.id,
-                    optionValueId: p.optionValueId
+            AUTH.httpPost('Order/AddCartProduct', {
+                pid: pID,
+                count: buyNumber,
+            }).then((result) => {
+                console.log(result, "--------------------------------")
+                this.closePopupTap();
+                wx.showToast({
+                    title: '加入购物车',
+                    icon: 'success'
                 })
-            })
-        }
-        const res = await WXAPI.shippingCarInfoAddItem(token, goodsId, this.data.buyNumber, sku)
-        if (res.code != 0) {
-            wx.showToast({
-                title: res.msg,
-                icon: 'none'
-            })
-            return
-        }
+            }).catch((err) => {
 
-        this.closePopupTap();
-        wx.showToast({
-            title: '加入购物车',
-            icon: 'success'
+            })
         })
-        this.shippingCartInfo()
     },
     /**
      * 立即购买
@@ -227,32 +206,38 @@ Page({
     buyNow: function (e) {
         let that = this
         let shoptype = e.currentTarget.dataset.shoptype
-        if (this.data.buyNumber < 1) {
-            wx.showModal({
-                title: '提示',
-                content: '购买数量不能为0！',
-                showCancel: false
+        AUTH.checkHasLogined().then(isLogined => {
+            that.setData({
+                wxlogin: isLogined
             })
-            return;
-        }
-        this.closePopupTap();
-        const buyNumber = this.data.buyNumber;
-        const pID = this.data.goodsDetail.Pid;
-        if (shoptype == 'toPintuan') {
-            wx.navigateTo({
-                url: "/pages/to-pay-order/index?" + TOOLS.urlEncode({
-                    orderType: shoptype,
-                    buyNumber,
-                    pintuanID: that.data.spellproductcfgInfo.recordId,
-                    pintuanType: that.data.pintuanType,
-                })
-            })
-        } else {
-            wx.navigateTo({
-                url: "/pages/to-pay-order/index?orderType=buyNow&&buyNumber=" + buyNumber + "&pid=" + pID
-            })
-        }
-
+            if (isLogined) {
+                if (this.data.buyNumber < 1) {
+                    wx.showModal({
+                        title: '提示',
+                        content: '购买数量不能为0！',
+                        showCancel: false
+                    })
+                    return;
+                }
+                this.closePopupTap();
+                const buyNumber = this.data.buyNumber;
+                const pID = this.data.goodsDetail.Pid;
+                if (shoptype == 'toPintuan') {
+                    wx.navigateTo({
+                        url: "/pages/to-pay-order/index?" + TOOLS.urlEncode({
+                            orderType: shoptype,
+                            buyNumber,
+                            pintuanID: that.data.spellproductcfgInfo.recordId,
+                            pintuanType: that.data.pintuanType,
+                        })
+                    })
+                } else {
+                    wx.navigateTo({
+                        url: "/pages/to-pay-order/index?orderType=buyNow&&buyNumber=" + buyNumber + "&pid=" + pID
+                    })
+                }
+            }
+        })
     },
 
     /**

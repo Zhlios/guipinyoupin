@@ -2,6 +2,7 @@
 const app = getApp()
 const WXAPI = require('apifm-wxapi')
 const TOOLS = require('../../utils/tools')
+const AUTH = require('../../utils/auth')
 Page({
 
 	/**

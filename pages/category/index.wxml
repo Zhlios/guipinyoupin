@@ -68,10 +68,32 @@
 </view>
 <view class="category-content-center">
 	<!-- 这里放置侧滑 -->
+<scroll-view style="height:100%" scroll-y>
+				 <navigator url="/pages/goods-details/index?id={{item.Pid}}" class="category-list-cell" wx:for="{{shopList}}"
+                   wx:key="id">
+						<view class="cell-left">
+					<image class="cell-image" src="{{imagePath+img420+item.ShowImg}}" mode="aspectFill"></image>
+				</view>
+				<view class="cell-right">
+					<view class="right-top">
+						<view class="cell-title">{{item.Name}}</view>
+						<view class="cell-des">
+								<view wx:if="{{item.IsNew}}" class="cell-new">新品</view>
+								<view wx:if="{{item.IsHot}}" class="cell-hot">热销</view>
+								<view wx:if="{{item.IsBest}}" class="cell-best">精品</view>
+						</view>
+					
+					</view>
+					<view class="cell-price">¥{{item.MarketPrice}}</view>
+				</view>
+				</navigator>
+	</scroll-view>
+
+
 	<view wx:if='{{if_show}}' class="category-left">
 		<scroll-view  class='{{show_centent?"show":"hide"}}' >
 		<view class="category-content">
-			<view wx:for="{{categoryList}}"  wx:for-index="idx" wx:for-item="item" wx:key="cateid">
+			<view wx:for="{{categoryList}}" bindtap="clickSelectCategory"  wx:for-index="idx" wx:for-item="item" wx:key="cateid">
 			<view class="category-title">{{item.name}}</view>
 			<view class="category-list" wx:for="{{item.children}}" wx:for-item="item2" wx:key="cateid">
 				{{item2.name}}

@@ -6,6 +6,9 @@ const AUTH = require('../../utils/auth.js');
 const TOOLS = require('../../utils/tools.js')
 Page({
 	data: {
+		imagePath: CONFIG.imagePath,
+		img750: CONFIG.imgType.img750,
+    img420: CONFIG.imgType.img420,
 		categoryList: [],
 		shopList: [],
 		show_centent:false,
@@ -15,7 +18,6 @@ Page({
 		PageSize: 10,
 	},
 	onShow: function() {
-		var that = this;
 		this.getCategoryList();
 		this.getAllShopList();
 	},
@@ -50,6 +52,9 @@ Page({
 		AUTH.httpGet('outapi/productlist',json)
 		.then(result => {
 			console.log(result)
+			that.setData({
+				shopList: result.rows
+			})
 		}).catch(error => {
 			console.log(error);
 		})
@@ -71,6 +76,11 @@ Page({
         })
       },500)
 		}
+	},
+	clickSelectCategory: function(e) {
+		
+		
 	}
+
 	
 })

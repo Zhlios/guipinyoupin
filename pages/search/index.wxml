@@ -23,16 +23,16 @@
 	</view>
 </view>
 <view hidden="{{search}}" class="search-box {{iponesc}}">
-	<navigator url="/pages/goods-details/index?id={{item.id}}" hidden="{{searchHidden}}" class="goods-box" wx:for="{{searchs}}" wx:key="id" >
+	<navigator url="/pages/goods-details/index?id={{item.Pid}}" hidden="{{searchHidden}}" class="goods-box" wx:for="{{searchs}}" wx:key="id" >
 		<view class="img-box">
-			<image src="{{item.pic}}" class="image" mode="widthFix" lazy-load="true" />
-			<view class="goods-characteristic">
-				<text>{{item.characteristic}}</text>
-			</view>
+			<image src="{{imagePath+img420+item.ShowImg}}" class="image" mode="widthFix" lazy-load="true" />
+<!--			<view class="goods-characteristic">-->
+<!--				<text>{{item.characteristic}}</text>-->
+<!--			</view>-->
 		</view>
-		<view class="goods-title">{{item.name}}</view>
+		<view class="goods-title">{{item.Name}}</view>
 		<view style='display:flex;'>
-			<view class="goods-price">Ұ{{item.minPrice}}</view>
+			<view class="goods-price">Ұ{{item.ShopPrice}}</view>
 			<view class="goods-price-naver">已售{{item.numberOrders}}</view>
 		</view>
 	</navigator>

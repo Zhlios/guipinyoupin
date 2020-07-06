@@ -1,11 +1,12 @@
 .container{
     width: 100%;
     background-color: #F2f2f2;
+    overflow: hidden;
 }
 .status-box{
     width:100%;
-    height: 88rpx;
-    line-height: 88rpx;
+    height: 45px;
+    line-height: 45px;
     display: flex;
     justify-content: space-between;
     align-items: center;

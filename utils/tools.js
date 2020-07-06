@@ -73,9 +73,29 @@ function urlEncode(data) {
     return _result.join("&");
 }
 
+/**
+ * 时间转换
+ */
+function changeDateFormat(cellval) {
+
+    let date = new Date(parseInt(cellval.replace("/Date(", "").replace(")/", ""), 10));
+
+    let month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+
+    let currentDate = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+
+    let h = date.getHours() < 10 ? ("0" + date.getHours()) : date.getHours();
+    let m1 = date.getMinutes() < 10 ? ("0" + date.getMinutes()) : date.getMinutes();
+    let s = date.getSeconds() < 10 ? ("0" + date.getSeconds()) : date.getSeconds();
+
+    return date.getFullYear() + "-" + month + "-" + currentDate + " " + h + ":" + m1 + ":" + s;
+
+}
+
 module.exports = {
     showTabBarBadge: showTabBarBadge,
     isStrInArray: isStrInArray,
     formatTime: formatTime,
     urlEncode: urlEncode,
+    changeDateFormat,
 }

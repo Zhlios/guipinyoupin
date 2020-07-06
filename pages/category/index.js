@@ -52,9 +52,16 @@ Page({
 		AUTH.httpGet('outapi/productlist',json)
 		.then(result => {
 			console.log(result)
-			that.setData({
-				shopList: result.rows
-			})
+			if(that.data.PageIndex == 0) {
+				that.setData({
+					shopList:  result.rows
+				})
+			}else{
+				that.setData({
+					shopList: that.data.shopList.concat(result.rows)  
+				})
+			}
+			
 		}).catch(error => {
 			console.log(error);
 		})
@@ -78,9 +85,42 @@ Page({
 		}
 	},
 	clickSelectCategory: function(e) {
+		console.log(e,'kkkk')
+		var that = this;
+		var id = e.currentTarget.dataset.id;
+		if(id == this.data.CateId) {
+			return;
+		}
+		this.setData({
+			CateId: id,
+			PageIndex: 0,
+		},function(){
+			that.btn();
+			that.getAllShopList();
+		})
 		
-		
-	}
+	},
+	clickTopushSearch: function(e) {
+		wx.navigateTo({
+			url: '../search/index'
+		})
+	},
+	toprefresh: function(e){
+		var that = this;
+		this.setData({
+			PageIndex: 0
+		},function() {
+			that.getAllShopList();
+		})
+	},
+	bottomrefresh: function(e) {
+		var that = this;
+		this.setData({
+			PageIndex: this.data.PageIndex+1,
+		},function() {
+			that.getAllShopList();
+		})
+	},
 
 	
 })

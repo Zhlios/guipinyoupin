@@ -1,110 +1,45 @@
-<navigation id='Navigation' show-search='{{true}}'></navigation>
-<view class="container">
 
-	<!-- <view class="type-container-boxx">
-		<view class="scroll-view-container">
-			<scroll-view scroll-y="true" scroll-into-view="true" scroll-with-animation="true" class="type-container">
-				<view scroll-y="true" wx:for-items="{{categories}}" wx:key="id" class="type-box" bindtap="tabClick" id="{{item.id}}" data-index="{{index}}">
-					<view class="type-navbar-item {{activeCategoryId == item.id ? 'type-item-on' : ''}}">
-						{{item.name}}
-					</view>
-				</view>
-			</scroll-view>
-		</view>
-		<view class="list-container">
-			<view class="type-list">
-				<view class="swiper-container">
-					<swiper class="swiper_box" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="swiperchange">
-						<block wx:for="{{banners}}" wx:key="id">
-							<swiper-item>
-								<image bindtap="toDetailsTap" data-id="{{item.businessId}}" src="{{item.picUrl}}_m" class="slide-image" mode="widthFix" />
-							</swiper-item>
-						</block>
-					</swiper>
-					<view class="dots">
-						<block wx:for="{{banners}}" wx:key="unique">
-							<view class="dot{{index == swiperCurrent ? ' active' : ''}}"></view>
-						</block>
-					</view>
-				</view>
-				<view wx:if="{{categoryLevel == 2}}" wx:for="{{rightList}}" wx:key="id" wx:for-item="parentItem" class="type-menu">
-					<view class="padding-sm text-black text-bold">{{parentItem.parentCateName}}</view>
-					<view class="type-level-box" wx:for="{{parentItem.list}}" wx:key="id" wx:for-item="item" >
-						<view class="type-level-item " bindtap="levelClick" data-id="{{item.id}}">
-							<image class="type-img" src="{{item.icon}}"></image>
-							<text>{{item.name}}</text>
-						</view>
-					</view>
-				</view>
-				<view wx:if="{{categoryLevel == 1}}" class="goods-list">
-					<navigator hover-class="none" wx:for="{{currentGoods}}" wx:key="id" class="item flex padding-sm solid-bottom" url="/pages/goods-details/index?id={{item.id}}">
-						<view class="image">
-							<image src="{{item.pic}}" mode="aspectFill"></image>
-						</view>
-						<view class="right padding-left-sm padding-right">
-							<view class="name text-cut">{{item.name}}</view>
-							<view class="text-price text-red margin-top-sm">{{item.minPrice}}</view>
-							<view class="margin-top-sm text-gray">已售 <text class="text-black">{{item.numberSells}}</text>件</view>
-							<view class="add" catchtap="addShopCar" data-id="{{item.id}}">
-								<text class="cuIcon-roundaddfill text-xxl text-red"></text>
-							</view>
-						</view>
-					</navigator>
-				</view>
-				<!-- <view if="{{item.level == 2}}" class="type-menu">
-					<view class="type-level-box" wx:for-items="{{categorieslist}}" wx:key="id">
-						<view id="{{item.id}}" class="type-level-item " bindtap="levelClick" data-id="{{item.id}}">
-							<image class="type-img" src="{{item.icon}}"></image>
-							<text>{{item.name}}</text>
-						</view>
-					</view>
-				</view> 
-			</view>  
-		</view> 
-	</view>  -->
-<view class="category-header">
-		<view class="category-header-left" bindtap='btn'>分类</view>
-		<view class="category-header-search" bindtap="headerSearch"><image class="cate-search-image" src="../../images/search.png"></image><text class="cate-search-text">搜索你关注的内容</text></view>
-</view>
+<view class="container">
+	<view class="category-header">
+			<view class="category-header-left" bindtap='btn' >
+				<image src="../../images/shop_category.png" style="height:100%;width:100%"></image>
+			</view>
+			<view bindtap="clickTopushSearch" class="category-header-search" ><image class="cate-search-image" src="../../images/search.png"></image><text class="cate-search-text">搜索你关注的内容</text></view>
+	</view>
 <view class="category-content-center">
 	<!-- 这里放置侧滑 -->
-<scroll-view style="height:100%" scroll-y>
-				 <navigator url="/pages/goods-details/index?id={{item.Pid}}" class="category-list-cell" wx:for="{{shopList}}"
+	<scroll-view style="height:100%" scroll-y bindscrolltoupper="toprefresh" bindscrolltolower="bottomrefresh">
+		<navigator url="/pages/goods-details/index?id={{item.Pid}}" class="category-list-cell" wx:for="{{shopList}}"
                    wx:key="id">
-						<view class="cell-left">
-					<image class="cell-image" src="{{imagePath+img420+item.ShowImg}}" mode="aspectFill"></image>
-				</view>
-				<view class="cell-right">
-					<view class="right-top">
-						<view class="cell-title">{{item.Name}}</view>
-						<view class="cell-des">
-								<view wx:if="{{item.IsNew}}" class="cell-new">新品</view>
-								<view wx:if="{{item.IsHot}}" class="cell-hot">热销</view>
-								<view wx:if="{{item.IsBest}}" class="cell-best">精品</view>
-						</view>
-					
+			<view class="cell-left">
+				<image class="cell-image" src="{{imagePath+img420+item.ShowImg}}" mode="aspectFill"></image>
+			</view>
+			<view class="cell-right">
+				<view class="right-top">
+					<view class="cell-title">{{item.Name}}</view>
+					<view class="cell-des">
+						<view wx:if="{{item.IsNew}}" class="cell-new">新品</view>
+						<view wx:if="{{item.IsHot}}" class="cell-hot">热销</view>							<view wx:if="{{item.IsBest}}" class="cell-best">精品</view>
 					</view>
-					<view class="cell-price">¥{{item.MarketPrice}}</view>
 				</view>
-				</navigator>
+					<view class="cell-price">¥{{item.MarketPrice}}</view>
+			</view>
+		</navigator>
 	</scroll-view>
-
-
 	<view wx:if='{{if_show}}' class="category-left">
 		<scroll-view  class='{{show_centent?"show":"hide"}}' >
-		<view class="category-content">
-			<view wx:for="{{categoryList}}" bindtap="clickSelectCategory"  wx:for-index="idx" wx:for-item="item" wx:key="cateid">
-			<view class="category-title">{{item.name}}</view>
-			<view class="category-list" wx:for="{{item.children}}" wx:for-item="item2" wx:key="cateid">
-				{{item2.name}}
+			<view class="category-all {{CateId==0?'select-active':''}}"  bindtap="clickSelectCategory" data-id="0">全部</view>
+			<view class="category-content">
+				<view wx:for="{{categoryList}}" class="category-content-list"   wx:for-index="idx" wx:for-item="item" wx:key="cateid">
+				<view class="category-title">{{item.name}}</view>
+				<view class="category-list {{CateId==item2.cateid?'select-active':''}}"  bindtap="clickSelectCategory" data-id="{{item2.cateid}}" wx:for="{{item.children}}" wx:for-item="item2" wx:key="cateid">
+					{{item2.name}}
+				</view>
+				</view>
 			</view>
-			</view>
-		</view>
-	</scroll-view>
+		</scroll-view>
 	</view>
 </view>
-
-
 </view>
 <view class="top-line"></view>
 <view class="bottom-lin"></view>

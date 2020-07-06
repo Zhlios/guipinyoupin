@@ -91,6 +91,18 @@ function changeDateFormat(cellval) {
     return date.getFullYear() + "-" + month + "-" + currentDate + " " + h + ":" + m1 + ":" + s;
 
 }
+function changeDateFormatNY(cellval) {
+
+    let date = new Date(parseInt(cellval.replace("/Date(", "").replace(")/", ""), 10));
+
+    let month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+
+    let currentDate = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+    return date.getFullYear() + "-" + month + "-" + currentDate;
+
+}
+
+
 
 module.exports = {
     showTabBarBadge: showTabBarBadge,
@@ -98,4 +110,5 @@ module.exports = {
     formatTime: formatTime,
     urlEncode: urlEncode,
     changeDateFormat,
+    changeDateFormatNY,
 }

@@ -1,0 +1,56 @@
+/* pages/bidding/bidding.wxss */
+/* pages/freshman/freshman.wxss */
+.bid-cell {
+  margin-top: 15rpx;
+  background: white;
+  padding: 15rpx 15rpx;
+  display: flex;
+  flex-direction: row;
+}
+.bid-cell .bid-cell-left {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+}
+.bid-cell-left-title {
+  line-height: 50rpx;
+  font-size: 30rpx;
+  color: #333;
+  width: 200rpx;
+  display: inline-block;
+}
+.bid-cell-left-des {
+  font-size: 34rpx;
+  color: #333;
+}
+
+.bid-cell .bid-cell-line {
+  height: 80rpx;
+  width: 2rpx;
+  background-color:#f0f0f0;
+}
+.bid-cell .bid-cell-right {
+  display:flex ;
+  justify-content: center;
+  align-items: center;
+  flex:1;
+}
+
+.bid-cell-right-btn {
+  border-radius: 10rpx;
+  width: 120rpx;
+  text-align: center;
+  height: 60rpx;
+  line-height: 60rpx;
+  font-size: 34rpx;
+
+}
+.btndisable {
+  background:gray;
+  color: white;
+}
+
+.btnenable {
+  background: red;
+  color: white;
+}

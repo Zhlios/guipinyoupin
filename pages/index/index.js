@@ -32,7 +32,12 @@ Page({
         pageSize: 10,
         cateScrollTop: 0,
         dotStyle: "square-dot", //swiper指示点样式可选square-dot round-dot
-        navigation: [],
+        navigation: [
+            {title:"礼券",image:'/images/index_item01.png',url:'/pages/coupons/index'},
+            {title:"签到",image:'/images/index_item02.png',url:'/pages/sign/index'},
+            {title:"新人专享",image:'/images/index_item03.png',url:'/pages/bidding/bidding'},
+            {title:"专栏",image:'/images/index_item04.png',url:'/pages/topic-list/index'},
+        ],
         banners: [],
         disableSearchJump: true,
         aliveRooms: [],
@@ -98,18 +103,6 @@ Page({
             return item.TypeVale === "banner";
         });
         banner && this.setData({banners: banner.AdertInfo});
-
-        //TODO banner下导航
-        const navRes = await WXAPI.banners({
-            type: 'navigation'
-        })
-        if (navRes.code == 700) {
-            console.log('请在后台banner管理中导航图标，自定义类型填写 navigation')
-        } else {
-            this.setData({
-                navigation: navRes.data
-            });
-        }
         //TODO 热门商品占位
         const hotRes = await WXAPI.banners({
             type: 'hot'

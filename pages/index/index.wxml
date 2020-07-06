@@ -11,8 +11,8 @@
 </view>
 <view class="index-menu-bg padding bg-white">
     <view class="index-menu flex">
-        <view class="menu-list" wx:for="{{navigation}}" wx:key="id" bindtap="tapNav" data-url="{{item.linkUrl}}">
-            <image src="{{item.picUrl}}"/>
+        <view class="menu-list" wx:for="{{navigation}}" wx:key="id" bindtap="tapNav" data-url="{{item.url}}">
+            <image src="{{item.image}}"/>
             <view class="text">{{item.title}}</view>
         </view>
     </view>

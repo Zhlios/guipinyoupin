@@ -1,35 +1,64 @@
+.month-date {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    padding: 0 20rpx;
+}
+.f-24{
+    font-size: 24rpx;
+}
+.select-date {
+    width: 140rpx;
+    background-color: #ffffff;
+    height: 50rpx;
+    border-radius: 25rpx;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 18rpx;
+}
+.select-icon {
+    width: 0;
+    height: 0;
+    border-width: 8rpx 8rpx 0;
+    border-style: solid;
+    border-color: #333 transparent transparent; /*灰 透明 透明 */
+}
+
 .score {
-  display: flex;
-  flex-direction: column;
-  width: 750rpx;  
-  padding-top:50rpx;
-  height: 150rpx;
-  background-color: #e85654;
-  text-align: center;
-  font-size: 14px;
-  line-height: 30px;
-  color:#fff;
+    display: flex;
+    flex-direction: column;
+    width: 750rpx;
+    padding-top: 50rpx;
+    height: 150rpx;
+    background-color: #e85654;
+    text-align: center;
+    font-size: 14px;
+    line-height: 30px;
+    color: #fff;
 }
 
 .no-data {
-  margin-top: 100rpx;
-  text-align: center;
-  font-size: 13px;
-  color:#ccc;
+    margin-top: 100rpx;
+    text-align: center;
+    font-size: 13px;
+    color: #ccc;
 }
 
 .cashlogs {
-  display: flex;
-  font-size: 12px;
-  margin-top: 20rpx;
-  padding-bottom: 20rpx;
-  border-bottom: 1px solid #eee;
-  line-height: 20px;
+    display: flex;
+    font-size: 12px;
+    margin-top: 20rpx;
+    padding-bottom: 20rpx;
+    border-bottom: 1px solid #eee;
+    line-height: 20px;
 }
+
 .cashlogs .profile {
-  width:600rpx;
-  padding-left: 30rpx;
+    width: 600rpx;
+    padding-left: 30rpx;
 }
+
 .cashlogs .amount {
-  width:150rpx;
+    width: 150rpx;
 }

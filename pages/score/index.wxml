@@ -1,20 +1,54 @@
-<view class="padding bg-gradual-blue text-center">
-	<view class="text-xxl text-white">{{score}}</view>
-	<view class="text-white">可用积分</view>
+<view class="month-date">
+    <picker mode="date" bindchange="bindDate" fields="month" start="2020-05">
+        <view class="select-date" style="width: 160rpx">
+            <text class="f-24">{{date}}</text>
+            <view class="select-icon"></view>
+        </view>
+    </picker>
+    <picker mode="selector" style="margin-left: 30rpx" range="{{dataType}}" bindchange="bindDateType"
+            range-key="value">
+        <view class="select-date">
+            <text class="f-24">{{dataTypeValue}}</text>
+            <view class="select-icon"></view>
+        </view>
+    </picker>
+    <picker mode="selector" style="margin-left: 30rpx" range="{{currencyType}}" bindchange="bindCurrencyType"
+            range-key="value">
+        <view class="select-date">
+            <text class="f-24">{{currencyTypeValue}}</text>
+            <view class="select-icon"></view>
+        </view>
+    </picker>
 </view>
+        <!--<view class="padding bg-gradual-blue text-center">-->
+        <!--	<view class="text-xxl text-white">{{score}}</view>-->
+        <!--	<view class="text-white">可用积分</view>-->
+        <!--</view>-->
 <view class='no-data' wx:if="{{!cashlogs}}">暂无积分明细~</view>
-<view class="cu-list menu" wx:if="{{cashlogs}}">
-	<view class="cu-item" wx:for="{{cashlogs}}" wx:key="id">
-      <view class="content padding-tb-sm">
-        <view>
-          <text class="cuIcon-messagefill text-blue text-sm text-cut margin-right-xs"></text> {{ item.typeStr }} {{ item.remark? '('+ item.remark +')' : '' }}</view>
-        <view class="text-gray text-sm">
-          <text class="cuIcon-time margin-right-xs"></text> {{ item.dateAdd }}</view>
-      </view>
-      <view class="action">
-		<view wx:if="{{item.behavior == 0}}"><text class="cuIcon-add text-green"></text><text class="text-green">{{item.score}}</text></view>
-		<view wx:else><text class="cuIcon-move text-black"></text><text class="text-black">{{item.score}}</text></view>
-      </view>
+<scroll-view wx:if="{{cashlogs}}" bindscrolltolower="bindDownLoad" style="height: calc(100vh - 60px)" scroll-y="true">
+    <view class="cu-list menu">
+        <view class="cu-item" wx:for="{{cashlogs}}" wx:key="id">
+            <view class="content padding-tb-sm">
+                <view>
+                    <text class="cuIcon-messagefill text-blue text-sm text-cut margin-right-xs"></text>
+                    {{ item.typeStr }} {{ item.remark? '('+ item.remark +')' : '' }}
+                </view>
+                <view class="text-gray text-sm">
+                    <text class="cuIcon-time margin-right-xs"></text>
+                    {{ item.paytime }}
+                </view>
+            </view>
+            <view class="action">
+                <view wx:if="{{item.mode == 0}}">
+                    <text class="cuIcon-add text-green"></text>
+                    <text class="text-green">{{item.money}}</text>
+                </view>
+                <view wx:else>
+                    <text class="cuIcon-move text-black"></text>
+                    <text class="text-black">{{item.money}}</text>
+                </view>
+            </view>
+        </view>
     </view>
-</view>
-<float-menu />
+</scroll-view>
+<float-menu/>

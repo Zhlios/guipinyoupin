@@ -10,10 +10,11 @@
         <image src="/images/no-order.png" class="no-order-img"></image>
         <view class="text">暂无订单</view>
     </view>
-    <scroll-view wx:else style="height: {{scrollHeight}}px" bindscroll="scroll" scroll-y="true" bindscrolltolower="scrollToBottom">
-        <view class="order-list" >
+    <scroll-view wx:else style="height: {{scrollHeight}}px" bindscroll="scroll" scroll-y="true"
+                 bindscrolltolower="scrollToBottom">
+        <view class="order-list">
             <navigator class="a-order" wx:for="{{orderList}}" wx:key="id"
-                       url="/pages/order-details/index?id={{item.id}}">
+                       url="/pages/order-details/index?id={{item.oid}}">
                 <view class="padding" hover-class="none">
                     <view class="flex justify-between align-center">
                         <view>
@@ -49,11 +50,13 @@
                     <view class="btn active" hidden="{{item.oState!==0}}" catchtap="toPayTap" data-id="{{item.oid}}"
                           data-money="{{item.amountReal}}" data-score="{{item.score}}">马上付款
                     </view>
-                    <view class="btn active" hidden="{{item.IsRefund !== 1}}" catchtap="refundApply"
-                          data-id="{{item.oid}}" data-amount='{{item.amountReal}}'>退换货
+                    <view class="btn active" hidden="{{item.IsRefund !== 1&&item.IsRefund !== 2}}"
+                          catchtap="refundApply"
+                          data-id="{{item.oid}}">申请售后
                     </view>
-                    <view class="btn active" hidden="{{item.IsRefund !== 2}}" catchtap="refundApply"
-                          data-id="{{item.oid}}" data-amount='{{item.amountReal}}'>退货退款
+                    <view class="btn active" hidden="{{!(item.sId&&item.SpellproductListInfo)}}"
+                          catchtap="toShare"
+                          data-id="{{item.sId}}">去分享
                     </view>
                 </view>
             </navigator>

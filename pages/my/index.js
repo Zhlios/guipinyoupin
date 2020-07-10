@@ -1,32 +1,25 @@
 const app = getApp()
-const WXAPI = require('apifm-wxapi')
-const CONFIG = require('../../config.js')
-const TOOLS = require('../../utils/tools.js')
 const AUTH = require('../../utils/auth')
 Page({
     data: {
-        balance: 0,
-        freeze: 0,
         score: 0,
+        money: 0,
+        hujianguo: 0,
         score_sign_continuous: 0,
-        tabClass: ["", "", "", "", ""],
         userInfo: null,
         wxlogin: true, //是否隐藏登录弹窗
-        token: null,
         version: null,
         noticeList: [],
     },
     onLoad: function () {
-        this.getNoticeList();
+
     },
     onShow() {
         // 校验登录状态
         AUTH.checkHasLogined().then(isLogined => {
             if (isLogined) {
                 this.getUserApiInfo();
-                // this.getUserAmount()
-                this.checkScoreSign();
-                this.getOrderStatistics();
+                this.getUserAmount()
                 return
             }
             this.setData({userInfo: null, wxlogin: false})
@@ -46,10 +39,7 @@ Page({
             wxlogin: true,
         });
         this.getUserApiInfo()
-        // this.getUserAmount()
-        this.checkScoreSign()
-        this.getOrderStatistics()
-
+        this.getUserAmount()
     },
     getUserApiInfo: function () {
         let that = this;
@@ -62,57 +52,16 @@ Page({
             })
     },
     getUserAmount: function () {
-        WXAPI.userAmount(wx.getStorageSync('token')).then(res => {
-            if (res.code == 0) {
-                this.setData({
-                    balance: res.data.balance,
-                    freeze: res.data.freeze,
-                    score: res.data.score
-                });
-            }
-        })
-    },
-    checkScoreSign: function () {
-        WXAPI.scoreTodaySignedInfo(wx.getStorageSync('token')).then(res => {
-            if (res.code == 0) {
-                this.setData({
-                    score_sign_continuous: res.data.continuous
-                });
-            }
-        })
-    },
-    getOrderStatistics() {
-        WXAPI.orderStatistics(wx.getStorageSync('token')).then(res => {
-            if (res.code == 0) {
-                if (res.data.count_id_no_pay > 0) {
-                    wx.setTabBarBadge({
-                        index: 3,
-                        text: '' + res.data.count_id_no_pay + ''
-                    })
-                } else {
-                    wx.removeTabBarBadge({
-                        index: 3,
-                    })
-                }
-                this.setData({
-                    noplay: res.data.count_id_no_pay,
-                    notransfer: res.data.count_id_no_transfer,
-                    noconfirm: res.data.count_id_no_confirm,
-                    noreputation: res.data.count_id_no_reputation
-                });
-            }
-        })
-    },
-    getNoticeList() {
-        WXAPI.noticeList({
-            type: 'notice'
-        }).then(res => {
-            if (res.code == 0) {
-                this.setData({
-                    noticeList: res.data
-                });
-            }
-        })
+        AUTH.httpGet("user/GetAccountInfo")
+            .then((result) => {
+                const score = result.content.LessPoints;
+                const hujianguo = result.content.LessMoney;
+                const money = result.content.CpassTicketLessCount;
+                this.setData({score, hujianguo, money})
+            })
+            .catch((err) => {
+
+            })
     },
     score: function () {
         wx.navigateTo({

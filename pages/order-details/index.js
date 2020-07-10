@@ -1,85 +1,60 @@
-const app = getApp();
+const AUTH = require("../../utils/auth")
 const CONFIG = require('../../config.js')
+const TOOL = require('../../utils/tools')
 const WXAPI = require('apifm-wxapi')
 Page({
-    data:{
-      orderId:0,
-      goodsList:[]
+    data: {
+        orderId: 0,
+        goodsList: [],
+        imagePath: CONFIG.imagePath,
+        img220: CONFIG.imgType.img220,
+        OrderAllInfo: null,
+        OrderProductInfo: [],
+        OrderUserInfo: null,
     },
-    onLoad:function(e){
-      var orderId = e.id;
-      this.data.orderId = orderId;
-      this.setData({
-        orderId: orderId,
-        appid: wx.getStorageSync('wxAppid')
-      });
-    },
-    onShow : function () {
-      var that = this;
-      WXAPI.orderDetail(wx.getStorageSync('token'), that.data.orderId).then(function (res) {
-        if (res.code != 0) {
-          wx.showModal({
-            title: '错误',
-            content: res.msg,
-            showCancel: false
-          })
-          return;
-        }
-        that.setData({
-          orderDetail: res.data
+    onLoad: function (e) {
+        let orderId = e.id;
+        this.data.orderId = orderId;
+        this.setData({
+            orderId: orderId,
         });
-      })
     },
-    wuliuDetailsTap:function(e){
-      var orderId = e.currentTarget.dataset.id;
-      wx.navigateTo({
-        url: "/pages/wuliu/index?id=" + orderId
-      })
+    onShow: function () {
+        var that = this;
+        AUTH.httpGet('order/OrderDetails', {oid: that.data.orderId})
+            .then((result) => {
+                console.log(result, 'OrderDetails')
+                const date = result.content.OrderAllInfo.addtime;
+                result.content.OrderAllInfo.addtime = TOOL.changeDateFormat(date);
+                that.setData({
+                    ...result.content
+                });
+            })
+            .catch((err) => {
+
+            })
     },
-    confirmBtnTap:function(e){
-      let that = this;
-      let orderId = this.data.orderId;
-      wx.showModal({
-          title: '确认您已收到商品？',
-          content: '',
-          success: function(res) {
-            if (res.confirm) {
-              WXAPI.orderDelivery(wx.getStorageSync('token'), orderId).then(function (res) {
-                if (res.code == 0) {
-                  that.onShow();                  
+    wuliuDetailsTap: function (e) {
+        let orderId = e.currentTarget.dataset.id;
+        wx.navigateTo({
+            url: "/pages/wuliu/index?id=" + orderId
+        })
+    },
+    confirmBtnTap: function (e) {
+        let that = this;
+        let orderId = this.data.orderId;
+        wx.showModal({
+            title: '确认您已收到商品？',
+            content: '',
+            success: function (res) {
+                if (res.confirm) {
+                    WXAPI.orderDelivery(wx.getStorageSync('token'), orderId).then(function (res) {
+                        if (res.code == 0) {
+                            that.onShow();
+                        }
+                    })
                 }
-              })
             }
-          }
-      })
+        })
     },
-    submitReputation: function (e) {
-      let that = this;
-      let postJsonString = {};
-      postJsonString.token = wx.getStorageSync('token');
-      postJsonString.orderId = this.data.orderId;
-      let reputations = [];
-      let i = 0;
-      while (e.detail.value["orderGoodsId" + i]) {
-        let orderGoodsId = e.detail.value["orderGoodsId" + i];
-        let goodReputation = e.detail.value["goodReputation" + i];
-        let goodReputationRemark = e.detail.value["goodReputationRemark" + i];
-
-        let reputations_json = {};
-        reputations_json.id = orderGoodsId;
-        reputations_json.reputation = goodReputation;
-        reputations_json.remark = goodReputationRemark;
-
-        reputations.push(reputations_json);
-        i++;
-      }
-      postJsonString.reputations = reputations;
-      WXAPI.orderReputation({
-        postJsonString: JSON.stringify(postJsonString)
-      }).then(function (res) {
-        if (res.code == 0) {
-          that.onShow();
-        }
-      })
-    }
 })

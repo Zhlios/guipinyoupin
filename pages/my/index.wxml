@@ -125,12 +125,12 @@
         <!--                        <text class="text-grey">申请分销</text>-->
         <!--                    </navigator>-->
         <!--                </view>-->
-        <!--        <view class="cu-item arrow">-->
-        <!--            <navigator class="content" url="/pages/fx/apply-status" hover-class="none">-->
-        <!--                <text class="cuIcon-friend text-red"></text>-->
-        <!--                <text class="text-grey">分销中心</text>-->
-        <!--            </navigator>-->
-        <!--        </view>-->
+        <view class="cu-item arrow">
+            <navigator class="content" url="/pages/withdraw/index" hover-class="none">
+                <text class="cuIcon-friend text-red"></text>
+                <text class="text-grey">提现</text>
+            </navigator>
+        </view>
         <view class="cu-item arrow">
             <navigator class="content" url="/pages/fx/members" hover-class="none">
                 <text class="cuIcon-group text-blue"></text>
@@ -156,10 +156,10 @@
             </view>
             <text>地址管理</text>
         </view>
-        <!--        <view class="cu-item" data-url="/pages/maidan/index" bindtap="navigateToPage">-->
+        <!--        <view class="cu-item" data-url="/pages/withdraw/index" bindtap="navigateToPage">-->
         <!--            <view class="cuIcon-shop text-red text-xxl">-->
         <!--            </view>-->
-        <!--            <text>优惠买单</text>-->
+        <!--            <text>提现</text>-->
         <!--        </view>-->
         <!--        <view class="cu-item" data-url="/pages/fav-list/index" bindtap="navigateToPage">-->
         <!--            <view class="cuIcon-favor text-yellow text-xxl">-->

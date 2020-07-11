@@ -4,7 +4,7 @@
     <swiper class="screen-swiper {{dotStyle?'square-dot':'round-dot'}}" indicator-dots="true" circular="true"
             autoplay="true"
             interval="5000" duration="500">
-        <swiper-item wx:for="{{banners}}" wx:key="id" bindtap="tapBanner" data-url="{{item.ExtField1}}">
+        <swiper-item wx:for="{{banners}}" wx:key="id" bindtap="tapBanner" data-id="{{item.ExtField1}}">
             <image src="{{bannerPath+img800+item.Image}}" mode="aspectFill"></image>
         </swiper-item>
     </swiper>

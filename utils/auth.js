@@ -149,7 +149,6 @@ async function httpPost(url, data = {}) {
                 });
             },
             fail(res) {
-                console.log(res, '????????????????');
                 wx.showModal({
                     title: '友情提示',
                     content: res.errMsg,
@@ -176,7 +175,6 @@ function imgToBase64(imgUrl, success) {
         url: imgUrl,
         responseType: 'arraybuffer',
         success: res => {
-            console.log(res, '??????????????')
             let base64 = wx.arrayBufferToBase64(res.data);
             success && success();
             App.httpPost("user/UploadUserRankAvatar", {base64String: base64});

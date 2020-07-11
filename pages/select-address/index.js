@@ -1,4 +1,3 @@
-const WXAPI = require('apifm-wxapi')
 const AUTH = require('../../utils/auth')
 
 const app = getApp()
@@ -6,17 +5,6 @@ Page({
     data: {
         addressList: [],
         wxlogin: true
-    },
-
-    selectTap: function (e) {
-        var id = e.currentTarget.dataset.id;
-        WXAPI.updateAddress({
-            token: wx.getStorageSync('token'),
-            id: id,
-            isDefault: 'true'
-        }).then(function (res) {
-            wx.navigateBack({})
-        })
     },
 
     addAddess: function () {

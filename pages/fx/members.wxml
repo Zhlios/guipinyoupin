@@ -12,15 +12,13 @@
     </view>
     <view class="team-leave" hidden="{{activeIndex != 1}}">
         <view class="team-message-item">消费商：{{teamMessage.ConsumerCount1}}</view>
-        <view class="team-message-item">合伙人：{{teamMessage.PartnerCount1}}</view>
-        <view class="team-message-item">市场股东：{{teamMessage.MarketShareholderCount1}}</view>
-        <view class="team-message-item">高级合伙人：{{teamMessage.SeniorPartnerCount1}}</view>
+        <view class="team-message-item">合伙人：{{teamMessage.SeniorPartnerCount1}}</view>
+        <view class="team-message-item">分销商：{{teamMessage.PartnerCount1}}</view>
     </view>
     <view class="team-leave" hidden="{{activeIndex != 2}}">
         <view class="team-message-item">消费商：{{teamMessage.ConsumerCount2}}</view>
-        <view class="team-message-item">合伙人：{{teamMessage.PartnerCount2}}</view>
-        <view class="team-message-item">市场股东：{{teamMessage.MarketShareholderCount2}}</view>
-        <view class="team-message-item">高级合伙人：{{teamMessage.SeniorPartnerCount2}}</view>
+        <view class="team-message-item">合伙人：{{teamMessage.SeniorPartnerCount2}}</view>
+        <view class="team-message-item">分销商：{{teamMessage.PartnerCount2}}</view>
     </view>
     <scroll-view class="tab-content" hidden="{{activeIndex != 1}}" bindscrolltolower="bindDownLoad"
                  style="height: {{pageHeight}}px" scroll-y="true">

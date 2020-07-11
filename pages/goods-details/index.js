@@ -77,7 +77,6 @@ Page({
         this.setData({
             wxlogin: true
         })
-        this.getFav(this.data.goodsId)
     },
     tabChange: function (e) {
         const id = e.target.dataset.id;
@@ -130,6 +129,7 @@ Page({
                 this.setData({
                     wxlogin: false
                 })
+                this.closePopupTap();
             } else {
                 this.setData({shopType: "toPintuan", pintuanType, pintuanID: id});
                 this.bindGuiGeTap();
@@ -186,6 +186,10 @@ Page({
             that.setData({
                 wxlogin: isLogined
             });
+            if (!isLogined) {
+                this.closePopupTap();
+                return
+            }
             if (this.data.buyNumber < 1) {
                 wx.showModal({
                     title: '提示',
@@ -244,6 +248,8 @@ Page({
                         url: "/pages/to-pay-order/index?orderType=buyNow&&buyNumber=" + buyNumber + "&pid=" + pID
                     })
                 }
+            } else {
+                this.closePopupTap();
             }
         })
     },

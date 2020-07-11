@@ -54,9 +54,9 @@
             </view>
         </view>
         <view class="row-box">
-            <view class="row-label">余额({{PointsInfo.Points}})</view>
+            <view class="row-label">虎坚果({{PointsInfo.Points}})</view>
             <view class="right-text">
-                <input type="number" style="text-align: right" placeholder="输入余额" bindinput="bindCommissionInput"
+                <input type="number" style="text-align: right" placeholder="输入虎坚果" bindinput="bindCommissionInput"
                        value="{{commission}}"></input>
             </view>
         </view>
@@ -113,7 +113,7 @@
         <view class="padding-xl">
             您将通过微信支付<text class="text-red text-bold">{{realMoney}}</text>元
             <block>,同时扣除<text class="text-red text-bold">{{integral}}</text>积分,
-                <text class="text-red text-bold">{{commission}}</text>余额
+                <text class="text-red text-bold">{{commission}}</text>虎坚果
             </block>
         </view>
         <view class="cu-bar bg-white flex ">

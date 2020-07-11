@@ -1,5 +1,5 @@
 <view class="month-date">
-    <picker mode="date" bindchange="bindDate" fields="month" start="2020-05">
+    <picker mode="date" bindchange="bindDate" fields="month" start="2020-07">
         <view class="select-date" style="width: 160rpx">
             <text class="f-24">{{date}}</text>
             <view class="select-icon"></view>

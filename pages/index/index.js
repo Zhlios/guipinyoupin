@@ -58,7 +58,6 @@ Page({
         })
     },
     tapBanner: function (e) {
-        console.log(e)
         wx.navigateTo({
             url: "/pages/goods-details/index?id=" + e.currentTarget.dataset.id
         })

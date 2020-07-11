@@ -162,7 +162,9 @@ Page({
                         wxlogin: false
                     })
                 } else {
-                    this.doneShow();
+                    this.setData({orderList: []}, () => {
+                        this.doneShow();
+                    })
                 }
             })
         }

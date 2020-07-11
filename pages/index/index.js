@@ -96,7 +96,7 @@ Page({
     onShow: function (e) {
         app.fadeInOut(this, 'fadeAni', 0);
         // 获取购物车数据，显示TabBarBadge
-        TOOLS.showTabBarBadge();
+        // TOOLS.showTabBarBadge();
     },
     onPageScroll(e) {
         let scrollTop = this.data.scrollTop

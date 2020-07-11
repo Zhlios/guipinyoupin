@@ -42,7 +42,8 @@
     "pages/my-kanjia/index",
     "pages/my-pintuan/index",
     "pages/bidding/bidding",
-    "pages/kanjia/kanjia"
+    "pages/kanjia/kanjia",
+    "pages/fx/rank"
   ],
   "window": {
     "backgroundTextStyle": "light",

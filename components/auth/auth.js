@@ -9,7 +9,7 @@ Component({
     data: {
         openId: '',
     },
-    userInfo:null,
+    userInfo: null,
     properties: {
         isHidden: {
             type: Boolean,
@@ -37,7 +37,7 @@ Component({
             })
             this.triggerEvent('closeAuth');
         },
-        pageClose(){
+        pageClose() {
             this.triggerEvent('afterAuth');
         },
         bindGetUserInfo(e) {
@@ -77,13 +77,11 @@ Component({
             }
             authUtils.httpPost("outapi/LoginByOpenId", params)
                 .then((res) => {
-                    wx.setStorageSync("token",res.content.UserToken);
+                    wx.setStorageSync("token", res.content.UserToken);
                     wx.setStorageSync("userImg", userInfo.avatarUrl);
                     that.pageClose();
-                    return;
-                    authUtils.imgToBase64(userInfo.avatarUrl,function () {
+                    authUtils.imgToBase64(userInfo.avatarUrl, function () {
                         that.setData({openId: ""})
-                       
                     })
                 })
                 .catch((err) => {

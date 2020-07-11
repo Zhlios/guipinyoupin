@@ -1,0 +1,16 @@
+<scroll-view>
+    <view class="tab-title">
+        <view class="tab-title-list" style="flex: 1">排名</view>
+        <view class="tab-title-list" style="flex: 2;">用户</view>
+        <view class="tab-title-list" style="flex: 2">收入</view>
+    </view>
+    <view class="tab-title col-second" wx:for="{{rankList}}" wx:for-item="rank" wx:key="this">
+        <view class="tab-title-list-rank" style="flex: 1">
+            <image wx:if="{{rank.rank<=3}}" src="../../images/fx/rank{{rank.rank}}.png"></image>
+            <text wx:if="{{rank.rank>3}}">{{rank.rank}}</text>
+        </view>
+        <view class="tab-title-list-rank" style="flex: 2"><image src="{{headImg+rank.head}}"></image>{{rank.mobile}}
+        </view>
+        <view class="tab-title-list-rank" style="flex: 2;color: #ffe00d;">{{rank.totalMoney}}</view>
+    </view>
+</scroll-view>

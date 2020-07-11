@@ -48,7 +48,9 @@ page {
     margin-bottom: 10rpx;
     font-weight: bold;
 }
-
+.currency-num{
+    color: #888888;
+}
 .userinfo image {
     position: absolute;
     top: 0;

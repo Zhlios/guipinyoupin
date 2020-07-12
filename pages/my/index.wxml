@@ -24,7 +24,7 @@
                 <view class="currency-name">积分</view>
                 <view class="currency-num">{{score}}</view>
             </navigator>
-            <navigator url="/pages/score/index?type=2" class="currency-item">
+            <navigator url="/pages/mybid/index" class="currency-item">
                 <view class="currency-name">通证票</view>
                 <view class="currency-num">{{money}}</view>
             </navigator>

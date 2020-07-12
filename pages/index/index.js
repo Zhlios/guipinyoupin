@@ -31,17 +31,10 @@ Page({
         cateScrollTop: 0,
         dotStyle: "square-dot", //swiper指示点样式可选square-dot round-dot
         navigation: [
-<<<<<<< HEAD
             {title:"礼券",image:'/images/index_item01.png',url:'/pages/coupons/index'},
             {title:"签到",image:'/images/index_item02.png',url:'/pages/sign/index'},
             {title:"抢票",image:'/images/index_item03.png',url:'/pages/bidding/bidding'},
             {title:"积分商城",image:'/images/index_item04.png',url:'/pages/integral/list'},
-=======
-            {title: "礼券", image: '/images/index_item01.png', url: '/pages/coupons/index'},
-            {title: "签到", image: '/images/index_item02.png', url: '/pages/sign/index'},
-            {title: "新人专享", image: '/images/index_item03.png', url: '/pages/bidding/bidding'},
-            {title: "专栏", image: '/images/index_item04.png', url: '/pages/topic-list/index'},
->>>>>>> 25536de9c405f63e22bad53ff80a4d3a8ac93097
         ],
         banners: [],
         disableSearchJump: true,

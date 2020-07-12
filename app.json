@@ -34,7 +34,8 @@
     "pages/integral/list",
     "pages/kanjia/kanjia",
     "pages/fx/rank",
-    "pages/share/share"
+    "pages/share/share",
+    "pages/mybid/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -122,12 +122,6 @@ Page({
             })
         }
     },
-    onShareAppMessage: function () {
-        return {
-            title: '"' + wx.getStorageSync('mallName') + '" ' + CONFIG.shareProfile,
-            path: '/pages/index/index?inviter_id=' + wx.getStorageSync('uid')
-        }
-    },
     onReachBottom: function () {
         this.setData({
             curPage: this.data.curPage + 1

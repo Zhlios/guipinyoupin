@@ -6,7 +6,7 @@
 		<view wx:if="{{!openId.length}}">
 			<view class="padding-xl bg-white text-center">
 				<view class="logo">
-					<image src='{{logo}}'></image>
+					<open-data class="" type="userAvatarUrl"></open-data>
 				</view>
 				<view class="padding-top text-green">
 					为了给您提供更好的服务，请允许小程序获取您的公开信息
@@ -22,7 +22,7 @@
 		<view wx:else>
 			<view class="padding-xl bg-white text-center">
 				<view class="logo">
-					<image src='{{logo}}'></image>
+					<open-data class="" type="userAvatarUrl"></open-data>
 				</view>
 				<view class="padding-top text-green">
 					为了给您提供更好的服务，请允许小程序获取您的手机号码

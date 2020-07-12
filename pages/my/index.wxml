@@ -132,6 +132,12 @@
             </navigator>
         </view>
         <view class="cu-item arrow">
+            <navigator class="content" url="/pages/share/share" hover-class="none">
+                <text class="cuIcon-share text-blue"></text>
+                <text class="text-grey">分享</text>
+            </navigator>
+        </view>
+        <view class="cu-item arrow">
             <navigator class="content" url="/pages/fx/members" hover-class="none">
                 <text class="cuIcon-group text-blue"></text>
                 <text class="text-grey">我的团队</text>
@@ -183,9 +189,6 @@
             <button class="contact" open-type="contact"></button>
         </view>
     </view>
-    <!--    <view class="padding text-center text-sm text-gray">-->
-    <!--        fire-shop-lite {{version}}@染火科技-->
-    <!--    </view>-->
     <view wx:if="{{userInfo}}" class="cu-bar" style="width: 100%;">
         <view class="action">
             <text class="cuIcon-title text-green"></text>

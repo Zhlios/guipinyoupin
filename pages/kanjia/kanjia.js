@@ -4,6 +4,7 @@ const TOOL = require('../../utils/tools.js')
 
 Page({
     data: {
+        baseUrl:CONFIG.url,
         imagePath: CONFIG.imagePath,
         img220:CONFIG.imgType.img220,
         pageHeight: 0,

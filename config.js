@@ -2,6 +2,7 @@ const baseUrl = "https://www.ynhcn.net";
 // const baseUrl = "http://121.196.23.109:8001";
 const type = "/mobile/"
 module.exports = {
+    url: baseUrl,
     baseUrl: baseUrl + type,
     imagePath: baseUrl + '/uploadfile/product/show/thumb',
     imageThumbPath: baseUrl + '/uploadfile/adv/thumb',

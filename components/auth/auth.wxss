@@ -6,7 +6,8 @@
 	width: 100rpx;
 	margin: 0 auto;
 	border: 3rpx solid #eee;
-	border-radius: 100%;
+	border-radius: 50rpx;
+	overflow: hidden;
 }
 .border-top{
 	border-top: 1rpx solid #ddd;

@@ -11,8 +11,10 @@ Page({
         version: null,
         noticeList: [],
     },
-    onLoad: function () {
-
+    onLoad: function (e) {
+        if (e.reid) {
+            wx.setStorageSync('reid', e.reid);
+        }
     },
     onShow() {
         // 校验登录状态

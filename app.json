@@ -32,7 +32,8 @@
     "pages/my-pintuan/index",
     "pages/bidding/bidding",
     "pages/kanjia/kanjia",
-    "pages/fx/rank"
+    "pages/fx/rank",
+    "pages/share/share"
   ],
   "window": {
     "backgroundTextStyle": "light",

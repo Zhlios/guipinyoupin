@@ -1,4 +1,4 @@
-<view style="background-image: url('{{'https://www.zgssn2020.com/Content/image/wechatpay.png'}}');background-size:cover;height: {{pageHeight}}px;">
+<view style="background-image: url('{{baseUrl+'/content/image/kanjia.png'}}');background-size:cover;height: {{pageHeight}}px;">
     <view style="height: 150rpx"></view>
     <view class="goods-message">
         <view class="user-img">

@@ -1,4 +1,5 @@
 const base_url = "https://www.ynhcn.net/mobile/";
+
 // const base_url = "http://121.196.23.109:8001/mobile/";
 async function checkSession() {
     return new Promise((resolve, reject) => {
@@ -34,8 +35,9 @@ async function checkHasLogined() {
 
 
 function loginOut() {
-    wx.removeStorageSync('token')
-    wx.removeStorageSync('userImg')
+    wx.removeStorageSync('token');
+    // wx.removeStorageSync('uID');
+    wx.removeStorageSync('userImg');
 }
 
 

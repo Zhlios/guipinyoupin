@@ -1,0 +1,4 @@
+<view style="background-image: url('{{baseUrl+'/content/image/kanjia.png'}}');background-size:cover;height: {{pageHeight}}px;">
+    <button open-type="share" class="share-button">去分享</button>
+</view>
+<auth is-hidden="{{wxlogin}}" bind:afterAuth="afterAuth"></auth>

@@ -41,7 +41,8 @@
     "pages/topic-list/index",
     "pages/my-kanjia/index",
     "pages/my-pintuan/index",
-    "pages/bidding/bidding"
+    "pages/bidding/bidding",
+    "pages/integral/list"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -35,8 +35,8 @@ Page({
         navigation: [
             {title:"礼券",image:'/images/index_item01.png',url:'/pages/coupons/index'},
             {title:"签到",image:'/images/index_item02.png',url:'/pages/sign/index'},
-            {title:"新人专享",image:'/images/index_item03.png',url:'/pages/bidding/bidding'},
-            {title:"专栏",image:'/images/index_item04.png',url:'/pages/topic-list/index'},
+            {title:"抢票",image:'/images/index_item03.png',url:'/pages/bidding/bidding'},
+            {title:"积分商城",image:'/images/index_item04.png',url:'/pages/integral/list'},
         ],
         banners: [],
         disableSearchJump: true,

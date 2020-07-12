@@ -63,14 +63,15 @@ Page({
 		.then((result) => {
 			console.log(result)
 			result.content.forEach(ele => {
-				const _data = ele.dateAdd.split(" ")[0]
+				console.log(ele)
+				console.log(parseInt(ele.signInTime.split("-")[0]),'kk');
 				that.calendar.setTodoLabels({
 					pos: 'bottom',
 					dotColor: '#40',
 					days: [{
-						year: parseInt(_data.split("-")[0]),
-						month: parseInt(_data.split("-")[1]),
-						day: parseInt(_data.split("-")[2]),
+						year: parseInt(ele.signInTime.split("-")[0]),
+						month: parseInt(ele.signInTime.split("-")[1]),
+						day: parseInt(ele.signInTime.split("-")[2]),
 						todoText: '已签到'
 					}],
 				});

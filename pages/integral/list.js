@@ -84,7 +84,7 @@ Page({
     var that = this;
     this.setData({
       query: {
-        PageIndex: 0,
+        PageIndex: this.data.query.PageIndex+1,
         PageSize: 20,
       },
     },function() {

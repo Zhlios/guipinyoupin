@@ -10,6 +10,10 @@ Page({
    */
   data: {
     list: [],
+    query: {
+      pageIndex: 0,
+      pageSize: 20,
+    }
   },
 
   /**
@@ -24,11 +28,39 @@ Page({
    */
   getBidsList: function(e) {
     var that = this;
-    AUTH.httpGet('user/UserPassTicketList',{})
+    AUTH.httpGet('user/UserPassTicketList',this.data.query)
     .then(result => {
       console.log(result);
+      result.rows.map(e =>{
+        e.endtime = TOOLS.changeDateFormat(e.endtime)
+        e.starttime = TOOLS.changeDateFormat(e.starttime)
+      })
+      if(that.data.query.pageIndex == 0) {
+        that.setData({
+          list: result.rows,
+        })
+      }else {
+        that.setData({
+          list: [...that.data.list,...result.rows]
+        })
+      }
+      wx.stopPullDownRefresh();
     }).catch(error =>{
-      
+      wx.stopPullDownRefresh();
+    })
+  },
+  clickCancel: function(e) {
+    console.log(e)
+    var that = this;
+    var id = e.currentTarget.dataset.id;
+    AUTH.httpPost('user/CanclePassTicket',{id:id})
+    .then(result =>{
+      wx.showToast({
+        title: '取消兑换成功',
+      })
+      that.getBidsList();
+    }).catch(error =>{
+
     })
   },
   /**
@@ -50,14 +82,31 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    var that = this;
+    this.setData({
+      query: {
+        PageIndex: 0,
+        PageSize: 20,
+      },
+    },function() {
+      that.getBidsList();
+    })
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+        //上拉刷新
+    var that = this;
+    this.setData({
+      query: {
+        PageIndex: this.data.query.PageIndex+1,
+        PageSize: 20,
+      },
+    },function() {
+      that.getBidsList();
+    })
   },
 
   /**

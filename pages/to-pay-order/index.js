@@ -68,6 +68,19 @@ Page({
             });
             return;
         }
+        //砍价购买
+        if (options.orderType === "kanjia") {
+            const bid = options.bid;
+            AUTH.httpPost("order/BargainSubmitOrder", {bid})
+                .then((result) => {
+                    this.setData({
+                        ...result.content,
+                    }, () => {
+                        this.getRealMonery();
+                    });
+                })
+            return;
+        }
         //拼团购买
         if (options.orderType === "toPintuan") {
             const sType = options.pintuanType;
@@ -78,7 +91,7 @@ Page({
             })
             return;
         }
-
+        //购物车
         if (options.orderType === "car") {
             let recordIds = JSON.parse(options.recordIds)
             const result = await AUTH.httpPost('order/SubmitOrder', {ids: options.recordIds});
@@ -140,13 +153,32 @@ Page({
                 .then(result => {
                     that.setData({
                         showModal: true,
-                        wechatPayContent:result.content
+                        wechatPayContent: result.content
                     });
                     // this.toPay(result.content);
                 })
                 .catch((err) => {
 
                 })
+        }
+        if (options.orderType === "kanjia") {
+            let param = {
+                Bid: options.bid,
+                Said: this.data.RegionOrderInfo.said,
+                PaycReditCount: this.data.integral,
+                ...postData
+            }
+            AUTH.httpPost('order/BargainCreateOrder', param)
+                .then((result) => {
+                    that.setData({
+                        showModal: true,
+                        wechatPayContent: result.content
+                    });
+                })
+                .catch((err) => {
+
+                })
+            return;
         }
         if (options.orderType === "buyNow") {
             const params = {
@@ -161,7 +193,7 @@ Page({
                 .then((result) => {
                     that.setData({
                         showModal: true,
-                        wechatPayContent:result.content
+                        wechatPayContent: result.content
                     });
                     // this.toPay(result.content);
                 })
@@ -182,7 +214,7 @@ Page({
                 .then((result) => {
                     that.setData({
                         showModal: true,
-                        wechatPayContent:result.content
+                        wechatPayContent: result.content
                     });
                 })
                 .catch((err) => {
@@ -328,7 +360,7 @@ Page({
         }
     },
 
-    // 牛牛豆
+    // 余额
     bindCommissionInput: function (e) {
         let _this = this;
         let value = !e.detail.value ? 0 : e.detail.value;

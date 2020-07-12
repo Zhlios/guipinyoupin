@@ -1,8 +1,44 @@
 page,
 .page,
-.page__bd{
+.page__bd {
     height: 100%;
 }
-.page__bd{
+
+.page {
+    overflow: hidden;
+}
+
+.fans {
+    height: 20px;
+    font-size: 26rpx;
+    padding: 0 20rpx;
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+}
+
+.team-leave {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    background-color: #ffffff;
+    height: 70px;
+    padding: 10rpx 20rpx;
+}
+
+.text-center .cu-item {
+    height: 45px;
+    line-height: 45px;
+}
+
+.team-message-item {
+    width: 40%;
+    font-size: 24rpx;
+    color: #333333;
+    display: flex;
+    align-items: center;
+}
+
+.page__bd {
     padding-bottom: 0;
 }

@@ -10,9 +10,10 @@ Page({
         imagePath: CONFIG.imagePath,
         flashSalePath: CONFIG.flashSalePath,    //秒杀
         spellPath: CONFIG.spellPath,            //拼购
-        bargainPath: CONFIG.baseUrl,            //砍价
-        img750: CONFIG.imgType.img750,
+        bargainPath: CONFIG.bargainPath,            //砍价
+        img800: CONFIG.imgType.img800,
         img420: CONFIG.imgType.img420,
+        img180: CONFIG.imgType.img180,
         inputVal: "", // 搜索框内容
         goodsRecommend: [], // 推荐商品
         kanjiaList: [], //砍价商品列表
@@ -20,10 +21,7 @@ Page({
         miaoshaList: [],//秒杀商品列表
         jingpinList: [],//精品商品列表
         newList: [], //新品商品列表
-        loadingHidden: false, // loading
         selectCurrent: 0,
-        categories: [],
-        activeCategoryId: 0,
         goods: [],
         scrollTop: 0,
         loadingMoreHidden: true,
@@ -33,10 +31,17 @@ Page({
         cateScrollTop: 0,
         dotStyle: "square-dot", //swiper指示点样式可选square-dot round-dot
         navigation: [
+<<<<<<< HEAD
             {title:"礼券",image:'/images/index_item01.png',url:'/pages/coupons/index'},
             {title:"签到",image:'/images/index_item02.png',url:'/pages/sign/index'},
             {title:"抢票",image:'/images/index_item03.png',url:'/pages/bidding/bidding'},
             {title:"积分商城",image:'/images/index_item04.png',url:'/pages/integral/list'},
+=======
+            {title: "礼券", image: '/images/index_item01.png', url: '/pages/coupons/index'},
+            {title: "签到", image: '/images/index_item02.png', url: '/pages/sign/index'},
+            {title: "新人专享", image: '/images/index_item03.png', url: '/pages/bidding/bidding'},
+            {title: "专栏", image: '/images/index_item04.png', url: '/pages/topic-list/index'},
+>>>>>>> 25536de9c405f63e22bad53ff80a4d3a8ac93097
         ],
         banners: [],
         disableSearchJump: true,
@@ -60,7 +65,6 @@ Page({
         })
     },
     tapBanner: function (e) {
-        console.log(e)
         wx.navigateTo({
             url: "/pages/goods-details/index?id=" + e.currentTarget.dataset.id
         })
@@ -69,14 +73,6 @@ Page({
         this.setData({
             selectCurrent: e.index
         })
-    },
-    async wxaMpLiveRooms() {
-        const res = await WXAPI.wxaMpLiveRooms()
-        if (res.code == 0 && res.data.length > 0) {
-            this.setData({
-                aliveRooms: res.data
-            })
-        }
     },
     onLoad: function (e) {
         wx.showShareMenu({
@@ -90,10 +86,6 @@ Page({
         }
 
         this.initPage()
-        // this.categories()
-        // that.getCoupons()
-        // that.getNotice()
-        // this.wxaMpLiveRooms()
     },
     async initPage() {
         wx.showLoading();
@@ -103,52 +95,14 @@ Page({
             return item.TypeVale === "banner";
         });
         banner && this.setData({banners: banner.AdertInfo});
-        //TODO 热门商品占位
-        const hotRes = await WXAPI.banners({
-            type: 'hot'
-        })
-        if (hotRes.code == 700) {
-            console.log('请在后台banner管理中导航图标，自定义类型填写 navigation')
-        } else {
-            this.setData({
-                hot: hotRes.data
-            });
-        }
-        //TODO 推荐商品占位
-        const configRes = await WXAPI.queryConfigValue('recommendGoodsTitle')
-        if (configRes.code == 700) {
-            console.log('请在后台系统参数设置中设置推荐商品标题,参数值为前端显示的标题')
-        } else {
-            this.setData({
-                recommendGoodsTitle: configRes.data
-            });
-        }
         this.getGoods();
-        this.kanjiaGoods()
         // this.pingtuanGoods()
-        // this.getRecommendGoodsList()
         wx.hideLoading()
     },
     onShow: function (e) {
         app.fadeInOut(this, 'fadeAni', 0);
         // 获取购物车数据，显示TabBarBadge
-        TOOLS.showTabBarBadge();
-    },
-    async categories() {
-        const res = await WXAPI.goodsCategory()
-        let categories = [];
-        if (res.code == 0) {
-            const _categories = res.data.filter(ele => {
-                return ele.level == 1
-            })
-            categories = categories.concat(_categories)
-        }
-        this.setData({
-            categories: categories,
-            activeCategoryId: 0,
-            curPage: 1
-        });
-        this.getGoodsList(0);
+        // TOOLS.showTabBarBadge();
     },
     onPageScroll(e) {
         let scrollTop = this.data.scrollTop
@@ -175,104 +129,10 @@ Page({
             })
         }
     },
-
-    async getRecommendGoodsList(append) {
-        const res = await WXAPI.goods({
-            recommendStatus: 1,
-            pageSize: this.data.pageSize,
-            page: this.data.curPage
-        })
-        if (res.code == 404 || res.code == 700) {
-            let newData = {
-                loadingMoreHidden: false
-            }
-            if (!append) {
-                newData.goodsRecommend = []
-            }
-            this.setData(newData);
-            return
-        }
-        let goods = []
-        if (append) {
-            goods = this.data.goodsRecommend
-        }
-        for (let i = 0; i < res.data.length; i++) {
-            goods.push(res.data[i]);
-        }
-        this.setData({
-            loadingMoreHidden: true,
-            goodsRecommend: goods
-        });
-    },
-    async getGoodsList(categoryId, append) {
-        if (categoryId == 0) {
-            categoryId = "";
-        }
-        wx.showLoading({
-            "mask": true
-        })
-        const res = await WXAPI.goods({
-            categoryId: categoryId,
-            nameLike: this.data.inputVal,
-            page: this.data.curPage,
-            pageSize: this.data.pageSize
-        })
-        wx.hideLoading()
-        if (res.code == 404 || res.code == 700) {
-            let newData = {
-                loadingMoreHidden: false
-            }
-            if (!append) {
-                newData.goods = []
-            }
-            this.setData(newData);
-            return
-        }
-        let goods = [];
-        if (append) {
-            goods = this.data.goods
-        }
-        for (var i = 0; i < res.data.length; i++) {
-            goods.push(res.data[i]);
-        }
-        this.setData({
-            loadingMoreHidden: true,
-            goods: goods,
-        });
-    },
-    getCoupons: function () {
-        var that = this;
-        WXAPI.coupons().then(function (res) {
-            if (res.code == 0) {
-                that.setData({
-                    coupons: res.data
-                });
-            }
-        })
-    },
-    onShareAppMessage: function () {
-        return {
-            title: '"' + wx.getStorageSync('mallName') + '" ' + CONFIG.shareProfile,
-            path: '/pages/index/index?inviter_id=' + wx.getStorageSync('uid')
-        }
-    },
-    getNotice: function () {
-        var that = this;
-        WXAPI.noticeList({
-            pageSize: 5
-        }).then(function (res) {
-            if (res.code == 0) {
-                that.setData({
-                    noticeList: res.data
-                });
-            }
-        })
-    },
     onReachBottom: function () {
         this.setData({
             curPage: this.data.curPage + 1
         });
-        this.getRecommendGoodsList(true)
     },
     onPullDownRefresh: function () {
         this.setData({
@@ -281,21 +141,10 @@ Page({
         this.initPage()
         wx.stopPullDownRefresh()
     },
-    // 获取砍价商品
-    async kanjiaGoods() {
-        const res = await WXAPI.goods({
-            kanjia: true
-        });
-        console.log(res, '==@@@@@@@@@@@@@@@')
-        if (res.code == 0) {
-            this.setData({
-                kanjiaList: res.data
-            })
-        }
-    },
     //获取首页所有商品
     async getGoods() {
         const that = this;
+        this.setData({loadingMoreHidden: true});
         const result = await AUTH.httpGet("outapi/indexdata");
         this.setData({allGoods: result.content}, () => {
             that.setData({
@@ -303,7 +152,8 @@ Page({
                 pingtuanList: that.getGoodsByType(4),
                 jingpinList: that.getGoodsByType(1),
                 newList: that.getGoodsByType(2),
-                miaoshaList: that.getGoodsByType(3)
+                miaoshaList: that.getGoodsByType(3),
+                loadingMoreHidden: false
             })
         });
     },
@@ -345,8 +195,8 @@ Page({
     },
     onShareAppMessage: function () {
         return {
-            title: '"' + wx.getStorageSync('mallName') + '" ' + CONFIG.shareProfile,
-            path: '/pages/index/index?inviter_id=' + wx.getStorageSync('uid')
+            title: CONFIG.shareProfile,
+            path: '/pages/index/index'
         }
     },
 })

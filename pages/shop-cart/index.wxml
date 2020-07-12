@@ -1,10 +1,9 @@
 <!--index.wxml-->
-<import src="../template-cart/template-cart.wxml" />
+<import src="../template-cart/template-cart.wxml"/>
 
 <view class="container">
-  <template is="{{shippingCarInfo.items.length > 0 ? 'cart-goods-list' : 'no-goods'}}" data="{{...shippingCarInfo, saveHidden, allSelect,imagePath,img420,totalMoney,showTotalMoney}}"></template>
-  <guess-u-like title="{{title}}" order-by="{{orderBy}}" count="{{count}}" show="{{shippingCarInfo.items.length>0?false:true}}"></guess-u-like>
+    <template is="{{shippingCarInfo.items.length > 0 ? 'cart-goods-list' : 'no-goods'}}"
+              data="{{...shippingCarInfo, saveHidden, allSelect,imagePath,img420,totalMoney,showTotalMoney}}"></template>
+    <!--  <guess-u-like title="{{title}}" order-by="{{orderBy}}" count="{{count}}" show="{{shippingCarInfo.items.length>0?false:true}}"></guess-u-like>-->
 </view>
-
-<import src="/template/login/index.wxml" />
-<template is="apifmLogin" data="{{wxlogin: wxlogin}}" />
+<auth is-hidden="{{wxlogin}}" bind:afterAuth="afterAuth"></auth>

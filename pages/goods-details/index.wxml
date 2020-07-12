@@ -13,9 +13,6 @@
 			<view class="goods-title">{{goodsDetail.Name}}</view>
 			<view class="goods-characteristic">
 				<text> {{goodsDetail.basicInfo.characteristic}} </text>
-<!--				<block wx:if="{{goodsDetail.basicInfo.weight != 0}}">-->
-<!--				    <text> \t {{goodsDetail.basicInfo.weight}}千克 </text>-->
-<!--				</block>-->
 			</view>
 		</view>
 		<block>
@@ -28,48 +25,21 @@
 	</view>
 	<block wx:if="{{bargainProductEditResModel}}">
 		<view class="bg-gray" style="width: 100%;padding: 20rpx 0;">
-			<countdown date="{{curGoodsKanjia.dateEnd}}"></countdown>
+<!--			<countdown date="{{curGoodsKanjia.dateEnd}}"></countdown>-->
 			<view class="pt-box bg-gradual-red shadow">
 				<view class="goods-ptuan">
 					底价 ¥
-					<text>{{curGoodsKanjia.minPrice}}</text>
+					<text>{{bargainProductEditResModel.cprice}}</text>
 				</view>
-				<view class="goods-ptuan-info">
-					<text class="txa">限量{{curGoodsKanjia.number}}件</text>
-					<text class="txb">原价 ¥ {{curGoodsKanjia.originalPrice}}</text>
+				<view class="goods-ptuan-info" style="line-height: 100rpx">
+					<text class="txb">原价 ¥ {{goodsDetail.ShopPrice}}</text>
 				</view>
 				<view class="goods-right">
-					<button class="cu-btn bg-cyan round" bindtap="joinKanjia">发起砍价</button>
-					<button class="cu-btn bg-cyan round" open-type="share">邀请老铁</button>
+					<button class="cu-btn bg-cyan round" bindtap="getBargainId">发起砍价</button>
 				</view>
 			</view>
 		</view>
 	</block>
-	<view class="cur-kj-progress padding padding-bottom-xs" wx:if="{{curKanjiaprogress}}">
-		<view class="name">帮<text class="text-bold">{{curKanjiaprogress.joiner.nick}}</text>砍价吧</view>
-		<view class="flex justify-between padding-tb-sm">
-			<view class="cur"><text class="text-xs">原价:¥</text><text class="text-bold text-red">{{curGoodsKanjia.originalPrice}}</text></view>
-			<view class="target"><text class="text-xs">目标:¥</text><text class="text-bold text-red">{{curGoodsKanjia.minPrice}}</text></view>
-		</view>
-		<view class="cu-progress round striped active">
-			<view class="bg-red" style="width:{{kanjiaPercent}}%;">
-				¥{{curKanjiaprogress.kanjiaInfo .curPrice}}
-			</view>
-		</view>
-		<view class="padding-tb flex justify-between" style="width: 100%;">
-			<button class="cu-btn bg-cyan round" open-type="share">找人帮忙</button>
-			<button class="cu-btn bg-orange round" bindtap="helpKanjia" disabled="{{myHelpDetail}}">{{myHelpDetail?"您已砍过":"猛砍一刀"}}</button>
-		</view>
-	</view>
-	<view class="cur-kj-list padding-lr" wx:if="curKanjiaprogress && curKanjiaprogress.helps && curKanjiaprogress.helps.length>0}}">
-		<view wx:for="{{curKanjiaprogress.helps}}" wx:key="*this" class="list-item flex align-center margin-bottom-sm">
-			<view class="cu-avatar round">
-				<image class="weui-media-box__thumb" src="{{item.avatarUrl}}"></image>
-			</view>
-			<view class="nickname padding-lr-sm"><text class="text-bold text-cut" style="max-width: 500rpx;">{{item.nick}}</text>帮砍一刀</view>
-			<view style="margin-left: auto;" class="text-right"><text class="text-red">¥{{item.cutPrice}}</text></view>
-		</view>
-	</view>
 	<view class="padding-lr padding-bottom flex justify-center" wx:if="{{curGoodsKanjia && curKanjiaprogress}}" style="width: 100%;">
 	    <button class="cu-btn bg-red round" bindtap="tobuy">用当前价购买</button>
 	  </view>
@@ -87,50 +57,50 @@
 				</view>
 				<view class="goods-right">
 					<button class="cu-btn bg-cyan round" open-type="share" wx:if="{{isInPintuan}}">邀请好友</button>
-					<button class="cu-btn bg-cyan round" bindtap="toPintuan" data-type="0" wx:else>一键开团</button>
+					<button class="cu-btn bg-cyan round" bindtap="toPintuan" data-id="{{spellproductcfgInfo.recordId}}" data-type="0" wx:else>一键开团</button>
 				</view>
 			</view>
 		</view>
 	</block>
-	<view class="pt-rule-box bg-gray" wx:if="{{goodsDetail.basicInfo.pingtuan == true}}">
-		<view class="flex bg-brown light padding">
-			<view class="item flex-sub flex flex-direction align-center padding-lr-xs">
-				<view class="icon">
-					<image src="../../images/pingtuan/1.png"></image>
-				</view>
-				<text class="text-xs text-center">开团或参与网友发起的拼团</text>
-			</view>
-			<view class="item flex-sub flex flex-direction align-center padding-lr-xs">
-				<view class="icon">
-					<image src="../../images/pingtuan/2.png"></image>
-				</view>
-				<text class="text-xs text-center">邀请好友一起参与拼团</text>
-			</view>
-			<view class="item flex-sub flex flex-direction align-center padding-lr-xs">
-				<view class="icon">
-					<image src="../../images/pingtuan/3.png"></image>
-				</view>
-				<text class="text-xs text-center">参与人数达到{{pingtuanSet.numberPersion}}人拼团成功</text>
-			</view>
-			<view class="item flex-sub flex flex-direction align-center padding-lr-xs">
-				<view class="icon">
-					<image src="../../images/pingtuan/4.png"></image>
-				</view>
-				<text class="text-xs text-center">{{pingtuanSet.timeoutHours}}小时未成团自动退款</text>
-			</view>
-		</view>
-	</view>
-	<view class="pt-user-box padding" wx:if="{{pingtuanList}}">
+<!--	<view class="pt-rule-box bg-gray" wx:if="{{spellproductListInfo}}">-->
+<!--		<view class="flex bg-brown light padding">-->
+<!--			<view class="item flex-sub flex flex-direction align-center padding-lr-xs">-->
+<!--				<view class="icon">-->
+<!--					<image src="../../images/pingtuan/1.png"></image>-->
+<!--				</view>-->
+<!--				<text class="text-xs text-center">开团或参与网友发起的拼团</text>-->
+<!--			</view>-->
+<!--			<view class="item flex-sub flex flex-direction align-center padding-lr-xs">-->
+<!--				<view class="icon">-->
+<!--					<image src="../../images/pingtuan/2.png"></image>-->
+<!--				</view>-->
+<!--				<text class="text-xs text-center">邀请好友一起参与拼团</text>-->
+<!--			</view>-->
+<!--			<view class="item flex-sub flex flex-direction align-center padding-lr-xs">-->
+<!--				<view class="icon">-->
+<!--					<image src="../../images/pingtuan/3.png"></image>-->
+<!--				</view>-->
+<!--				<text class="text-xs text-center">参与人数达到{{pingtuanSet.numberPersion}}人拼团成功</text>-->
+<!--			</view>-->
+<!--			<view class="item flex-sub flex flex-direction align-center padding-lr-xs">-->
+<!--				<view class="icon">-->
+<!--					<image src="../../images/pingtuan/4.png"></image>-->
+<!--				</view>-->
+<!--				<text class="text-xs text-center">{{pingtuanSet.timeoutHours}}小时未成团自动退款</text>-->
+<!--			</view>-->
+<!--		</view>-->
+<!--	</view>-->
+	<view class="pt-user-box padding" wx:if="{{spellproductListInfo}}">
 		<view class="pt-title">以下网友团可参与，组团成功立即发货</view>
-		<view class="pt-list flex align-center" wx:for="{{pingtuanList}}" wx:key="{{index}}">
+		<view class="pt-list flex align-center" wx:for="{{spellproductListInfo}}" wx:key="{{index}}">
 			<image src="{{item.apiExtUser.avatarUrl}}" />
 			<view class="pt-user-infox">
 				<view class="pt-username text-cut">
-					<text>还差{{pingtuanSet.numberPersion - item.helpNumber}}人成团</text>
+					<text>还差{{item.cntTotal - item.cntBuy}}人成团</text>
 				</view>
 			</view>
-			<button class="cu-btn round sm pt-btn bg-red" data-pingtuanopenid="{{item.id}}" bindtap="toPintuan" data-uid="{{item.uid}}"
-			 disabled="{{isInPintuan}}">立即参团</button>
+			<button class="cu-btn round sm pt-btn bg-red" data-type="1"  data-status="{{item.status}}" bindtap="toPintuan" data-id="{{item.sId}}"
+			 disabled="{{item.status!==0}}">立即参团</button>
 		</view>
 	</view>
 	<view class="bg-gray padding-top-xs" wx:if="{{hasMoreSelect}}" style="width: 100%;">
@@ -183,11 +153,6 @@
 <!--				购物车数量-->
 <!--				<view class="shop-num">12</view>-->
 			</view>
-<!--			收藏-->
-<!--			<view class="box-list" bindtap="{{favicon == 0 ? 'addToFav':'delFav'}}">-->
-<!--				<image wx:if="{{favicon == 0}}" src="../../images/goods_collect.png"></image>-->
-<!--				<image wx:if="{{favicon == 1}}" src="../../images/goods_collect_checked.png"></image>-->
-<!--			</view>-->
 			<view class="box-title">
 				<view class="box-shop-cart npx bg-orange" bindtap="tobuy">立即购买</view>
 			</view>

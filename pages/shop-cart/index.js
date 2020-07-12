@@ -267,4 +267,10 @@ Page({
             url: '/pages/to-pay-order/index?orderType=car&recordIds=' + stringRecordIds
         });
     },
+    afterAuth() {
+        this.setData({
+            wxlogin: true
+        });
+        this.shippingCarInfo()
+    },
 })

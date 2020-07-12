@@ -1,0 +1,33 @@
+<view style="background-image: url('{{baseUrl+'/content/image/kanjia.png'}}');background-size:cover;height: {{pageHeight}}px;">
+    <view style="height: 150rpx"></view>
+    <view class="goods-message">
+        <view class="user-img">
+            <open-data class="" lang="zh_CN" type="userAvatarUrl"></open-data>
+        </view>
+        <view class="user-name">
+            <open-data class="user-header-cont-name" lang="zh_CN" type="userNickName"></open-data>
+        </view>
+        <view class="message">
+            {{message.pName}}只需{{message.cprice}} ，快来帮我砍价吧！
+        </view>
+        <view class="goods-message-detail">
+            <image mode="aspectFill"
+                   src="{{imagePath+img220+message.showimg}}"
+                   class="goods-img"/>
+            <view class="price-name">
+                <view class="">{{message.pName}}</view>
+                <view class="">￥{{message.shopprice}}</view>
+            </view>
+        </view>
+    </view>
+    <view class="bargain-price-message">
+        已砍至
+        <text class="col-yellow f-32">{{message.aprice}}</text>
+        元，最低砍至
+        <text class="col-yellow f-32">{{message.cprice}}</text>
+        元
+    </view>
+    <button wx:if="{{isSelf}}" open-type="share" class="share-button">邀请好友帮我砍价</button>
+    <button wx:if="{{!isSelf}}" bindtap="beganToBargain" class="share-button">帮他砍价</button>
+    <button wx:if="{{isSelf}}" bindtap="buyNow" class="share-button">立即购买</button>
+</view>

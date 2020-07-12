@@ -4,8 +4,8 @@
     <swiper class="screen-swiper {{dotStyle?'square-dot':'round-dot'}}" indicator-dots="true" circular="true"
             autoplay="true"
             interval="5000" duration="500">
-        <swiper-item wx:for="{{banners}}" wx:key="id" bindtap="tapBanner" data-url="{{item.ExtField1}}">
-            <image src="{{bannerPath+img750+item.Image}}" mode="aspectFill"></image>
+        <swiper-item wx:for="{{banners}}" wx:key="id" bindtap="tapBanner" data-id="{{item.ExtField1}}">
+            <image src="{{bannerPath+img800+item.Image}}" mode="aspectFill"></image>
         </swiper-item>
     </swiper>
 </view>
@@ -66,24 +66,24 @@
         <view class="line"></view>
     </view>
     <scroll-view scroll-x="true" class="scroll" enable-flex="true">
-        <navigator hover-class="none" url="/pages/goods-details/index?id={{item.id}}"
+        <navigator hover-class="none" url="/pages/goods-details/index?id={{item.pid}}"
                    class="scroll-item shadow shadow-lg bg-white margin-left margin-top" wx:for="{{kanjiaList}}"
                    wx:key="id">
             <view class="thumb">
-                <image src="{{item.pic}}" mode="aspectFill"></image>
+                <image src="{{bargainPath+img420+item.showImg}}" mode="aspectFill"></image>
             </view>
             <view class="text padding-sm">
-                <view class="title text-cut text-black">{{item.name}}</view>
-                <view class="desc text-cut text-gray text-sm" style="height: 50rpx;">{{item.characteristic}}</view>
+                <view class="title text-cut text-black">{{item.pName}}</view>
+                <view class="desc text-cut text-gray text-sm" style="height: 50rpx;">{{item.name}}</view>
                 <view class="flex">
                     <view class="flex-sub flex justify-start">
                         <view>
                             <text class="rmb text-black">¥</text>
-                            <text class="text-xl text-red">{{item.kanjiaPrice}}</text>
+                            <text class="text-xl text-red">{{item.price}}</text>
                         </view>
                         <view class="margin-left">
                             <text class="rmb">¥</text>
-                            <text style="text-decoration: line-through;">{{item.minPrice}}</text>
+                            <text style="text-decoration: line-through;">{{item.shopprice}}</text>
                         </view>
                     </view>
                     <view class="flex-sub flex justify-end">

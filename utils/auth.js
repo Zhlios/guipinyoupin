@@ -1,4 +1,5 @@
 const base_url = "https://www.ynhcn.net/mobile/";
+
 // const base_url = "http://121.196.23.109:8001/mobile/";
 async function checkSession() {
     return new Promise((resolve, reject) => {
@@ -34,8 +35,9 @@ async function checkHasLogined() {
 
 
 function loginOut() {
-    wx.removeStorageSync('token')
-    wx.removeStorageSync('uid')
+    wx.removeStorageSync('token');
+    // wx.removeStorageSync('uID');
+    wx.removeStorageSync('userImg');
 }
 
 
@@ -149,7 +151,6 @@ async function httpPost(url, data = {}) {
                 });
             },
             fail(res) {
-                console.log(res, '????????????????');
                 wx.showModal({
                     title: '友情提示',
                     content: res.errMsg,
@@ -176,7 +177,6 @@ function imgToBase64(imgUrl, success) {
         url: imgUrl,
         responseType: 'arraybuffer',
         success: res => {
-            console.log(res, '??????????????')
             let base64 = wx.arrayBufferToBase64(res.data);
             success && success();
             App.httpPost("user/UploadUserRankAvatar", {base64String: base64});

@@ -8,8 +8,10 @@ Component({
     },
     data: {
         openId: '',
+        logo: '',
+        reid: '',
     },
-    userInfo:null,
+    userInfo: null,
     properties: {
         isHidden: {
             type: Boolean,
@@ -20,14 +22,12 @@ Component({
         attached() {
             const that = this
             wx.getStorage({
-                key: 'logo',
-                success(res) {
+                key: 'reid', success(res) {
                     that.setData({
-                        logo: res.data
+                        reid: res.data
                     })
                 }
-            })
-
+            });
         }
     },
     methods: {
@@ -37,7 +37,7 @@ Component({
             })
             this.triggerEvent('closeAuth');
         },
-        pageClose(){
+        pageClose() {
             this.triggerEvent('afterAuth');
         },
         bindGetUserInfo(e) {
@@ -69,7 +69,7 @@ Component({
                 openid: that.data.openId,
                 iv: e.detail.iv,
                 data: e.detail.encryptedData,
-                reid: that.reid,
+                reid: that.data.reid,
                 oath_token: that.openIdContent.oath_token,
                 timestamp: that.openIdContent.timestamp,
                 session_key: that.openIdContent.session_key,
@@ -77,13 +77,12 @@ Component({
             }
             authUtils.httpPost("outapi/LoginByOpenId", params)
                 .then((res) => {
-                    wx.setStorageSync("token",res.content.UserToken);
+                    wx.setStorageSync("token", res.content.UserToken);
                     wx.setStorageSync("userImg", userInfo.avatarUrl);
+                    wx.removeStorageSync("reid");
                     that.pageClose();
-                    return;
-                    authUtils.imgToBase64(userInfo.avatarUrl,function () {
+                    authUtils.imgToBase64(userInfo.avatarUrl, function () {
                         that.setData({openId: ""})
-                       
                     })
                 })
                 .catch((err) => {

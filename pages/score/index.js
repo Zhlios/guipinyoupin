@@ -4,132 +4,167 @@ const AUTH = require('../../utils/auth')
 
 Page({
 
-  /**
-   * 页面的初始数据
-   */
-  data: {
-    balance: 0.00,
-    freeze: 0,
-    score: 0,
-    score_sign_continuous: 0,
-    cashlogs: undefined
-  },
+    /**
+     * 页面的初始数据
+     */
+    data: {
+        total: 0,
+        date: "",
+        dataType: [{value: "全部", key: -1}, {value: "已到账", key: 1}, {value: "未到账", key: 0}],
+        dataTypeValue: "全部",
+        currencyTypeValue: "积分",
+        currencyType: [{value: "虎坚果", key: 0}, {value: "积分", key: 1}, {value: "通证票", key: 2}],
+        cashlogs: undefined
+    },
+    startTime: "",
+    endTime: '',
+    Ispay: -1,
+    Mtype: 0,
+    /**
+     * 生命周期函数--监听页面加载
+     */
+    onLoad: function (options) {
+        this.nowDate();
+        this.Mtype = options.type;
+        if (this.Mtype == 0) {
+            this.setData({currencyTypeValue: "虎坚果"});
+        }
+        if (this.Mtype == 1) {
+            this.setData({currencyTypeValue: "积分"});
+        }
+        if (this.Mtype == 2) {
+            this.setData({currencyTypeValue: "通证票"});
+        }
+    },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-    AUTH.checkHasLogined().then(isLogined => {
-      if (isLogined) {
-        this.doneShow();
-      } else {
-        wx.showModal({
-          title: '提示',
-          content: '本次操作需要您的登录授权',
-          cancelText: '暂不登录',
-          confirmText: '前往登录',
-          success(res) {
-            if (res.confirm) {
-              wx.switchTab({
-                url: "/pages/my/index"
-              })
+    /**
+     * 生命周期函数--监听页面显示
+     */
+    onShow: function () {
+        AUTH.checkHasLogined().then(isLogined => {
+            if (isLogined) {
+                this.doneShow();
             } else {
-              wx.navigateBack()
+                wx.showModal({
+                    title: '提示',
+                    content: '本次操作需要您的登录授权',
+                    cancelText: '暂不登录',
+                    confirmText: '前往登录',
+                    success(res) {
+                        if (res.confirm) {
+                            wx.switchTab({
+                                url: "/pages/my/index"
+                            })
+                        } else {
+                            wx.navigateBack()
+                        }
+                    }
+                })
             }
-          }
         })
-      }
-    })
-  },
-  doneShow: function () {
-    const _this = this
-    const token = wx.getStorageSync('token')
-    WXAPI.userAmount(token).then(function (res) {
-      if (res.code == 0) {
-        _this.setData({
-          balance: res.data.balance.toFixed(2),
-          freeze: res.data.freeze.toFixed(2),
-          totleConsumed: res.data.totleConsumed.toFixed(2),
-          score: res.data.score
-        });
-      } else {
-        wx.showToast({
-          title: res.msg,
-          icon: 'none'
+    },
+    doneShow: function (page) {
+        const _this = this
+        let obj = {
+            Mtype: this.Mtype,
+            Ispay: this.Ispay,
+            PageIndex: page,
+            StartTime: this.startTime,
+            EndTime: this.endTime,
+            PageSize: 20,
+        }
+        AUTH.httpGet("user/CommissionList", obj)
+            .then((result) => {
+                _this.setData({cashlogs: result.rows});
+            })
+            .catch((err) => {
+
+            })
+    },
+
+    /**
+     * 日期改变事件
+     */
+    bindDate: function (value) {
+        this.handleDate(value.detail.value);
+    },
+    /**
+     * 货币状态改变
+     */
+    bindDateType: function (value) {
+        const dataType = this.data.dataType;
+        const idx = value.detail.value;
+        this.Ispay = dataType[idx].key;
+        this.setData({dataTypeValue: dataType[idx].value});
+        this.doneShow(1);
+    },
+    /**
+     * 下拉到底加载数据
+     */
+    bindDownLoad: function () {
+        // 已经是最后一页
+        const total = this.data.total;
+        const data = this.data.score;
+        if (data.length >= total) {
+            this.setData({no_more: true});
+            return false;
+        }
+        this.doneShow(++this.page);
+    },
+    /**
+     * 货币类型改变
+     */
+    bindCurrencyType: function (value) {
+        const currencyType = this.data.currencyType;
+        const idx = value.detail.value;
+        this.Mtype = currencyType[idx].key;
+        this.setData({currencyTypeValue: currencyType[idx].value});
+        this.doneShow(1);
+    },
+    /**
+     * 处理日期
+     */
+    handleDate: function (date) {
+        this.setData({date});
+        const time = "-01 0:00:00";
+        const length = date.length;
+        let year1 = date.substring(0, 2);
+        let year2 = Number(date.substring(2, 4));
+        let month = Number(date.substring(length - 2, length));
+        let endTimeMonth = "";
+        let endTimeYear2 = year2;
+        if (month < 12) {
+            endTimeMonth = month + 1;
+            month = "0" + month;
+        } else {
+            endTimeMonth = 1;
+            endTimeYear2 = endTimeYear2 + 1;
+        }
+        if (endTimeMonth < 10) {
+            endTimeMonth = "0" + endTimeMonth;
+        }
+        this.startTime = year1 + year2 + "-" + month + time;
+        this.endTime = year1 + endTimeYear2 + "-" + endTimeMonth + time;
+        this.doneShow(1);
+    },
+    nowDate: function () {
+        let date = new Date();
+        const year = date.getFullYear(); //获取完整的年份(4位)
+        let month = date.getMonth() + 1; //获取当前月份(0-11,0代表1月)
+        if (month < 10) {
+            month = "0" + month;
+        }
+        const now = year + "-" + month;
+        this.handleDate(now);
+    },
+    recharge: function (e) {
+        wx.navigateTo({
+            url: "/pages/recharge/index"
         })
-      }
-    })
-    // 读取积分明细
-    WXAPI.scoreLogs({
-      token: token,
-      page:1,
-      pageSize:50
-    }).then(res => {
-      if (res.code == 0) {
-        _this.setData({
-          cashlogs: res.data.result
+    },
+    withdraw: function (e) {
+        wx.navigateTo({
+            url: "/pages/withdraw/index"
         })
-      }
-    })
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  },
-
-  recharge: function (e) {
-    wx.navigateTo({
-      url: "/pages/recharge/index"
-    })
-  },
-  withdraw: function (e) {
-    wx.navigateTo({
-      url: "/pages/withdraw/index"
-    })
-  }
+    }
 })

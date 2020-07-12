@@ -53,6 +53,13 @@
                        value="{{integral}}"></input>
             </view>
         </view>
+        <view class="row-box">
+            <view class="row-label">虎坚果({{PointsInfo.Points}})</view>
+            <view class="right-text">
+                <input type="number" style="text-align: right" placeholder="输入虎坚果" bindinput="bindCommissionInput"
+                       value="{{commission}}"></input>
+            </view>
+        </view>
     </view>
     <!--    <view class="peisong-way" hidden="{{hasNoCoupons}}">-->
     <!--        <view class="row-box" style="border-bottom:none;">-->
@@ -105,14 +112,15 @@
         </view>
         <view class="padding-xl">
             您将通过微信支付<text class="text-red text-bold">{{realMoney}}</text>元
-            <block>,同时扣除<text class="text-red text-bold">{{integral}}</text>积分
+            <block>,同时扣除<text class="text-red text-bold">{{integral}}</text>积分,
+                <text class="text-red text-bold">{{commission}}</text>虎坚果
             </block>
         </view>
         <view class="cu-bar bg-white flex ">
             <view class="action margin-0 flex-sub solid-left" bindtap="hideModal">取消</view>
             <view class="flex-sub"></view>
             <view class="action margin-0 flex-sub text-green " bindtap="toPay">
-                <text class="cuIcon-moneybag"></text>微信支付
+                <text class="cuIcon-moneybag"></text>确认支付
             </view>
         </view>
     </view>

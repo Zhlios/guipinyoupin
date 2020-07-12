@@ -1,0 +1,81 @@
+.goods-message {
+    width: 90%;
+    padding-bottom: 20rpx;
+    background-color: #ffffff;
+    border-radius: 30rpx;
+    margin: 0 auto;
+    position: relative;
+}
+
+.user-img {
+    position: absolute;
+    left: calc(50% - 80rpx);
+    top: -80rpx;
+    display: block;
+    margin-right: 30rpx;
+    width: 160rpx;
+    height: 160rpx;
+    border-radius: 50%;
+    border: 5rpx solid #fff;
+    overflow: hidden;
+}
+
+.user-name {
+    padding-top: 110rpx;
+    text-align: center;
+}
+
+.message {
+    text-align: center;
+    margin-top: 20rpx;
+}
+
+.goods-message-detail {
+    width: 85%;
+    height: 140rpx;
+    border-radius: 30rpx;
+    background-color: #dddddd;
+    padding: 20rpx;
+    display: flex;
+    margin: 0 auto;
+    margin-top: 20rpx;
+}
+
+.goods-img {
+    width: 150rpx;
+    height: 100%;
+}
+
+.price-name {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    padding-left: 20rpx;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.bargain-price-message {
+    text-align: center;
+    padding: 20rpx;
+    color:#ffffff;
+    font-size: 28rpx;
+}
+
+.share-button {
+    height: 80rpx;
+    width: 70%;
+    margin: 0 auto;
+    margin-top: 100rpx;
+    background: #ffe00d;
+    text-align: center;
+    line-height: 80rpx;
+    border-radius: 20rpx;
+    letter-spacing: 3rpx;
+    font-size: 28rpx;
+    border: none;
+    color: #ffffff;
+}
+button::after {
+    border: none;
+}

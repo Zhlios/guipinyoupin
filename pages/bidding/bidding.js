@@ -54,15 +54,16 @@ Page({
     AUTH.httpGet('user/PassTicketList', {},)
     .then((result) => {
       result.rows.map(e=>{
-        e.endtime = TOOL.changeDateFormatNY(e.endtime)
-        e.starttime = TOOL.changeDateFormatNY(e.starttime)
+        e.endtime = TOOL.changeDateFormat(e.endtime)
+        e.starttime = TOOL.changeDateFormat(e.starttime)
       })
       that.setData({
         bidList:result.rows,
       })
       console.log(result,'result');
-    })
-    .catch((err) => {
+      wx.stopPullDownRefresh();
+    }).catch((err) => {
+      wx.stopPullDownRefresh();
     })
   },
   clickBiding: function(e) {

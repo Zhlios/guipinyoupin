@@ -1,2 +1,11 @@
-<!--pages/mybid/index.wxml-->
-<text>pages/mybid/index.wxml</text>
+<view>
+  <view wx:for="{{list}}" wx:key="recordId" class="mybid-cell">
+    <view>
+      <view class="mybid-cell-title">{{item.name}}</view>
+      <view class="mybid-cell-msg">时间:{{item.starttime}}~{{item.endtime}}</view>
+      <view class="mybid-cell-msg">数目:{{item.passticketCnt}}张</view>
+      <view class="mybid-cell-msg">状态:{{item.status == 1 ? "正常":"已取消"}}</view>
+      <view bindtap="clickCancel" data-id="{{item.recordId}}" wx:if="{{item.isCancellable}}" class="mybid-cell-cancel">取消</view>
+    </view>
+  </view>
+</view>

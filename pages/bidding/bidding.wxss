@@ -10,7 +10,7 @@
 .bid-cell .bid-cell-left {
   display: flex;
   flex-direction: column;
-  width: 70%;
+  width: 80%;
 }
 .bid-cell-left-title {
   line-height: 50rpx;

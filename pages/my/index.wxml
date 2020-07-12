@@ -24,7 +24,7 @@
                 <view class="currency-name">积分</view>
                 <view class="currency-num">{{score}}</view>
             </navigator>
-            <navigator url="/pages/mybid/index" class="currency-item">
+            <navigator url="/pages/score/index?type=2" class="currency-item">
                 <view class="currency-name">通证票</view>
                 <view class="currency-num">{{money}}</view>
             </navigator>
@@ -109,6 +109,12 @@
             <navigator class="content" url="/pages/coupons/index" hover-class="none">
                 <text class="cuIcon-ticket text-orange"></text>
                 <text class="text-grey">优惠券</text>
+            </navigator>
+        </view>
+                <view class="cu-item arrow">
+            <navigator class="content" url="/pages/mybid/index" hover-class="none">
+                <text class="cuIcon-ticket text-orange"></text>
+                <text class="text-grey">我的竞标</text>
             </navigator>
         </view>
     </view>

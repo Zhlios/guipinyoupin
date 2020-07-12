@@ -34,10 +34,11 @@ Page({
         showcommission: true,  //是否需要展示牛牛豆购买
         wechatPayContent: {},
     },
+    double: true,           //TODO 防止跳转到订单列表后报错 待优化
     onShow() {
         AUTH.checkHasLogined().then(isLogined => {
             if (isLogined) {
-                this.doneShow();
+                this.double && this.doneShow();
             } else {
                 this.setData({
                     wxlogin: isLogined
@@ -221,7 +222,6 @@ Page({
 
                 })
         }
-        console.log("?")
     },
     toPay() {
         const data = this.data.wechatPayContent;
@@ -240,6 +240,7 @@ Page({
             paySign: data.PaySign,
         }
         // 发起微信支付
+        this.double = false;
         wxpay.wxpay(json, "/pages/order-list/index?type=1");
     },
     hideModal() {

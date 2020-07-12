@@ -46,10 +46,6 @@ Page({
         }
         this.data.goodsId = e.id
         this.data.kjJoinUid = e.kjJoinUid
-        this.setData({
-            goodsDetailSkuShowType: CONFIG.goodsDetailSkuShowType,
-            curuid: wx.getStorageSync('uid')
-        })
         this.getGoodDetail(e.id);
     },
 

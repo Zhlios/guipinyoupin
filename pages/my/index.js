@@ -68,6 +68,28 @@ Page({
             url: "/pages/sign/index"
         })
     },
+    loginOut() {
+        let _this = this;
+        wx.showModal({
+            title: '提示',
+            content: '确认退户当前用户?',
+            cancelText: '取消',
+            confirmText: '退出',
+            success(res) {
+                if (res.confirm) {
+                    AUTH.httpPost('outapi/LoginOut')
+                        .then((result) => {
+                            wx.showToast({
+                                title: '注销用户成功', success: () => {
+                                    wx.switchTab({url: "/pages/index/index"})
+                                }
+                            })
+                            AUTH.loginOut();
+                        })
+                }
+            }
+        })
+    },
     navigateToPage(e) {
         wx.navigateTo({
             url: e.currentTarget.dataset.url

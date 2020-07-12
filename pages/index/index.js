@@ -194,8 +194,8 @@ Page({
     },
     onShareAppMessage: function () {
         return {
-            title: '"' + wx.getStorageSync('mallName') + '" ' + CONFIG.shareProfile,
-            path: '/pages/index/index?inviter_id=' + wx.getStorageSync('uid')
+            title: CONFIG.shareProfile,
+            path: '/pages/index/index'
         }
     },
 })

@@ -186,5 +186,19 @@
     <!--    <view class="padding text-center text-sm text-gray">-->
     <!--        fire-shop-lite {{version}}@染火科技-->
     <!--    </view>-->
+    <view wx:if="{{userInfo}}" class="cu-bar" style="width: 100%;">
+        <view class="action">
+            <text class="cuIcon-title text-green"></text>
+            用户
+        </view>
+    </view>
+    <view wx:if="{{userInfo}}" class="cu-list menu shadow bg-white sm-border" style="width: 690rpx;">
+        <view class="cu-item arrow">
+            <view class="content" bindtap="loginOut" hover-class="none">
+                <text class="cuIcon-move text-orange"></text>
+                <text class="text-grey">退出登录</text>
+            </view>
+        </view>
+    </view>
 </view>
 <auth is-hidden="{{wxlogin}}" bind:afterAuth="afterAuth"></auth>

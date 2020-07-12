@@ -35,7 +35,7 @@ async function checkHasLogined() {
 
 function loginOut() {
     wx.removeStorageSync('token')
-    wx.removeStorageSync('uid')
+    wx.removeStorageSync('userImg')
 }
 
 

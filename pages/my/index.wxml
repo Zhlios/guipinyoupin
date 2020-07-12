@@ -178,11 +178,11 @@
         <!--            </view>-->
         <!--            <text>收藏记录</text>-->
         <!--        </view>-->
-        <view class="cu-item" data-url="/pages/my-pintuan/index" bindtap="navigateToPage">
-            <view class="cuIcon-goods text-mauve text-xxl">
-            </view>
-            <text>我的拼团</text>
-        </view>
+<!--        <view class="cu-item" data-url="/pages/my-pintuan/index" bindtap="navigateToPage">-->
+<!--            <view class="cuIcon-goods text-mauve text-xxl">-->
+<!--            </view>-->
+<!--            <text>我的拼团</text>-->
+<!--        </view>-->
         <view class="cu-item" data-url="/pages/my-kanjia/index" bindtap="navigateToPage">
             <view class="cuIcon-tag text-orange text-xxl">
             </view>

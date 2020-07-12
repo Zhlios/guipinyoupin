@@ -1,25 +1,95 @@
 <view class="container">
-	<view class="tixian-bg">
-		<image class="tixian-img" src="../../images/withdraw.png"></image>
-		<view class="tixian-name">
-			我的余额
-			<text class="money">¥{{balance}}</text>
-			<text class="tips">付款时优先选择余额进行支付</text>
-		</view>
-	</view>
-	<form bindsubmit="bindSave">
-		<view class="form-box">
-			<view class="row-wrap">
-				<view class="label">提现金额</view>
-				<view class="label-right">
-					<text class="lable-amount">¥</text>
-					<input name="amount" class="input" type="number" />
-				</view>
-				<view class="lable-text">提现金额100元起，1～5个工作日到账</view>
-			</view>
-		</view>
-		<button class="save-btn" formType="submit">确认提现</button>
-		<button type="default" class="cancel-btn" bindtap="bindCancel">取消</button>
-	</form>
+    <view class="tixian-bg">
+        <image class="tixian-img" src="../../images/withdraw.png"></image>
+        <view class="tixian-name">
+            我的虎坚果
+            <text class="money">¥{{accountInfo.LessMoney}}</text>
+        </view>
+    </view>
+    <form bindsubmit="bindSave">
+        <view>
+            <view class="row-wrap">
+                <view class="label">提现金额：</view>
+                <view class="label-right">
+                    <text class="lable-amount">¥</text>
+                    <input name="amount" value="{{cashModel.cashNumber}}"
+                           bindinput="changeCashNumber" class="input" type="number"/>
+                </view>
+                <view class="lable-text">扣税说明:当月提现累计超过{{TaxStarting}}后，超出部分按{{TaxPercent}}%扣税。</view>
+            </view>
+            <view class="row-wrap">
+                <view class="label">提现类型：</view>
+                <view class="label-right" style="height: auto">
+                    <picker bindchange="bindChooseItemChange" value="{{index}}" range="{{chooseItem}}" range-key="title"
+                            style="z-index:1500;">
+                        <view class="picker">
+                            {{selectItem ? selectItem.title: "请选择提现类型" }}
+                        </view>
+                    </picker>
+                </view>
+            </view>
+            <view class="row-wrap">
+                <view class="label">开户行：</view>
+                <view class="label-right">
+                    <picker bindchange="bindPickerChange" value="{{index}}" range="{{BankName}}"
+                            style="z-index:1500;">
+                        <view class="picker">
+                            {{cashModel.bankName.length ? cashModel.bankName: "请选择开户银行" }}
+                        </view>
+                    </picker>
+                </view>
+            </view>
+            <view class="row-wrap">
+                <view class="label">开户人姓名：</view>
+                <view class="label-right">
+                    <input cursor-spacing="30rpx" maxlength="10" placeholder="请输入开户人姓名"
+                           value="{{cashModel.bankUserName}}" class="menu-input" bindinput="changeBankUserName"
+                           type="text"></input>
+                </view>
+            </view>
+            <view class="row-wrap">
+                <view class="label">银行卡号：</view>
+                <view class="label-right">
+                    <input maxlength="19" placeholder="请输入银行卡号"
+                           value="{{cashModel.bankNumber}}" class="input" bindinput="changeBankNumber"
+                           type="number"></input>
+                </view>
+            </view>
+            <view class="row-wrap">
+                <view class="label">开户行地址：</view>
+                <view class="label-right">
+                    <input maxlength="25" placeholder="请输入开户行地址"
+                           value="{{cashModel.bankAddress}}" class="input" bindinput="changeBankAddress"
+                           type="text"></input>
+                </view>
+            </view>
+            <view class="row-wrap">
+                <view class="label">手机号码：</view>
+                <view class="label-right">
+                    <input disabled maxlength="15" placeholder="手机号码"
+                           value="{{cashModel.mobile}}" class="input" bindinput="changeMobile"
+                           type="number"></input>
+                </view>
+            </view>
+            <view class="row-wrap">
+                <view class="label">短信验证码：</view>
+                <view class="label-right">
+                    <input maxlength="15" placeholder="请输入验证码" style="width: 80%" value="{{cashModel.smscode}}"
+                           class="input" bindinput="changeSmscode" type="number"></input>
+                    <view bindtap="getCode" class="{{codeMessage=='验证码'? 'codeBtnNomarl':'codeBtnSelect'}}">
+                        {{codeMessage}}
+                    </view>
+                </view>
+            </view>
+            <view class="row-wrap">
+                <view class="label">备注：</view>
+                <view class="label-right" style="height: auto">
+                    <textarea placeholder="请输入备注" value="{{cashModel.remark}}" class="input"
+                              bindinput="changeRemark"></textarea>
+                </view>
+            </view>
+        </view>
+    </form>
+    <button class="save-btn" bindtap="submitCash">确认提现</button>
 </view>
 <auth is-hidden="{{wxlogin}}" bind:afterAuth="afterAuth"></auth>

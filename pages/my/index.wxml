@@ -7,11 +7,11 @@
                     <open-data class="userinfo-nickname" type="userNickName"></open-data>
                 </view>
                 <view class="login-btn" wx:else bindtap="showAuth">请登录</view>
-                <view wx:if="{{userInfo && score_sign_continuous == 0}}" class="userinfo-score-day" bindtap="score">
+                <view wx:if="{{!isSignIn}}" class="userinfo-score-day" bindtap="score">
                     今日未签到
                 </view>
-                <view wx:if="{{userInfo && score_sign_continuous > 0}}" class="userinfo-score-day" bindtap="score">
-                    已连续签到{{score_sign_continuous}}天
+                <view wx:if="{{isSignIn}}" class="userinfo-score-day" bindtap="score">
+                    今日已签到
                 </view>
             </view>
         </view>
@@ -111,7 +111,7 @@
                 <text class="text-grey">优惠券</text>
             </navigator>
         </view>
-                <view class="cu-item arrow">
+        <view class="cu-item arrow">
             <navigator class="content" url="/pages/mybid/index" hover-class="none">
                 <text class="cuIcon-ticket text-orange"></text>
                 <text class="text-grey">我的竞标</text>
@@ -178,11 +178,11 @@
         <!--            </view>-->
         <!--            <text>收藏记录</text>-->
         <!--        </view>-->
-<!--        <view class="cu-item" data-url="/pages/my-pintuan/index" bindtap="navigateToPage">-->
-<!--            <view class="cuIcon-goods text-mauve text-xxl">-->
-<!--            </view>-->
-<!--            <text>我的拼团</text>-->
-<!--        </view>-->
+        <!--        <view class="cu-item" data-url="/pages/my-pintuan/index" bindtap="navigateToPage">-->
+        <!--            <view class="cuIcon-goods text-mauve text-xxl">-->
+        <!--            </view>-->
+        <!--            <text>我的拼团</text>-->
+        <!--        </view>-->
         <view class="cu-item" data-url="/pages/my-kanjia/index" bindtap="navigateToPage">
             <view class="cuIcon-tag text-orange text-xxl">
             </view>

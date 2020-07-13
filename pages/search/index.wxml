@@ -33,7 +33,7 @@
 		<view class="goods-title">{{item.Name}}</view>
 		<view style='display:flex;'>
 			<view class="goods-price">Ұ{{item.ShopPrice}}</view>
-			<view class="goods-price-naver">已售{{item.numberOrders}}</view>
+			<view class="goods-price-naver">已售{{item.SaleCount}}</view>
 		</view>
 	</navigator>
 	<view hidden="{{noneHidden}}" class="goods-none">

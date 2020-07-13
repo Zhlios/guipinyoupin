@@ -36,6 +36,7 @@
                     共 {{item.OrderProductInfo.length}} 件商品 合计：
                     <text class="p">¥ {{item.orderamount}}</text>
                     <text class="p" wx:if="{{item.score > 0}}">¥ {{item.orderamount}} + {{item.score}} 积分</text>
+                    (PV:{{item.pvamount}})
                 </view>
                 <view class="goods-info">
                     <view class="goods-des">

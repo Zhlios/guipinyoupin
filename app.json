@@ -30,6 +30,7 @@
     "pages/topic-list/index",
     "pages/my-kanjia/index",
     "pages/my-pintuan/index",
+    "pages/pintuan-detail/spell",
     "pages/bidding/bidding",
     "pages/integral/list",
     "pages/kanjia/kanjia",

@@ -14,7 +14,7 @@ Page({
                     _this.setData({wxlogin: false})
                     return
                 }
-                _this.getUserInfo();
+                _this.userID = wx.getStorageSync('Uid')
             })
     },
     userID: 0,
@@ -38,6 +38,7 @@ Page({
         this.setData({
             wxlogin: true,
         });
+        this.userID = wx.getStorageSync('Uid')
 
     },
     getUserInfo() {
@@ -54,6 +55,7 @@ Page({
      */
     onShareAppMessage: function () {
         // 构建页面参数
+        console.log(this.userID)
         let _this = this;
         return {
             title: "予弄惠，优惠多多，快来购物吧",

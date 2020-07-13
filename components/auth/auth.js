@@ -75,8 +75,11 @@ Component({
                 session_key: that.openIdContent.session_key,
                 nickName: userInfo.nickName,
             }
+            console.log(params,'params');
             authUtils.httpPost("outapi/LoginByOpenId", params)
                 .then((res) => {
+                    console.log(res,'res');
+                    wx.setStorageSync("Uid", res.content.Uid);
                     wx.setStorageSync("token", res.content.UserToken);
                     wx.setStorageSync("userImg", userInfo.avatarUrl);
                     wx.removeStorageSync("reid");

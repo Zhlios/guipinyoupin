@@ -1,8 +1,8 @@
 <!--pages/integral/list.wxml-->
 <view style="background:white">
     <view class="goods-list flex justify-between padding-top padding-lr flex-wrap">
-        <navigator url="/pages/goods-details/index?id={{item.Pid}}" class="list-item" wx:for="{{list}}"
-                   wx:key="id">
+        <navigator url="/pages/integral/index?id={{item.recordId}}" class="list-item" wx:for="{{list}}"
+                   wx:key="recordId">
             <image src="{{imagePath+img420+item.showimg}}" mode="aspectFill"></image>
             <view class="goods-list-title">{{item.name}}</view>
             <view class="goods-list-text">{{item.pName}}</view>

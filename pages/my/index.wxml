@@ -83,7 +83,7 @@
                     {{noplay}}
                 </view>
             </view>
-            <text>分享</text>
+            <text>待分享</text>
         </view>
     </view>
     <view class="cu-bar" style="width: 100%;">
@@ -140,7 +140,7 @@
         <view class="cu-item arrow">
             <navigator class="content" url="/pages/share/share" hover-class="none">
                 <text class="cuIcon-share text-blue"></text>
-                <text class="text-grey">分享</text>
+                <text class="text-grey">推荐好友</text>
             </navigator>
         </view>
         <view class="cu-item arrow">

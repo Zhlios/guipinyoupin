@@ -10,6 +10,7 @@ Page({
         wxlogin: true, //是否隐藏登录弹窗
         version: null,
         noticeList: [],
+        isSignIn: false,
     },
     onLoad: function (e) {
         console.log(e);
@@ -23,6 +24,7 @@ Page({
             if (isLogined) {
                 this.getUserApiInfo();
                 this.getUserAmount()
+                this.isSignIn();
                 return
             }
             this.setData({userInfo: null, wxlogin: false})
@@ -33,6 +35,13 @@ Page({
         this.setData({
             wxlogin: false
         })
+    },
+    isSignIn() {
+        AUTH.httpGet("user/GetSignInTodayFlag")
+            .then((result) => {
+                this.setData({isSignIn:result.content});
+            })
+            .catch()
     },
     /*
      *授权登录成功后回调

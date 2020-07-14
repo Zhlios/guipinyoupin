@@ -73,7 +73,24 @@ function changeDateFormatNY(cellval) {
     return date.getFullYear() + "-" + month + "-" + currentDate;
 
 }
-
+/**
+ * 时分秒倒计时
+ */
+function countTime(cellval, i) {
+    let date = new Date(parseInt(cellval.replace("/Date(", "").replace(")/", ""), 10)) - 1000 * i;
+    //定义变量 d,h,m,s保存倒计时的时间
+    let d, h, m, s;
+    if (date >= 0) {
+        // d = Math.floor(date / 1000 / 60 / 60 / 24);
+        h = Math.floor(date / 1000 / 60 / 60 % 24);
+        m = Math.floor(date / 1000 / 60 % 60);
+        s = Math.floor(date / 1000 % 60);
+        h = h < 10 ? ("0" + h) : h;
+        m = m < 10 ? ("0" + m) : m;
+        s = s < 10 ? ("0" + s) : s;
+    }
+    return `${h}:${m}:${s}`;
+}
 
 
 module.exports = {
@@ -82,4 +99,5 @@ module.exports = {
     urlEncode: urlEncode,
     changeDateFormat,
     changeDateFormatNY,
+    countTime,
 }

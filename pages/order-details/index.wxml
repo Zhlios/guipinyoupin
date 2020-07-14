@@ -131,7 +131,7 @@
         </view>
         <view class="row-box">
             <view class="row-label">应付总额</view>
-            <view class="right-text">¥ {{OrderAllInfo.orderamount}}</view>
+            <view class="right-text text-red">¥ {{OrderAllInfo.orderamount}} <text class="text-black text-sm">(PV:{{OrderAllInfo.pvamount}})</text></view>
         </view>
     </view>
 </view>

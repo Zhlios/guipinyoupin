@@ -1,0 +1,33 @@
+<view style="height: {{pageHeight}}px;">
+    <view>
+        <view class="goods-message-detail padding-top">
+            <image mode="aspectFill"
+                   src="{{imagePath+img180+spellGoods.showImg}}"
+                   class="goods-img"/>
+            <view class="price-name">
+                <view class="text-df text-black">{{spellGoods.name}}</view>
+                <view class="text-red text-xl">￥{{spellGoods.price}} (<text class="text-sm text-black">pv:{{spellGoods.pvalue}}</text>)
+                </view>
+            </view>
+        </view>
+        <view class="margin-top-xs bg-white" style="padding-bottom: 20rpx">
+            <view class="spell-list">
+                <view wx:for="{{spellUserList}}" class="user-img"
+                      style="background-image: url('{{userImg+item.img}}');border-color: {{item.img?'transparent':'#d7d7d7'}}">
+                    {{item.img?"":"?"}}
+                </view>
+            </view>
+            <view class="text-black text-lg  margin-top-sm padding-right-sm padding-left-sm">
+                仅剩 <text class="text-lg text-red">{{spellGoods.cntTotal - spellGoods.cntBuy}}</text> 个名额，<text
+                    class="text-lg text-bold text-black">{{countTime}}</text>后结束
+            </view>
+            <button wx:if="{{isSelf}}" disabled="{{spellGoods.status}}" open-type="share"
+                    class="share-button text-df text-orange">{{spellMessage?spellMessage:'邀请好友一起拼单'}}
+            </button>
+            <button wx:else disabled="{{spellGoods.status}}" bindtap="spellBuy"
+                    class="share-button text-df text-orange">
+                {{spellMessage?spellMessage:'去拼单'}}
+            </button>
+        </view>
+    </view>
+</view>

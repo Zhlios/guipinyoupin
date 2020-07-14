@@ -16,7 +16,7 @@
 			</view>
 		</view>
 		<block>
-			<view class="goods-price">¥ {{goodsDetail.ShopPrice}}</view>
+			<view class="goods-price">¥ {{goodsDetail.ShopPrice}} <text class="text-black text-df">(PV:{{goodsDetail.Pvalue}})</text></view>
 			<view class="goods-originalPrice">¥ {{goodsDetail.MarketPrice}}</view>
 			<view class="piangjia">
 				已售 {{goodsDetail.SaleCount}}

@@ -203,7 +203,7 @@ Page({
         //待发货
         if (dataType == 2) {
             query = {
-                shipState: 1,
+                shipState: 0,
                 orderState: 1,
                 PageSize: this.data.PageSize,
                 PageIndex: this.data.PageIndex,
@@ -238,6 +238,15 @@ Page({
             .catch((err) => {
 
             })
+    },
+    /**
+     *    去分享
+     */
+    toShare: function (e) {
+        let id = e.currentTarget.dataset.id;
+        wx.navigateTo({
+            url: '/pages/pintuan-detail/spell?id=' + id,
+        })
     },
     onUnload: function () {
         // 生命周期函数--监听页面卸载

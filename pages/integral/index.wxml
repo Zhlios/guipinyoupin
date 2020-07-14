@@ -16,92 +16,13 @@
 			</view>
 		</view>
 		<block>
-			<view class="goods-price">¥ {{PointsProductsModel.gprice}} + {{PointsProductsModel.points}}</view>
+			<view class="goods-price">{{PointsProductsModel.points}}积分 + ¥ {{PointsProductsModel.gprice}}</view>
 			<view class="piangjia">
 				已售 {{goodsDetail.SaleCount}}
 			</view>
 		</block>
 	</view>
-	<block wx:if="{{bargainProductEditResModel}}">
-		<view class="bg-gray" style="width: 100%;padding: 20rpx 0;">
-<!--			<countdown date="{{curGoodsKanjia.dateEnd}}"></countdown>-->
-			<view class="pt-box bg-gradual-red shadow">
-				<view class="goods-ptuan">
-					底价 ¥
-					<text>{{bargainProductEditResModel.cprice}}</text>
-				</view>
-				<view class="goods-ptuan-info" style="line-height: 100rpx">
-					<text class="txb">原价 ¥ {{goodsDetail.ShopPrice}}</text>
-				</view>
-				<view class="goods-right">
-					<button class="cu-btn bg-cyan round" bindtap="getBargainId">发起砍价</button>
-				</view>
-			</view>
-		</view>
-	</block>
-	<view class="padding-lr padding-bottom flex justify-center" wx:if="{{curGoodsKanjia && curKanjiaprogress}}" style="width: 100%;">
-	    <button class="cu-btn bg-red round" bindtap="tobuy">用当前价购买</button>
-	  </view>
-	<block wx:if="{{spellproductcfgInfo}}">
-		<view class="bg-gray" style="width: 100%;padding: 20rpx 0;">
-<!--			<countdown date="{{pingtuanSet.dateEnd}}"></countdown>-->
-			<view class="pt-box bg-gradual-red shadow">
-				<view class="goods-ptuan">
-					拼团价 ¥
-					<text>{{spellproductcfgInfo.price}}</text>
-				</view>
-				<view class="goods-ptuan-info">
-					<text class="txa">{{spellproductcfgInfo.cntTotal}}人开团</text>
-					<text class="txb">原价 ¥ {{goodsDetail.ShopPrice}}</text>
-				</view>
-				<view class="goods-right">
-					<button class="cu-btn bg-cyan round" open-type="share" wx:if="{{isInPintuan}}">邀请好友</button>
-					<button class="cu-btn bg-cyan round" bindtap="toPintuan" data-id="{{spellproductcfgInfo.recordId}}" data-type="0" wx:else>一键开团</button>
-				</view>
-			</view>
-		</view>
-	</block>
-<!--	<view class="pt-rule-box bg-gray" wx:if="{{spellproductListInfo}}">-->
-<!--		<view class="flex bg-brown light padding">-->
-<!--			<view class="item flex-sub flex flex-direction align-center padding-lr-xs">-->
-<!--				<view class="icon">-->
-<!--					<image src="../../images/pingtuan/1.png"></image>-->
-<!--				</view>-->
-<!--				<text class="text-xs text-center">开团或参与网友发起的拼团</text>-->
-<!--			</view>-->
-<!--			<view class="item flex-sub flex flex-direction align-center padding-lr-xs">-->
-<!--				<view class="icon">-->
-<!--					<image src="../../images/pingtuan/2.png"></image>-->
-<!--				</view>-->
-<!--				<text class="text-xs text-center">邀请好友一起参与拼团</text>-->
-<!--			</view>-->
-<!--			<view class="item flex-sub flex flex-direction align-center padding-lr-xs">-->
-<!--				<view class="icon">-->
-<!--					<image src="../../images/pingtuan/3.png"></image>-->
-<!--				</view>-->
-<!--				<text class="text-xs text-center">参与人数达到{{pingtuanSet.numberPersion}}人拼团成功</text>-->
-<!--			</view>-->
-<!--			<view class="item flex-sub flex flex-direction align-center padding-lr-xs">-->
-<!--				<view class="icon">-->
-<!--					<image src="../../images/pingtuan/4.png"></image>-->
-<!--				</view>-->
-<!--				<text class="text-xs text-center">{{pingtuanSet.timeoutHours}}小时未成团自动退款</text>-->
-<!--			</view>-->
-<!--		</view>-->
-<!--	</view>-->
-	<view class="pt-user-box padding" wx:if="{{spellproductListInfo}}">
-		<view class="pt-title">以下网友团可参与，组团成功立即发货</view>
-		<view class="pt-list flex align-center" wx:for="{{spellproductListInfo}}" wx:key="{{index}}">
-			<image src="{{item.apiExtUser.avatarUrl}}" />
-			<view class="pt-user-infox">
-				<view class="pt-username text-cut">
-					<text>还差{{item.cntTotal - item.cntBuy}}人成团</text>
-				</view>
-			</view>
-			<button class="cu-btn round sm pt-btn bg-red" data-type="1"  data-status="{{item.status}}" bindtap="toPintuan" data-id="{{item.sId}}"
-			 disabled="{{item.status!==0}}">立即参团</button>
-		</view>
-	</view>
+	
 	<view class="bg-gray padding-top-xs" wx:if="{{hasMoreSelect}}" style="width: 100%;">
 		<view class="row-arrow" bindtap="bindGuiGeTap">
 			{{selectSize}}
@@ -153,54 +74,10 @@
 <!--				<view class="shop-num">12</view>-->
 			</view>
 			<view class="box-title">
-				<view class="box-shop-cart npx bg-orange" bindtap="tobuy">立即购买</view>
-			</view>
-			<view class="box-title buy-now">
-				<view class="box-now-buy npx" bindtap="toAddShopCar">加入购物车</view>
+				<view class="box-shop-cart npx bg-orange" bindtap="buyNow">立即购买</view>
 			</view>
 		</view>
 	</block>
-	<view class="show-popup" hidden="{{hideShopPopup}}">
-		<view class="popup-mask" bindtap="closePopupTap"></view>
-		<view class="popup-contents">
-			<view class="pop-goods-info">
-				<view class="pop-img-box">
-					<image src="{{imagePath+img180+goodsDetail.ShowImg}}" class="goods-thumbnail" />
-				</view>
-				<view class="pop-goods-des">
-					<view class="pop-goods-title">{{goodsDetail.Name}}</view>
-					<view class="pop-goods-price">¥ {{goodsDetail.ShopPrice}}</view>
-
-				</view>
-				<view class="pop-goods-close" bindtap="closePopupTap"></view>
-			</view>
-			<view class="size-label-box">
-				<block wx:for="{{goodsDetail.SKUListInfo}}" wx:for-item="property" wx:for-index="idx" wx:key="id">
-					<view class="label">{{property.ItemAttrInfo.Key.AttrName}}</view>
-					<view class="label-item-box">
-						<view class="label-item {{item.Checked ? 'active' : '' }}" wx:for="{{property.ItemAttrInfo.Value}}" wx:key="id"
-						 bindtap="labelItemTap" data-propertyindex="{{idx}}" data-propertyid="{{property.AttrId}}" data-propertyname="{{property.ItemAttrInfo.Key.AttrName}}"
-						 data-propertychildindex="{{index}}" data-propertychildid="{{item.Pid}}" data-propertychildname="{{item.AttrValue}}">
-							{{item.AttrValue}}
-						</view>
-					</view>
-				</block>
-			</view>
-			<view class="buy-num-box">
-				<view class="num-label">购买数量</view>
-				<view class="num-box">
-					<view class="num-jian {{buyNumber == buyNumMin ? 'hui': ''}}" bindtap="numJianTap">-</view>
-					<view class="num-input">
-						<input type="number" value="{{buyNumber}}" disabled />
-					</view>
-					<view class="num-jia {{buyNumber== buyNumMax ? 'hui': ''}}" bindtap="numJiaTap">+</view>
-				</view>
-			</view>
-			<view class="popup-join-btn" wx:if="{{shopType =='addShopCar'}}" bindtap="addShopCar">加入购物车</view>
-			<view class="popup-join-btn" wx:if="{{shopType =='tobuy'}}" bindtap="buyNow"> 立即购买</view>
-			<view class="popup-join-btn" wx:if="{{shopType =='toPintuan'}}" bindtap="buyNow" data-shopType="{{shopType}}"> 立即开团</view>
-		</view>
-	</view>
 </view>
 <share show="{{showShare}}" goods-info="{{goodsDetail.basicInfo}}"></share>
 <auth is-hidden="{{wxlogin}}" bind:afterAuth="afterAuth"></auth>

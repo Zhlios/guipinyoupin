@@ -56,6 +56,24 @@ Page({
     async doneShow() {
         //立即购买下单
         const options = this.data.options;
+        // 积分商城购买
+        if (options.orderType === "integral") {
+
+            const {pid, buyNumber} = options;
+            console.log(options);
+            const result = await AUTH.httpPost("order/CashPointSubmitOrder", {recordId:pid, cCount:buyNumber});
+            console.log(result,'jifen');
+            this.setData({
+                ...result.content,
+                realMoney:result.content.TotalMoney,
+                integral: result.content.TotalPoints,
+            }, () => {
+    
+            });
+            return;
+        }
+
+        // 立即购买
         if (options.orderType === "buyNow") {
             const {pid, buyNumber} = options;
             const result = await AUTH.httpPost("order/BuyNowSubmitOrder", {
@@ -64,6 +82,7 @@ Page({
             });
             this.setData({
                 ...result.content,
+                
             }, () => {
                 this.getRealMonery();
             });
@@ -110,6 +129,9 @@ Page({
     },
     onLoad(e) {
         this.data.options = e;
+        this.setData({
+            options: e,
+        })
     },
 
     getDistrictId: function (obj, aaa) {
@@ -142,6 +164,27 @@ Page({
             })
             return;
         }
+        if (options.orderType === "integral") {
+            const param = {
+                recordId: options.pid,
+                UseMoney: this.data.realMoney,
+                SaId: this.data.RegionOrderInfo.said,
+                cCount: options.buyNumber,
+                BuyerRemark: remark,
+            }
+            AUTH.httpPost('order/CashPointCreateOrder', param)
+            .then((result) => {
+                that.setData({
+                    showModal: true,
+                    wechatPayContent: result.content
+                });
+            })
+            .catch((err) => {
+                console.log(err,'jifenerr')
+            });
+            return;
+        }
+
         if (options.orderType === "toPintuan") {
             const param = {
                 ...postData,
@@ -306,15 +349,23 @@ Page({
     getRealMonery: function () {
         // 实际支付金额
         // 实际支付金额= 总金额 - 满减金额 - 优惠券  - 积分兑换
-        let coupop = 0;
-        if (this.data.CouponMM.length) {
-            coupop = this.data.CouponMM[0].Money;
+        const options = this.data.options;
+        // 积分商城购买
+        if (options.orderType === "integral") {
+        
+        }else {
+            let coupop = 0;
+            if (this.data.CouponMM.length) {
+                coupop = this.data.CouponMM[0].Money;
+            }
+            let pointMoney = this.data.integral / this.data.PointsInfo.MoneyToPoints;
+            let realMonery = (this.data.TotalMoney - this.data.CutMoney - coupop - pointMoney - this.data.commission).toFixed(2);
+            this.setData({
+                realMoney: realMonery,
+            });
         }
-        let pointMoney = this.data.integral / this.data.PointsInfo.MoneyToPoints;
-        let realMonery = (this.data.TotalMoney - this.data.CutMoney - coupop - pointMoney - this.data.commission).toFixed(2);
-        this.setData({
-            realMoney: realMonery,
-        });
+
+      
 
     },
     integral: 0,

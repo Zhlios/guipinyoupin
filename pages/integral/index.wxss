@@ -390,7 +390,7 @@ swiper-item image {
 }
 
 .box-title {
-	width: 36%;
+	width: 72%;
 	font-size: 30rpx;
 	line-height: 44rpx;
 	text-align: center;

@@ -6,6 +6,9 @@
             <text class="money">¥{{accountInfo.LessMoney}}</text>
         </view>
     </view>
+    <view class="lable-text">
+        扣税说明:当月提现累计超过{{TaxStarting}}后，超出部分按{{TaxPercent}}%扣税。提现金额的{{DevelopmentFundPercentConfig}}%作为发基金
+    </view>
     <form bindsubmit="bindSave">
         <view>
             <view class="row-wrap">
@@ -15,7 +18,9 @@
                     <input name="amount" value="{{cashModel.cashNumber}}"
                            bindinput="changeCashNumber" class="input" type="number"/>
                 </view>
-                <view class="lable-text">扣税说明:当月提现累计超过{{TaxStarting}}后，超出部分按{{TaxPercent}}%扣税。</view>
+                <view class="label-text text-red" wx:if="{{deductTheTax || fazhanjijin}}">
+                    {{deductTheTax?'个人所得税：'+deductTheTax+'。':''}}{{fazhanjijin?'发展基金：'+fazhanjijin:''}}
+                </view>
             </view>
             <view class="row-wrap">
                 <view class="label">提现类型：</view>

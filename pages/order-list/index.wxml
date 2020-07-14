@@ -26,17 +26,25 @@
                         <view class="text-red">{{item.orderstate}}</view>
                     </view>
                 </view>
-                <scroll-view class="goods-img-container" scroll-x="true">
-                    <view class="img-box margin-right-sm" wx:for="{{item.OrderProductInfo}}" wx:for-item="goods"
+                <scroll-view class="goods-img-container" scroll-y="true">
+                    <view class="img-box" wx:for="{{item.OrderProductInfo}}" wx:for-item="goods"
                           wx:key="id">
                         <image src="{{imagePath+img220+goods.ShowImg}}" class="goods-img"></image>
+                        <view class="goods-info-detail">
+                            <text>{{goods.Name}}}</text>
+                            <view class="goods-info-price">
+                                <text>￥{{goods.ShopPrice}}</text>
+                                <text>x{{goods.BuyCount}}</text>
+                            </view>
+                        </view>
                     </view>
                 </scroll-view>
                 <view class="goods-price">
                     共 {{item.OrderProductInfo.length}} 件商品 合计：
-                    <text class="p">¥ {{item.orderamount}}</text>
-                    <text class="p" wx:if="{{item.score > 0}}">¥ {{item.orderamount}} + {{item.score}} 积分</text>
-                    (PV:{{item.pvamount}})
+                    <text class="p" wx:if="{{item.sId==0 || item.sId==4 || item.sId==5}}">¥{{item.surplusmoney}}</text>
+                    <text class="p" wx:else>¥{{item.orderamount}}</text>
+                    <text class="p" wx:if="{{item.score > 0}}">¥{{item.orderamount}} + {{item.score}} 积分</text>
+                    <text class="margin-left-sm">(PV:{{item.pvamount}})</text>
                 </view>
                 <view class="goods-info">
                     <view class="goods-des">
@@ -53,6 +61,7 @@
                     </view>
                     <view class="btn active" hidden="{{item.IsRefund !== 1&&item.IsRefund !== 2}}"
                           catchtap="refundApply"
+                          data-type="{{item.IsRefund}}"
                           data-id="{{item.oid}}">申请售后
                     </view>
                     <view class="btn active" hidden="{{!(item.sId&&item.SpellproductListInfo)}}"

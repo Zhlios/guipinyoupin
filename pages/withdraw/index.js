@@ -25,9 +25,11 @@ Page({
         deductTheTax: 0,  //利息
         TaxPercent: 0,  //扣税百分比
         CashMonthTotalMoney: 0,
+        DevelopmentFundPercentConfig: 0,//发展基金扣除比例
         MinMoney: 0,
         MaxMoney: 0,
         canCashInMaxMoney: 0,
+        fazhanjijin: 0,
         canCashInMinMoney: 0,
         MobileSmsCodeExpirationTime: 60, // 短信时间
         isNeedCash: false, // 是否需要转账
@@ -150,11 +152,11 @@ Page({
 
 
         let money = this.PointNum(e.detail.value);
-
+        let fazhanjijin = 0;
         if (money > this.data.canCashInMaxMoney) {
-
             money = this.data.canCashInMaxMoney;
         }
+        fazhanjijin = money * this.data.DevelopmentFundPercentConfig / 100;
         let deductTheTax = 0;
         if (this.data.accountInfo.CashMonthTotalMoney >= this.data.TaxStarting) {
             deductTheTax = money * (this.data.TaxPercent / 100);
@@ -165,10 +167,10 @@ Page({
                 deductTheTax = taxMoney * (this.data.TaxPercent / 100);
             }
         }
-        console.log('money', money)
         this.setData({
             cashModel: {...this.data.cashModel, cashNumber: money},
-            deductTheTax
+            deductTheTax,
+            fazhanjijin
         })
     },
     bindPickerChange: function (e) {
@@ -319,6 +321,7 @@ Page({
     },
     //提取
     submitCash: function (e) {
+        console.log(this.data.cashModel)
         if (!this.data.selectItem) {
             wx.showToast({
                 title: `请选择提现类型`,
@@ -446,10 +449,12 @@ Page({
                         bankNumber: '',
                         bankAddress: ''
                     },
-                    deductTheTax: 0
+                    deductTheTax: 0,
+                    fazhanjijin: 0
                 })
             }, () => {
                 _this.getMoney();
+                _this.clickToGetCashType();
             })
             .catch((err) => {
 

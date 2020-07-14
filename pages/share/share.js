@@ -58,7 +58,7 @@ Page({
         console.log(this.userID)
         let _this = this;
         return {
-            title: "予惠农，优惠多多，快来购物吧",
+            title: "予农惠，优惠多多，快来购物吧",
             path: "/pages/my/index?reid=" + _this.userID
         };
     },

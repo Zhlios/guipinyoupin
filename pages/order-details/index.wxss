@@ -269,7 +269,7 @@ page{
 .jiesuan-box .to-pay-btn{
     width:250rpx;
     text-align: center;
-    height: 100%;
+    height: 100rpx;
     line-height: 100rpx;
     background-color: #e64340;
     font-size:32rpx;
@@ -280,7 +280,8 @@ page{
 .jiesuan-box  .left-price{
     display: flex;
     width: 500rpx;
-    justify-content:flex-end;
+    margin-left: 50rpx;
+    justify-content:flex-start;
     line-height: 100rpx;
     padding: 0 30rpx 0 0;
     font-size:28rpx;

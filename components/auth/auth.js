@@ -69,7 +69,7 @@ Component({
                 openid: that.data.openId,
                 iv: e.detail.iv,
                 data: e.detail.encryptedData,
-                reid: that.data.reid,
+                reid: wx.getStorageSync('reid'),
                 oath_token: that.openIdContent.oath_token,
                 timestamp: that.openIdContent.timestamp,
                 session_key: that.openIdContent.session_key,

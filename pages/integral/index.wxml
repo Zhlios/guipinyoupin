@@ -16,8 +16,7 @@
 			</view>
 		</view>
 		<block>
-			<view class="goods-price">¥ {{goodsDetail.ShopPrice}}</view>
-			<view class="goods-originalPrice">¥ {{goodsDetail.MarketPrice}}</view>
+			<view class="goods-price">¥ {{PointsProductsModel.gprice}} + {{PointsProductsModel.points}}</view>
 			<view class="piangjia">
 				已售 {{goodsDetail.SaleCount}}
 			</view>

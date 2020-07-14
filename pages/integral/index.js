@@ -22,6 +22,7 @@ Page({
         buyNumber: 0,
         buyNumMin: 1,
         buyNumMax: 0,
+        PointsProductsModel: null,  //  积分信息
         spellproductListInfo: [],
         spellproductcfgInfo: {},    //拼团信息
         bargainProductEditResModel: {},//砍价信息
@@ -52,20 +53,23 @@ Page({
     onShow() {
 
     },
-    async getGoodDetail(pid) {
-        let goodsDetail = await AUTH.httpGet("outapi/productshow", {pid});
+    async getGoodDetail(id) {
+        let goodsDetail = await AUTH.httpGet("outapi/PointProductShow", {recordId:id});
+        console.log(goodsDetail,'detail')
         const buyNumber = goodsDetail.content.Number > 0 ? 1 : 0;
         const buyNumMax = goodsDetail.content.Number;
         const spellproductcfgInfo = goodsDetail.content.SpellproductInfo.SpellproductcfgInfo;
         const spellproductListInfo = goodsDetail.content.SpellproductInfo.SpellproductListInfo;
         const bargainProductEditResModel = goodsDetail.content.BargainProductEditResModel;
+        const PointsProductsModel = goodsDetail.content.PointsProductsModel;
         this.setData({
             goodsDetail: goodsDetail.content,
             buyNumber,
             buyNumMax,
             spellproductListInfo,
             spellproductcfgInfo,
-            bargainProductEditResModel
+            bargainProductEditResModel,
+            PointsProductsModel
         });
         WxParse.wxParse('article', 'html', goodsDetail.content.Description, this, 5);
     },
@@ -73,6 +77,7 @@ Page({
         this.setData({
             wxlogin: true
         })
+        this.getGoodDetail();
     },
     tabChange: function (e) {
         const id = e.target.dataset.id;

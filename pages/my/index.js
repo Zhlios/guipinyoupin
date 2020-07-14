@@ -12,6 +12,7 @@ Page({
         noticeList: [],
     },
     onLoad: function (e) {
+        console.log(e);
         if (e.reid) {
             wx.setStorageSync('reid', e.reid);
         }

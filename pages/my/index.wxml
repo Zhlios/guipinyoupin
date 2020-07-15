@@ -106,6 +106,12 @@
             </navigator>
         </view>
         <view class="cu-item arrow">
+            <navigator class="content" url="/pages/development-fund/index" hover-class="none">
+                <text class="cuIcon-pic text-green"></text>
+                <text class="text-grey">发展基金</text>
+            </navigator>
+        </view>
+        <view class="cu-item arrow">
             <navigator class="content" url="/pages/coupons/index" hover-class="none">
                 <text class="cuIcon-ticket text-orange"></text>
                 <text class="text-grey">优惠券</text>
@@ -113,7 +119,7 @@
         </view>
         <view class="cu-item arrow">
             <navigator class="content" url="/pages/mybid/index" hover-class="none">
-                <text class="cuIcon-ticket text-orange"></text>
+                <text class="cuIcon-shop text-orange"></text>
                 <text class="text-grey">我的竞标</text>
             </navigator>
         </view>

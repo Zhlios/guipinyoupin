@@ -1,0 +1,21 @@
+<view style="background-color: #ffffff">
+    <view class="development-fund-value">
+        <view class="development-zongji">总发展基金：{{DevelopmentFundTotalMoney}}</view>
+        <view class="development-leiji margin-left">累计基数：{{DevelopmentFundMoney}}</view>
+    </view>
+    <scroll-view scroll-y="true" class="scroll" bindscrolltolower="scrollToBottom">
+        <view class="scroll-item" wx:for="{{list}}" wx:key="this">
+            <view class="item-flex">
+                <text class="text-df text-black">基数：{{item.developmentFundMoney}}</text>
+                <view>基地数：
+                    <text class="text-green text-df text-bold">+{{item.developmentFundCnt}}</text>
+                </view>
+            </view>
+            <view class="item-time text-gray">
+                <text class="cuIcon-time margin-right-xs"></text>
+                {{item.createTime}}
+            </view>
+        </view>
+    </scroll-view>
+</view>
+<auth is-hidden="{{wxlogin}}" bind:afterAuth="afterAuth" bind:closeAuth="closeAuth"></auth>

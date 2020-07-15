@@ -43,9 +43,12 @@
                 <view class="icon-box">
                     <image class="icon" src="/images/order-details/icon-wuliu.png"></image>
                 </view>
-                <view class="right-text">
-                    <view class="order-number">快递单号：{{OrderAllInfo.osn}}</view>
-                    <view class="wuliu-text">暂无物流信息</view>
+                <view class="right-text" wx:if="{{OrderAllInfo.sState !== 0}}">
+                    <view class="order-number">快递单号：{{OrderAllInfo.shipsn}}</view>
+                    <view class="wuliu-text">{{rderAllInfo.shipfriendname}}</view>
+                </view>
+                <view wx:else class="right-text">
+                    <view class="order-number">暂无快递信息</view>
                 </view>
             </view>
             <view class="address-sec">
@@ -90,11 +93,11 @@
                 <!--                </view>-->
             </block>
         </form>
-<!--        <form bindsubmit="confirmBtnTap" report-submit="true">-->
-<!--            <view class="btn-row" wx:if="{{OrderAllInfo.oStatus==2}}">-->
-<!--                <button class="confirm-btn" formType="submit">确认收货</button>-->
-<!--            </view>-->
-<!--        </form>-->
+        <!--        <form bindsubmit="confirmBtnTap" report-submit="true">-->
+        <!--            <view class="btn-row" wx:if="{{OrderAllInfo.oStatus==2}}">-->
+        <!--                <button class="confirm-btn" formType="submit">确认收货</button>-->
+        <!--            </view>-->
+        <!--        </form>-->
     </view>
     <view class="peisong-way" hidden="true">
         <view class="row-box">
@@ -109,29 +112,31 @@
         </view>
     </view>
     <view class="goods-info">
-        <view class="row-box">
+        <view class="row-box" wx:if="{{OrderAllInfo.paycreditmoney}}">
             <view class="row-label">积分支付</view>
-            <view class="right-text">¥ {{OrderAllInfo.paycreditmoney}}</view>
+            <view class="right-text">{{OrderAllInfo.paycreditmoney}}</view>
         </view>
-        <view class="row-box">
-            <view class="row-label">满减</view>
-            <view class="right-text">+ ¥ {{OrderAllInfo.fullcut}}</view>
+        <view class="row-box" wx:if="{{OrderAllInfo.balancemoney}}">
+            <view class="row-label">余额支付</view>
+            <view class="right-text">- ¥ {{OrderAllInfo.balancemoney}}</view>
         </view>
-        <view class="row-box">
+        <view class="row-box" wx:if="{{OrderAllInfo.couponmoney}}">
             <view class="row-label">优惠券</view>
-            <view class="right-text">+ ¥ {{OrderAllInfo.fullcut}}</view>
+            <view class="right-text">- ¥ {{OrderAllInfo.couponmoney}}</view>
         </view>
-        <view class="row-box">
+        <view class="row-box" wx:if="{{OrderAllInfo.fullcut}}">
             <view class="row-label">满减</view>
-            <view class="right-text">+ ¥ {{OrderAllInfo.couponmoney}}</view>
+            <view class="right-text">- ¥ {{OrderAllInfo.fullcut}}</view>
         </view>
         <view class="row-box">
-            <view class="row-label">在线支付</view>
-            <view class="right-text">+ ¥ {{OrderAllInfo.surplusmoney}}</view>
+            <view class="row-label">订单金额</view>
+            <view class="right-text">¥ {{OrderAllInfo.orderamount}}</view>
         </view>
         <view class="row-box">
             <view class="row-label">应付总额</view>
-            <view class="right-text text-red">¥ {{OrderAllInfo.orderamount}} <text class="text-black text-sm">(PV:{{OrderAllInfo.pvamount}})</text></view>
+            <view class="right-text text-red">¥ {{OrderAllInfo.surplusmoney}}
+                <text class="text-black text-sm">(PV:{{OrderAllInfo.pvamount}})</text>
+            </view>
         </view>
     </view>
 </view>

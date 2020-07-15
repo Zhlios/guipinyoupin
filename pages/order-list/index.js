@@ -77,9 +77,9 @@ Page({
     refundApply(e) {
         // 申请售后
         const orderId = e.currentTarget.dataset.id;
-        const amount = e.currentTarget.dataset.amount;
+        const type = e.currentTarget.dataset.type;
         wx.navigateTo({
-            url: "/pages/order/refundApply?id=" + orderId + "&amount=" + amount
+            url: "/pages/order/refundApply?id=" + orderId + "&type=" + type
         })
     },
     toPayTap: function (e) {

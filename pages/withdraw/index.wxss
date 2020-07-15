@@ -63,7 +63,8 @@ form {
 .lable-text {
     color: #b31d1d;
     font-size: 24rpx;
-    margin-bottom: 15px;
+    margin: 20rpx;
+    align-self: flex-start;
 }
 
 .row-wrap .label-right {
@@ -101,7 +102,7 @@ form {
     height: 24rpx;
 }
 
-.save-btn{
+.save-btn {
     width: 690rpx;
     height: 80rpx;
     line-height: 80rpx;

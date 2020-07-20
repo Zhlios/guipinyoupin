@@ -124,31 +124,20 @@ Page({
     },
     async delItem(e) {
         let _this = this,
-            recordid = e.currentTarget.dataset.recordid;
-
+        recordid = e.currentTarget.dataset.key;
+        console.log(e,'recordid');
         wx.showModal({
             title: "提示",
             content: "您确定要移除当前商品吗?",
             success: function (e) {
-                e.confirm && App._post_form('order/DelCartProduct', {
-                    recordid: recordid,
-                }, function (result) {
-                    _this.getCartList();
-                });
+                e.confirm && AUTH.httpPost('order/DelCartProduct',{recordid: recordid }).then(resulut =>{
+                    _this.shippingCarInfo()
+                }).catch(error =>{
+                    console.log(error,'delete-error');
+                })
+    
             }
         });
-
-        const key = e.currentTarget.dataset.key
-        const token = wx.getStorageSync('token')
-        const res = await WXAPI.shippingCarInfoRemoveItem(token, key)
-        if (res.code != 0) {
-            wx.showToast({
-                title: res.msg,
-                icon: 'none'
-            })
-        } else {
-            this.shippingCarInfo()
-        }
     },
     async jiaBtnTap(e) {
         const index = e.currentTarget.dataset.index;

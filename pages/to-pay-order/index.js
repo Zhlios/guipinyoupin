@@ -56,6 +56,7 @@ Page({
     async doneShow() {
         //立即购买下单
         const options = this.data.options;
+        console.log(options.orderType, 'hahaa===拼团进来的')
         // 积分商城购买
         if (options.orderType === "integral") {
 
@@ -103,6 +104,7 @@ Page({
         }
         //拼团购买
         if (options.orderType === "toPintuan") {
+            console.log(options);
             const sType = options.pintuanType;
             const id = options.pintuanID;
             const result = await AUTH.httpPost("order/SpellSubmitOrder", {sType, id})

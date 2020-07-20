@@ -107,7 +107,7 @@ Page({
                 orderType: "toPintuan",
                 buyNumber: 1,
                 pintuanID: _this.data.spellGoods.sId,
-                pintuanType: 0,
+                pintuanType: 1,
             })
         });
     },

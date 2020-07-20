@@ -8,11 +8,16 @@
                     <text class="text-cut">{{item.pName}}</text>
                 </view>
                 <view class="text-gray text-sm flex">
-                    <text>当前价：</text>
+                    <text>砍后价：</text>
                     <text class="text-price text-red">{{item.aprice}}</text>
                     <text class="margin-left">原价：</text>
                     <text class="text-price text-red">{{item.shopprice}}</text>
                 </view>
+                 <view class="text-gray text-sm flex">
+                    <text>已砍价：</text>
+                    <text class="text-price text-red">{{item.shopprice-item.aprice}}</text>
+                </view>
+
             </view>
             <view class="action">
                 <view class="text-red text-xs"></view>

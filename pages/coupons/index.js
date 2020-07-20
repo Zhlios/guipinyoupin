@@ -8,8 +8,10 @@ Page({
    * 页面的初始数据
    */
   data: {
-    tabs: ["已领券", "已失效"],
+    tabs: ["未使用","已使用", "已失效"],
     activeIndex: 0,
+    wxlogin: true,
+    list: [],
   },
 
   /**
@@ -30,31 +32,30 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    var that = this;
     AUTH.checkHasLogined().then(isLogined => {
-      if (isLogined) {
-        if (this.data.activeIndex == 0) {
-          this.getMyCoupons()
-        }
-        if (this.data.activeIndex == 1) {
-          this.invalidCoupons()
-        }
-      }
-    })
+			if (isLogined) {
+				that.getMyCoupons();
+				return
+			}
+			that.setData({ wxlogin: false})
+		})
   },
+   /**
+   *  当登录登录
+   */
+  afterAuth(e) {
+		this.setData({
+			wxlogin: true,
+		})
+		this.getMyCoupons();
+	},
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
 
   },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
@@ -68,127 +69,31 @@ Page({
   onReachBottom: function () {
 
   },
+
+  /**
+  * 点击tab
+  */
   tabClick: function (e) {
+    var that = this;
     this.setData({
       activeIndex: e.currentTarget.dataset.id
+    },function(o){
+      that.getMyCoupons();
     });
-    
-    if (this.data.activeIndex == 0) {
-      this.getMyCoupons()
-    }
-    if (this.data.activeIndex == 1) {
-      this.invalidCoupons()
-    }
   },
-  sysCoupons: function () { // 读取可领取券列表
-    var _this = this;
-    WXAPI.coupons({
-		type: 'shop'
-	}).then(function (res) {
-      if (res.code == 0) {
-        _this.setData({
-          coupons: res.data
-        });
-      } else {
-        _this.setData({
-          coupons: null
-        });
-      }
-    })
-  },
-  getCounpon: function (e) {
-    const that = this
-    if (e.currentTarget.dataset.pwd) {
-      wx.showToast({
-        title: '请通过优惠券码兑换',
-        icon: 'none'
-      })
-      return
-    }
-    WXAPI.fetchCoupons({
-      id: e.currentTarget.dataset.id,
-      token: wx.getStorageSync('token')
-    }).then(function (res) {
-      if (res.code == 20001 || res.code == 20002) {
-        wx.showModal({
-          title: '错误',
-          content: '来晚了',
-          showCancel: false
-        })
-        return;
-      }
-      if (res.code == 20003) {
-        wx.showModal({
-          title: '错误',
-          content: '你领过了，别贪心哦~',
-          showCancel: false
-        })
-        return;
-      }
-      if (res.code == 30001) {
-        wx.showModal({
-          title: '错误',
-          content: '您的积分不足',
-          showCancel: false
-        })
-        return;
-      }
-      if (res.code == 20004) {
-        wx.showModal({
-          title: '错误',
-          content: '已过期~',
-          showCancel: false
-        })
-        return;
-      }
-      if (res.code == 0) {
-        wx.showToast({
-          title: '领取成功',
-          icon: 'success'
-        })
-      } else {
-        wx.showModal({
-          title: '错误',
-          content: res.msg,
-          showCancel: false
-        })
-      }
-    })
-  },
+   /**
+   * 获取到优惠券
+   */
   getMyCoupons: function () {
     var _this = this;
-    WXAPI.myCoupons({
-      token: wx.getStorageSync('token'),
-      status: 0
-    }).then(function (res) {
-      if (res.code == 0) {
-        _this.setData({
-          coupons: res.data
-        })
-      } else {
-        _this.setData({
-          coupons: null
-        })
-      }
+    AUTH.httpGet('user/GetUserCouponList',{State:this.data.activeIndex})
+    .then(result =>{
+      console.log(result,'result')
+    }).catch(error =>{
+      console.log(error)
     })
   },
-  invalidCoupons: function () {
-    var _this = this;
-    WXAPI.myCoupons({
-      token: wx.getStorageSync('token'),
-      status: '1,2,3'
-    }).then(function (res) {
-      if (res.code == 0) {
-        _this.setData({
-          coupons: res.data
-        })
-      } else {
-        _this.setData({
-          coupons: null
-        })
-      }
-    })
-  },
+  
   toIndexPage: function () {
     wx.switchTab({
       url: "/pages/index/index"

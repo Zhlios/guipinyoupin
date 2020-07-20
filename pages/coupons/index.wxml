@@ -14,7 +14,7 @@
 	  <image class="icon" src="/images/icon/coupons-active.svg"></image>
 	  <view class="profile">
 	    <view class="name">
-	      <view class="t">代金券</view>
+	      <view class="t">优惠券</view>
 	      <view class="n">{{item.name}}</view>
 	    </view>
 	    <view class="price">
@@ -28,7 +28,7 @@
 	  <image class="icon" src="/images/icon/coupons-off.svg"></image>
 	  <view class="profile">
 	    <view class="name">
-	      <view class="t disabled1">代金券</view>
+	      <view class="t disabled1">优惠券</view>
 	      <view class="n disabled2">{{item.name}}</view>
 	    </view>
 	    <view class="price">
@@ -44,3 +44,5 @@
 		<text class="cuIcon-present margin-right-xs"></text><text class="text-right margin-right-xs">去领券</text><text class="cuIcon-right"></text>
 	</navigator>
 </view>
+
+<auth is-hidden="{{wxlogin}}" bind:afterAuth="afterAuth"></auth>

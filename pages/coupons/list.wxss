@@ -40,7 +40,7 @@ page,.container {
 .coupons-list{
   width:92%;
   margin: 0 auto;
-  margin-top:120rpx;
+  margin-top:0rpx;
 }
 .coupons-item{
   color:#fff;

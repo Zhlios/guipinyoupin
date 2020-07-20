@@ -22,6 +22,7 @@ Page({
     doneShow() {
         AUTH.httpGet("user/GetUserBargainProductList")
             .then((result) => {
+                console.log(result,'result===kanjia')
                 this.setData({kjGoodsList: result.content})
             })
             .catch((err) => {

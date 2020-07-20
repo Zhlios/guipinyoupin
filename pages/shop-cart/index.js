@@ -122,20 +122,20 @@ Page({
             })
         }
     },
-    async delItem(e) {
+    delItem(e) {
         let _this = this,
-        recordid = e.currentTarget.dataset.key;
-        console.log(e,'recordid');
+            recordid = e.currentTarget.dataset.key;
+
         wx.showModal({
             title: "提示",
             content: "您确定要移除当前商品吗?",
             success: function (e) {
-                e.confirm && AUTH.httpPost('order/DelCartProduct',{recordid: recordid }).then(resulut =>{
-                    _this.shippingCarInfo()
-                }).catch(error =>{
-                    console.log(error,'delete-error');
+                e.confirm && AUTH.httpPost('order/DelCartProduct', {
+                    recordid: recordid,
+                }).then((result) => {
+                    _this.shippingCarInfo();
+                    TOOLS.showTabBarBadge();
                 })
-    
             }
         });
     },

@@ -3,7 +3,11 @@
     background-color: #F2f2f2;
     overflow: hidden;
 }
-
+.ping-tag{
+    padding: 6rpx 10rpx;
+    border-radius: 12rpx;
+    margin-right: 5rpx;
+}
 .status-box {
     width: 100%;
     height: 45px;

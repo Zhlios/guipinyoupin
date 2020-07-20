@@ -96,7 +96,7 @@ page {
 }
 
 .user-level {
-    font-size: 28rpx;
+    margin-right: 5rpx;
 }
 
 .userinfo-score {

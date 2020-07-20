@@ -11,6 +11,13 @@ Page({
         version: null,
         noticeList: [],
         isSignIn: false,
+
+
+        DaiFaHuo: 0,
+        DaiFenXiang: 0,
+        DaiShouHuo: 0,
+        DaiZhiFu: 0,
+        QuanBu: 0,
     },
     onLoad: function (e) {
         console.log(e);
@@ -25,6 +32,7 @@ Page({
                 this.getUserApiInfo();
                 this.getUserAmount()
                 this.isSignIn();
+                this.getOrderNum();
                 return
             }
             this.setData({userInfo: null, wxlogin: false})
@@ -36,10 +44,19 @@ Page({
             wxlogin: false
         })
     },
+    getOrderNum() {
+        AUTH.httpGet("order/GetOrderStateCount")
+            .then((result) => {
+                this.setData(result.content);
+            })
+            .catch((err) => {
+
+            })
+    },
     isSignIn() {
         AUTH.httpGet("user/GetSignInTodayFlag")
             .then((result) => {
-                this.setData({isSignIn:result.content});
+                this.setData({isSignIn: result.content});
             })
             .catch()
     },

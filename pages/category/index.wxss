@@ -408,7 +408,7 @@ page {
 .show {
   position: fixed;
   width: 30%;
-  height: 100%;
+  height: calc(100vh - 100rpx);
   animation: myfirst_show 0.5s;
   background: white;
 }
@@ -420,7 +420,7 @@ page {
 .hide{
   position: fixed;
   width: 30%;
-  height: 100%;
+  height: calc(100vh - 100rpx);
   animation: myfirst_hide 0.5s;
   background: white;
 }
@@ -526,7 +526,7 @@ page {
 .category-list-cell  .cell-left{
   height: 100%;
   width: 200rpx;
-  
+
 }
 
 .category-list-cell  .cell-left image {
@@ -540,7 +540,7 @@ page {
   margin-left: 30rpx;
 }
 .category-list-cell .cell-right .right-top {
-  
+
 }
 .category-list-cell .cell-right .right-top .cell-title {
   font-size:34rpx;

@@ -55,32 +55,32 @@
         </view>
         <view class="cu-item" data-url="/pages/order-list/index?type=1" bindtap="navigateToPage">
             <view class="cuIcon-pay text-gray text-xxl">
-                <view class="cu-tag badge" wx:if="{{noplay}}">
-                    {{noplay}}
+                <view class="cu-tag badge" wx:if="{{DaiZhiFu}}">
+                    {{DaiZhiFu}}
                 </view>
             </view>
             <text>待付款</text>
         </view>
         <view class="cu-item" data-url="/pages/order-list/index?type=2" bindtap="navigateToPage">
             <view class="cuIcon-send text-gray text-xxl">
-                <view class="cu-tag badge" wx:if="{{notransfer}}">
-                    {{notransfer}}
+                <view class="cu-tag badge" wx:if="{{DaiFaHuo}}">
+                    {{DaiFaHuo}}
                 </view>
             </view>
             <text>待发货</text>
         </view>
         <view class="cu-item" data-url="/pages/order-list/index?type=3" bindtap="navigateToPage">
             <view class="cuIcon-deliver text-gray text-xxl">
-                <view class="cu-tag badge" wx:if="{{noconfirm}}">
-                    {{noconfirm}}
+                <view class="cu-tag badge" wx:if="{{DaiShouHuo}}">
+                    {{DaiShouHuo}}
                 </view>
             </view>
             <text>待收货</text>
         </view>
         <view class="cu-item" data-url="/pages/order-list/index?type=4" bindtap="navigateToPage">
             <view class="cuIcon-friendfavor text-gray text-xxl">
-                <view class="cu-tag badge" wx:if="{{noplay}}">
-                    {{noplay}}
+                <view class="cu-tag badge" wx:if="{{DaiFenXiang}}">
+                    {{DaiFenXiang}}
                 </view>
             </view>
             <text>待分享</text>
@@ -106,6 +106,12 @@
             </navigator>
         </view>
         <view class="cu-item arrow">
+            <navigator class="content" url="/pages/development-fund/index" hover-class="none">
+                <text class="cuIcon-pic text-green"></text>
+                <text class="text-grey">发展基金</text>
+            </navigator>
+        </view>
+        <view class="cu-item arrow">
             <navigator class="content" url="/pages/coupons/index" hover-class="none">
                 <text class="cuIcon-ticket text-orange"></text>
                 <text class="text-grey">优惠券</text>
@@ -113,7 +119,7 @@
         </view>
         <view class="cu-item arrow">
             <navigator class="content" url="/pages/mybid/index" hover-class="none">
-                <text class="cuIcon-ticket text-orange"></text>
+                <text class="cuIcon-shop text-orange"></text>
                 <text class="text-grey">我的竞标</text>
             </navigator>
         </view>

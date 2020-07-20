@@ -37,7 +37,8 @@
     "pages/fx/rank",
     "pages/share/share",
     "pages/mybid/index",
-    "pages/integral/index"
+    "pages/integral/index",
+    "pages/development-fund/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

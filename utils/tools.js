@@ -1,4 +1,5 @@
-const WXAPI = require('apifm-wxapi')
+const AUTH = require('../utils/auth')
+
 //判断字符串是否在数组中
 function isStrInArray(item, arr) {
     for (var i = 0; i < arr.length; i++) {
@@ -7,6 +8,26 @@ function isStrInArray(item, arr) {
         }
     }
     return false;
+}
+
+// 显示购物车tabBar的Badge
+function showTabBarBadge() {
+    AUTH.httpGet('order/GetCart')
+        .then((result) => {
+            if (result.content.length === 0) {
+                wx.removeTabBarBadge({
+                    index: 2
+                });
+            } else {
+                wx.setTabBarBadge({
+                    index: 2,
+                    text: `${result.content.length}`
+                });
+            }
+        })
+        .catch((err) => {
+
+        })
 }
 
 // 返回api工厂一样格式的当前时间
@@ -63,6 +84,7 @@ function changeDateFormat(cellval) {
     return date.getFullYear() + "-" + month + "-" + currentDate + " " + h + ":" + m1 + ":" + s;
 
 }
+
 function changeDateFormatNY(cellval) {
 
     let date = new Date(parseInt(cellval.replace("/Date(", "").replace(")/", ""), 10));
@@ -73,6 +95,7 @@ function changeDateFormatNY(cellval) {
     return date.getFullYear() + "-" + month + "-" + currentDate;
 
 }
+
 /**
  * 时分秒倒计时
  */
@@ -99,5 +122,6 @@ module.exports = {
     urlEncode: urlEncode,
     changeDateFormat,
     changeDateFormatNY,
+    showTabBarBadge,
     countTime,
 }

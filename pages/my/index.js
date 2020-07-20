@@ -74,6 +74,7 @@ Page({
         let that = this;
         AUTH.httpGet('User/GetUserInfo', {},)
             .then((result) => {
+                console.log(result,'userInfo')
                 that.setData({userInfo: result.content})
             })
             .catch((err) => {

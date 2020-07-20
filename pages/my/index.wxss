@@ -88,7 +88,15 @@ page {
     font-size: 32rpx;
     text-align: center;
     margin-bottom: 10rpx;
-    display: block;
+    /* display: block; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+.user-level {
+    font-size: 28rpx;
 }
 
 .userinfo-score {

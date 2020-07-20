@@ -5,6 +5,7 @@
             <view class="iser-info-box">
                 <view class="userinfo-nickname" wx:if="{{userInfo}}">
                     <open-data class="userinfo-nickname" type="userNickName"></open-data>
+                    <view class="user-level">(等级: {{userInfo.UserLevel}})</view>
                 </view>
                 <view class="login-btn" wx:else bindtap="showAuth">请登录</view>
                 <view wx:if="{{!isSignIn}}" class="userinfo-score-day" bindtap="score">

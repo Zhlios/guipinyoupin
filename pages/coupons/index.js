@@ -9,9 +9,9 @@ Page({
    */
   data: {
     tabs: ["未使用","已使用", "已失效"],
-    activeIndex: 0,
+    activeIndex: 1,
     wxlogin: true,
-    list: [],
+    coupons: [],
   },
 
   /**
@@ -76,7 +76,8 @@ Page({
   tabClick: function (e) {
     var that = this;
     this.setData({
-      activeIndex: e.currentTarget.dataset.id
+      activeIndex: e.currentTarget.dataset.id,
+      coupons: [],
     },function(o){
       that.getMyCoupons();
     });
@@ -86,9 +87,13 @@ Page({
    */
   getMyCoupons: function () {
     var _this = this;
-    AUTH.httpGet('user/GetUserCouponList',{State:this.data.activeIndex})
+    console.log(this.data.activeIndex)
+    AUTH.httpGet('user/CouponsUserList',{State:this.data.activeIndex})
     .then(result =>{
       console.log(result,'result')
+      _this.setData({
+        coupons: result.rows,
+      })
     }).catch(error =>{
       console.log(error)
     })

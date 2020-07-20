@@ -1,6 +1,6 @@
 <scroll-view scroll-x class="bg-white nav">
 	<view class="flex text-center">
-		<view class="cu-item flex-sub {{activeIndex == index ?'text-red cur':''}}" wx:for="{{tabs}}" wx:key="index" bindtap="tabClick" data-id="{{index}}">
+		<view class="cu-item flex-sub {{activeIndex == index+1 ?'text-red cur':''}}" wx:for="{{tabs}}" wx:key="index" bindtap="tabClick" data-id="{{index+1}}">
 		  {{item}}
 		</view>
 	</view>
@@ -10,21 +10,21 @@
   <view>暂无优惠券</view>
 </view>
 <view class="list">
-	<view class="coupons" wx:for="{{coupons}}" wx:key="id" wx:if="{{activeIndex == 0}}">
+	<view class="coupons" wx:for="{{coupons}}" wx:key="id" wx:if="{{activeIndex == 1}}">
 	  <image class="icon" src="/images/icon/coupons-active.svg"></image>
 	  <view class="profile">
 	    <view class="name">
 	      <view class="t">优惠券</view>
-	      <view class="n">{{item.name}}</view>
+	      <view class="n">{{item.Name}}</view>
 	    </view>
 	    <view class="price">
-	      <view class="tj">满{{item.moneyHreshold}}</view>
-	      <view class="amount"><text>￥</text>{{item.money}}</view>
+	      <view class="tj">{{item.Name}}</view>
+	      <view class="amount"><text>￥</text>{{item.Money}}</view>
 	    </view>
 	    <view class="btn" bindtap="toIndexPage">立即使用</view>
 	  </view>
 	</view>
-	<view class="coupons" wx:for="{{coupons}}" wx:key="id" wx:if="{{activeIndex == 1}}">
+	<view class="coupons" wx:for="{{coupons}}" wx:key="id" wx:if="{{activeIndex == 2}}">
 	  <image class="icon" src="/images/icon/coupons-off.svg"></image>
 	  <view class="profile">
 	    <view class="name">
@@ -32,10 +32,24 @@
 	      <view class="n disabled2">{{item.name}}</view>
 	    </view>
 	    <view class="price">
-	      <view class="tj disabled2">满{{item.moneyHreshold}}</view>
+	      <view class="tj disabled2">{{item.Name}}</view>
 	      <view class="amount disabled2"><text class="disabled2">￥</text>{{item.money}}</view>
 	    </view>
-	    <view class="btn">{{ item.statusStr }}</view>
+	    <view class="btn">已使用</view>
+	  </view>
+	</view>
+		<view class="coupons" wx:for="{{coupons}}" wx:key="id" wx:if="{{activeIndex == 3}}">
+	  <image class="icon" src="/images/icon/coupons-off.svg"></image>
+	  <view class="profile">
+	    <view class="name">
+	      <view class="t disabled1">优惠券</view>
+	      <view class="n disabled2">{{item.Name}}</view>
+	    </view>
+	    <view class="price">
+	      <view class="tj disabled2">{{item.Name}}</view>
+	      <view class="amount disabled2"><text class="disabled2">￥</text>{{item.Money}}</view>
+	    </view>
+	    <view class="btn">已过期</view>
 	  </view>
 	</view>
 </view>

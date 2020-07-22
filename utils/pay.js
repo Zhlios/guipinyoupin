@@ -13,7 +13,7 @@ function wxpay(json, redirectUrl) {
                 title: '支付失败:' + aaa
             })
             wx.redirectTo({
-                url: redirectUrl
+                url: redirectUrl+'1'
             });
         },
         success: function () {
@@ -22,7 +22,7 @@ function wxpay(json, redirectUrl) {
                 title: '支付成功'
             })
             wx.redirectTo({
-                url: redirectUrl
+                url: redirectUrl+'2'
             });
         }
     })

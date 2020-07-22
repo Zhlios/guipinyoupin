@@ -36,8 +36,14 @@
                 <view>新增收货地址</view>
             </view>
             <view class="show-address" hidden="{{!RegionOrderInfo}}" bindtap="selectAddress">
-                <view class="name-tel">{{RegionOrderInfo.consignee}} {{RegionOrderInfo.mobile}}</view>
-                <view class="addr-text">{{RegionOrderInfo.regionTxt+RegionOrderInfo.address}}</view>
+                <view>
+                    <view class="name-tel">{{RegionOrderInfo.consignee}} {{RegionOrderInfo.mobile}}</view>
+                    <view class="addr-text">{{RegionOrderInfo.regionTxt+RegionOrderInfo.address}}</view>
+                </view>
+                <view>
+                    <text class="text-right margin-right-xs text-gray">修改地址</text>
+                    <text class="cuIcon-right"></text>
+                </view>
             </view>
         </view>
         <view class="row-box">
@@ -49,13 +55,14 @@
         <view class="row-box">
             <view class="row-label">积分兑换({{PointsInfo.Points}})</view>
             <view class="right-text">
-                <input  disabled="{{options.orderType=='integral'}}" type="number" style="text-align: right" placeholder="兑换积分" bindinput="bindPointsInput"
+                <input disabled="{{options.orderType=='integral'}}" type="number" style="text-align: right"
+                       placeholder="兑换积分" bindinput="bindPointsInput"
                        value="{{integral}}"></input>
             </view>
         </view>
-        
+
         <view class="row-box" wx:if="{{options.orderType != 'integral'}}">
-            <view class="row-label" >虎坚果({{PointsInfo.Points}})</view>
+            <view class="row-label">虎坚果({{PointsInfo.Points}})</view>
             <view class="right-text">
                 <input type="number" style="text-align: right" placeholder="输入虎坚果" bindinput="bindCommissionInput"
                        value="{{commission}}"></input>
@@ -93,7 +100,7 @@
             <view class="row-label">优惠券</view>
             <view class="right-text">- ¥ {{youhuijine}}</view>
         </view>
-        
+
     </view>
 
     <view class="jiesuan-box safeAreaOldPaddingBttom safeAreaNewPaddingBttom">

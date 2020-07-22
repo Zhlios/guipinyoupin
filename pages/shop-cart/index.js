@@ -60,6 +60,7 @@ Page({
         let shippingCarInfo = {};
         AUTH.httpGet('order/GetCart')
             .then((result) => {
+                console.log(result,"?????????//")
                 const items = result.content.map(e => {
                     e.selected = this.data.allSelect;
                     return e;
@@ -85,6 +86,9 @@ Page({
                 startX: e.touches[0].clientX
             });
         }
+    },
+    toDetail:function(e){
+      wx.navigateTo({url:`/pages/goods-details/index?id=${e.currentTarget.dataset.id}`})
     },
     touchM: function (e) {
         const index = e.currentTarget.dataset.index;

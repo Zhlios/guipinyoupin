@@ -23,7 +23,7 @@
         <view class='getAddress-icon'>
           收
         </view>
-        <view class='getAddress-text'>[收货地址]</view>
+        <view class='getAddress-text'>[收货地址] {{ShipAddress}}</view>
       </view>
     </view>
 

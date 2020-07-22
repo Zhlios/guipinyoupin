@@ -10,6 +10,7 @@ Page({
     currentMsg: null,
     osn: '',
     ShipCompany:'',
+    ShipAddress:'',
     ShipSn:'',
   },
 
@@ -42,7 +43,7 @@ Page({
           oldList.push(e)
         }
       })
-      that.setData({logisticList: oldList,currentMsg:currentMsg})
+      that.setData({logisticList: oldList,currentMsg:currentMsg,...result.content})
     }).catch(error =>{
 
     });

@@ -18,12 +18,18 @@
                 <view class="padding" hover-class="none">
                     <view class="flex justify-between align-center">
                         <view>
+                            <text wx:if="{{item.SpellproductListInfo}}" class="ping-tag text-white bg-red text-xs">拼</text>
                             <text>{{item.osn}}</text>
                             <button class="cu-btn sm bg-gray margin-left" catchtap="copyOrderNumber"
                                     data-num="{{item.osn}}">复制
                             </button>
                         </view>
-                        <view class="text-red">{{item.orderstate}}</view>
+                        <view class="text-red" wx:if="{{item.SpellproductListInfo}}">
+                           <view wx:if="{{item.SpellproductListInfo.status===1}}">拼购成功</view>
+                           <view wx:if="{{item.SpellproductListInfo.status===2}}">已过期</view>
+                           <view wx:if="{{item.SpellproductListInfo.status===0}}">正在进行中</view>
+                        </view>
+                        <view class="text-red" wx:else>{{item.orderstate}}</view>
                     </view>
                 </view>
                 <scroll-view class="goods-img-container" scroll-y="true">

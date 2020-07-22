@@ -4,6 +4,7 @@ const app = getApp()
 Page({
     data: {
         addressList: [],
+        options: {},
         wxlogin: true
     },
 
@@ -19,7 +20,10 @@ Page({
         })
     },
 
-    onLoad: function () {
+    onLoad: function (e) {
+        this.setData({
+            options: e
+        })
     },
     afterAuth() {
         this.setData({
@@ -48,6 +52,23 @@ Page({
         let that = this;
         console.log(wx.getStorageSync('cookie'), 'cookie')
         const addressList = await AUTH.httpGet('user/GetAddresses', {said: 0});
-        that.setData({addressList:addressList.content});
+        that.setData({addressList: addressList.content});
     },
+    /**
+     * 设置为默认地址
+     */
+    setDefault: function (e) {
+        if (this.data.options.from === 'order') {
+            let address_id = e.currentTarget.dataset.id;
+            AUTH.httpPost('user/SetDefaultAddress', {
+                id:address_id
+            })
+                .then((result) => {
+                    wx.navigateBack();
+                })
+                .catch(() => {
+
+                })
+        }
+    }
 })

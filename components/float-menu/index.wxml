@@ -19,7 +19,7 @@
       <text>首页</text>
     </view>
   </navigator>
-  <navigator url="/pages/category/category" open-type="switchTab">
+  <navigator url="/pages/category/index" open-type="switchTab">
     <view class="item">
       <image src="/images/nav/ic_catefory_normal.png"></image>
       <text>分类</text>

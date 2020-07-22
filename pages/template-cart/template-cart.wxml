@@ -11,7 +11,7 @@
 <template name="cart-goods-list">
     <view class="goodsList">
         <view class="a-gooods" wx:for="{{items}}" wx:key="key">
-            <view class="a-goods-conts {{item.active? 'active':''}}" bindtouchstart="touchS" bindtouchmove="touchM"
+            <view bindtap="toDetail" data-id="{{item.pid}}" class="a-goods-conts {{item.active? 'active':''}}" bindtouchstart="touchS" bindtouchmove="touchM"
                   bindtouchend="touchE" data-index="{{index}}" style="{{item.left}}">
                 <view style="display: flex;align-items: center;padding:0 10rpx">
                     <radio checked="{{item.selected}}" data-index="{{index}}"

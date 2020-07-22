@@ -69,7 +69,7 @@ Page({
                 realMoney:result.content.TotalMoney,
                 integral: result.content.TotalPoints,
             }, () => {
-    
+
             });
             return;
         }
@@ -83,7 +83,7 @@ Page({
             });
             this.setData({
                 ...result.content,
-                
+
             }, () => {
                 this.getRealMonery();
             });
@@ -273,7 +273,7 @@ Page({
         if (data.Flag) {
             wx.showToast({title: '支付成功', icon: "success"});
             wx.redirectTo({
-                url: '/pages/order-list/index?type=1',
+                url: '/pages/order-list/index?type=2',
             });
             return;
         }
@@ -286,11 +286,11 @@ Page({
         }
         // 发起微信支付
         this.double = false;
-        wxpay.wxpay(json, "/pages/order-list/index?type=1");
+        wxpay.wxpay(json, "/pages/order-list/index?type=");
     },
     hideModal() {
         wx.redirectTo({
-            url: "/pages/order-list/index"
+            url: "/pages/order-list/index?type=1"
         });
     },
     addAddress: function () {
@@ -300,7 +300,7 @@ Page({
     },
     selectAddress: function () {
         wx.navigateTo({
-            url: "/pages/select-address/index"
+            url: "/pages/select-address/index?from=order"
         })
     },
     getMyCoupons: function () {
@@ -354,7 +354,7 @@ Page({
         const options = this.data.options;
         // 积分商城购买
         if (options.orderType === "integral") {
-        
+
         }else {
             let coupop = 0;
             if (this.data.CouponMM.length) {
@@ -367,7 +367,7 @@ Page({
             });
         }
 
-      
+
 
     },
     integral: 0,

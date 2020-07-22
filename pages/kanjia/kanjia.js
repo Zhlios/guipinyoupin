@@ -74,7 +74,7 @@ Page({
     onShareAppMessage: function () {
         // 构建页面参数
         return {
-            title: "我在某某某发现一件好的商品，快来吧帮我砍价吧~",
+            title: "我在予农惠发现一件好的商品，快来吧帮我砍价吧~",
             path: "/pages/kanja/kanjia?bid=" + this.bid
         };
     },

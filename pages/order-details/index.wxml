@@ -43,9 +43,10 @@
                 <view class="icon-box">
                     <image class="icon" src="/images/order-details/icon-wuliu.png"></image>
                 </view>
-                <view class="right-text" wx:if="{{OrderAllInfo.sState !== 0}}">
+                <view class="right-text" wx:if="{{OrderAllInfo.ShipData.length}}" bindtap="navigateToLogisticDetail">
                     <view class="order-number">快递单号：{{OrderAllInfo.shipsn}}</view>
-                    <view class="wuliu-text">{{rderAllInfo.shipfriendname}}</view>
+                    <view class="wuliu-text">{{OrderAllInfo.shipfriendname}}</view>
+                    <view class="wuliu-text">查看详情</view>
                 </view>
                 <view wx:else class="right-text">
                     <view class="order-number">暂无快递信息</view>

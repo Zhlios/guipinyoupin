@@ -38,7 +38,8 @@
     "pages/share/share",
     "pages/mybid/index",
     "pages/integral/index",
-    "pages/development-fund/index"
+    "pages/development-fund/index",
+    "pages/order-details/logistic_detail"
   ],
   "window": {
     "backgroundTextStyle": "light",

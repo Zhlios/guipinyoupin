@@ -1,0 +1,86 @@
+<!--pages/order-details/logistic_detail.wxml-->
+<view class='g_con'>
+
+  <view class='topExpress'>
+
+    <view class='topExpress-left'>
+      <image src='/images/Exchange_goods_map_1.png' style='width:60rpx;height:60rpx;border-radius:50%;'></image>
+    </view>
+    <view class='topExpress-right'>
+      <view class='topExpress-right-top'>{{ShipCompany}}</view>
+      <view class='topExpress-right-middle'>运单号：{{ShipSn}}</view>
+    </view>
+
+  </view>
+
+  <!-- 物流时间轴 -->
+  <view class='expressRecord'>
+
+
+    <!-- 顶部收货地址 -->
+    <view class='expressRecord-getAddress'>
+      <view class='expressRecord-top'>
+        <view class='getAddress-icon'>
+          收
+        </view>
+        <view class='getAddress-text'>[收货地址]</view>
+      </view>
+    </view>
+
+    <!-- 顶部收货地址半个时间轴线 -->
+    <view class='noReach-online-top-close'></view>
+
+    <!-- 单个物流记录点时间轴：当前正在进行的物流状态 -->
+    <view class='expressRecord-single-close' wx:if="{{currentMsg}}" >
+
+      <!-- 左边子容器 -->
+      <view class='expressRecord-single-noReach-online-top-close'>
+        <!-- 正在进行的时间轴上半个时间线 -->
+        <view class='online-top-closing'></view>
+        <!-- 正在进行的时间轴点 -->
+        <view class='dot-closing'></view>
+        <!-- 正在进行的时间轴下半个时间线 -->
+        <view class='online-bottom'></view>
+      </view>
+
+      <!-- 右边子容器 -->
+      <view class='expressRecord-text'>
+        <view class='expressRecord-statusing'>{{currentMsg.status}}</view>
+        <view class='expressRecord-status-addressing'>{{currentMsg.context}}</view>
+      </view>
+
+      <!-- 相对父级容器绝对定位的日期 -->
+      <view class='expressRecord-dating'>
+        <view class='expressRecord-date-text'>
+          {{currentMsg.nyr}}
+        </view>
+        <view class='expressRecord-date-time'>
+          {{currentMsg.sfm}}
+        </view>
+      </view>
+    </view>
+
+    <!-- 单个物流记录点时间轴：已经过去的物流状态 -->
+    <view class='expressRecord-single-close' wx:for="{{logisticList}}" wx:key="index">
+      <view class='expressRecord-single-noReach-online-top-close'>
+        <view class='online-top-close'></view>
+        <view class='dot-close'></view>
+        <view class='online-bottom'></view>
+      </view>
+
+      <view class='expressRecord-text'>
+        <view class='expressRecord-status'>{{item.status}}</view>
+        <view class='expressRecord-status-address'>{{item.context}}</view>
+      </view>
+
+      <view class='expressRecord-date'>
+        <view class='expressRecord-date-text'>
+          {{item.nyr}}
+        </view>
+        <view class='expressRecord-date-time'>
+          {{item.sfm}}
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

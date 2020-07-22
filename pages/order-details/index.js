@@ -57,4 +57,13 @@ Page({
             }
         })
     },
+    /**
+     *  跳转到物流详情界面
+     * */
+    navigateToLogisticDetail:function(e) {
+        wx.navigateTo({
+            url: '/pages/order-details/logistic_detail?osn='+this.data.OrderAllInfo.osn,
+        })
+    }
+    
 })

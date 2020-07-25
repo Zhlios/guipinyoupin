@@ -15,7 +15,7 @@
                   bindtouchend="touchE" data-index="{{index}}" style="{{item.left}}">
                 <view style="display: flex;align-items: center;padding:0 10rpx">
                     <radio checked="{{item.selected}}" data-index="{{index}}"
-                           bindtap="clickChangeSkuSelected"/>
+                           catchtap="clickChangeSkuSelected" />
                 </view>
                 <view class="goods-info">
                     <view class="img-box">

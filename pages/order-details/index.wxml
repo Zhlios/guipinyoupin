@@ -144,5 +144,8 @@
             </view>
         </view>
     </view>
+<!--    <view class="buy-again" data-type="{{OrderAllInfo.orderType}}" data-id="{{OrderAllInfo.actId}}" bindtap="navigateToPayOrder">-->
+<!--        再次购买-->
+<!--    </view>-->
 </view>
 <float-menu/>

@@ -292,3 +292,14 @@ page{
     color: #e64340;
     text-align: right;
 }
+.buy-again{
+    width: 90vw;
+    height: 80rpx;
+    margin: 0 auto;
+    margin-top: 20rpx;
+    color: #ffffff;
+    background-color: #e64340;
+    line-height: 80rpx;
+    text-align: center;
+    border-radius: 10rpx;
+}

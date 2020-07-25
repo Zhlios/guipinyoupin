@@ -60,9 +60,7 @@ Page({
         if (options.orderType === "integral") {
 
             const {pid, buyNumber} = options;
-            console.log(options);
             const result = await AUTH.httpPost("order/CashPointSubmitOrder", {recordId: pid, cCount: buyNumber});
-            console.log(result, 'jifen');
             this.setData({
                 ...result.content,
                 realMoney: result.content.TotalMoney,
@@ -103,7 +101,6 @@ Page({
         }
         //拼团购买
         if (options.orderType === "toPintuan") {
-            console.log(options);
             const sType = options.pintuanType;
             const id = options.pintuanID;
             const result = await AUTH.httpPost("order/SpellSubmitOrder", {sType, id})

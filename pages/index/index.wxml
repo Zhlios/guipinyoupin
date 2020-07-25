@@ -105,7 +105,7 @@
                    wx:key="id">
             <image src="{{imagePath+img420+item.ShowImg}}" mode="aspectFill"></image>
             <view class="goods-list-title">{{item.Name}}</view>
-            <view class="goods-list-text">这里是说明</view>
+            <view class="goods-list-text">{{item.Pdescription}}</view>
             <view class="goods-list-money">Ұ{{item.ShopPrice}}</view>
         </navigator>
     </view>
@@ -121,7 +121,7 @@
                    wx:key="id">
             <image src="{{imagePath+img420+item.ShowImg}}" mode="aspectFill"></image>
             <view class="goods-list-title">{{item.Name}}</view>
-            <view class="goods-list-text">这里是说明</view>
+            <view class="goods-list-text">{{item.Pdescription}}</view>
             <view class="goods-list-money">Ұ{{item.ShopPrice}}</view>
         </navigator>
     </view>

@@ -434,7 +434,7 @@ page {
 }
 .category-title {
   height: 100rpx;
-  font-size: 36rpx;
+  font-size: 32rpx;
   color: #333;
   line-height: 100rpx;
   font-weight: bold;
@@ -442,7 +442,7 @@ page {
 
 .category-all {
   height: 100rpx;
-  font-size: 36rpx;
+  font-size: 32rpx;
   margin-left: 20rpx;
   font-weight: bold;
   line-height: 100rpx;
@@ -452,7 +452,7 @@ page {
 
 .category-list {
   height: 80rpx;
-  font-size: 34rpx;
+  font-size: 28rpx;
   color:#666;
   line-height: 80rpx;
 }
@@ -481,8 +481,8 @@ page {
 }
 
 .category-header-left {
-  width: 60rpx;
-  height: 60rpx;
+  width: 50rpx;
+  height: 50rpx;
 }
 
 .category-header-search {
@@ -543,7 +543,7 @@ page {
 
 }
 .category-list-cell .cell-right .right-top .cell-title {
-  font-size:34rpx;
+  font-size:32rpx;
   color: #333;
   -webkit-line-clamp: 2;
 }
@@ -581,7 +581,7 @@ page {
 }
 
 .category-list-cell .cell-right .cell-price {
-  font-size:34rpx;
+  font-size:32rpx;
   color: #ff495e !important;
 }
 

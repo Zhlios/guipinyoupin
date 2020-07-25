@@ -17,10 +17,9 @@
                     <text>已砍价：</text>
                     <text class="text-price text-red">{{item.shopprice-item.aprice}}</text>
                 </view>
-
             </view>
             <view class="action">
-                <view class="text-red text-xs"></view>
+                <view class="{{item.isExpire?'text-gray':'text-red'}} text-xs">{{item.isExpire?'已结束':'进行中'}}</view>
             </view>
         </navigator>
     </view>

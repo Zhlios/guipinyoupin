@@ -19,7 +19,7 @@ Page({
         showModal: false, //是否显示微信支付modal
         payAmount: null,
         payId: null,
-
+        CutID:0,
         OrderProductsModel: [], //订单商品详情
         CouponMM: [], // 优惠券
         PointsInfo: {}, // 积分。可以兑换
@@ -56,17 +56,16 @@ Page({
     async doneShow() {
         //立即购买下单
         const options = this.data.options;
-        console.log(options.orderType, 'hahaa===拼团进来的')
         // 积分商城购买
         if (options.orderType === "integral") {
 
             const {pid, buyNumber} = options;
             console.log(options);
-            const result = await AUTH.httpPost("order/CashPointSubmitOrder", {recordId:pid, cCount:buyNumber});
-            console.log(result,'jifen');
+            const result = await AUTH.httpPost("order/CashPointSubmitOrder", {recordId: pid, cCount: buyNumber});
+            console.log(result, 'jifen');
             this.setData({
                 ...result.content,
-                realMoney:result.content.TotalMoney,
+                realMoney: result.content.TotalMoney,
                 integral: result.content.TotalPoints,
             }, () => {
 
@@ -175,15 +174,15 @@ Page({
                 BuyerRemark: remark,
             }
             AUTH.httpPost('order/CashPointCreateOrder', param)
-            .then((result) => {
-                that.setData({
-                    showModal: true,
-                    wechatPayContent: result.content
+                .then((result) => {
+                    that.setData({
+                        showModal: true,
+                        wechatPayContent: result.content
+                    });
+                })
+                .catch((err) => {
+                    console.log(err, 'jifenerr')
                 });
-            })
-            .catch((err) => {
-                console.log(err,'jifenerr')
-            });
             return;
         }
 
@@ -231,7 +230,7 @@ Page({
                 ...postData,
                 Pid: options.pid,
                 Said: this.data.RegionOrderInfo.said,
-                CouponId: this.data.CouponMM.length ? this.data.CouponMM[0].CouponId : 0,
+                CouponId: this.data.CutID,
                 PaycReditCount: this.data.integral,
                 BuyCount: options.buyNumber,
             }
@@ -334,15 +333,19 @@ Page({
         const selIndex = e.detail.value[0] - 1;
         if (selIndex == -1) {
             this.setData({
-                youhuijine: 0,
-                curCoupon: null
+                CutMoney: 0,
+                CutID: 0,
+            },()=>{
+                this.getRealMonery();
             });
             return;
         }
-        //console.log("selIndex:" + selIndex);
+        const money = Number(this.data.CouponMM[selIndex].Money);
         this.setData({
-            youhuijine: this.data.coupons[selIndex].money,
-            curCoupon: this.data.coupons[selIndex]
+            CutMoney: money,
+            CutID: this.data.CouponMM[selIndex].CutID,
+        }, () => {
+            this.getRealMonery();
         });
     },
 
@@ -355,7 +358,7 @@ Page({
         // 积分商城购买
         if (options.orderType === "integral") {
 
-        }else {
+        } else {
             let coupop = 0;
             if (this.data.CouponMM.length) {
                 coupop = this.data.CouponMM[0].Money;
@@ -366,7 +369,6 @@ Page({
                 realMoney: realMonery,
             });
         }
-
 
 
     },

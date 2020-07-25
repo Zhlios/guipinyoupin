@@ -130,13 +130,14 @@
     padding: 0 10rpx;
     display: flex;
     background-color: #f7f7f7;
+    margin-bottom: 10rpx;
 }
 
 .price-box {
     width: 720rpx;
     display: flex;
     flex-direction: row-reverse;
-    padding-bottom: 30rpx;
+    padding: 15rpx;
 }
 
 .price-box .btn {

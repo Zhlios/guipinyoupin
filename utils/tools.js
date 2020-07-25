@@ -114,7 +114,10 @@ function countTime(cellval, i) {
     }
     return `${h}:${m}:${s}`;
 }
-
+function timeChange(cellval){
+    let time = parseInt(cellval.replace("/Date(", "").replace(")/", ""), 10);
+    return time;
+}
 
 module.exports = {
     isStrInArray: isStrInArray,
@@ -122,6 +125,7 @@ module.exports = {
     urlEncode: urlEncode,
     changeDateFormat,
     changeDateFormatNY,
+    timeChange,
     showTabBarBadge,
     countTime,
 }

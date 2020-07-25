@@ -98,29 +98,29 @@ Page({
         TOOLS.showTabBarBadge();
     },
     onPageScroll(e) {
-        let scrollTop = this.data.scrollTop
-        this.setData({
-            scrollTop: e.scrollTop
-        })
-        if (e.scrollTop >= 180) {
-            wx.setNavigationBarColor({
-                frontColor: '#000000',
-                backgroundColor: '#ffffff'
-            })
-            app.fadeInOut(this, 'fadeAni', 1)
-            this.setData({
-                disableSearchJump: false
-            })
-        } else {
-            wx.setNavigationBarColor({
-                frontColor: '#ffffff',
-                backgroundColor: '#ffffff'
-            })
-            app.fadeInOut(this, 'fadeAni', 0)
-            this.setData({
-                disableSearchJump: true //隐藏自定义导航栏时点击到搜索框区域时不跳转搜索页面
-            })
-        }
+        // let scrollTop = this.data.scrollTop
+        // this.setData({
+        //     scrollTop: e.scrollTop
+        // })
+        // if (e.scrollTop >= 180) {
+        //     wx.setNavigationBarColor({
+        //         frontColor: '#000000',
+        //         backgroundColor: '#ffffff'
+        //     })
+        //     app.fadeInOut(this, 'fadeAni', 1)
+        //     this.setData({
+        //         disableSearchJump: false
+        //     })
+        // } else {
+        //     wx.setNavigationBarColor({
+        //         frontColor: '#ffffff',
+        //         backgroundColor: '#ffffff'
+        //     })
+        //     app.fadeInOut(this, 'fadeAni', 0)
+        //     this.setData({
+        //         disableSearchJump: true //隐藏自定义导航栏时点击到搜索框区域时不跳转搜索页面
+        //     })
+        // }
     },
     onReachBottom: function () {
         this.setData({

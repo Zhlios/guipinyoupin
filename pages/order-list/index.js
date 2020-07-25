@@ -74,6 +74,29 @@ Page({
             }
         })
     },
+    shouhuo: function (e) {
+        const that = this;
+        const orderId = e.currentTarget.dataset.id;
+        wx.showModal({
+            title: '确定已收到商品？',
+            content: '',
+            success: function (res) {
+                if (res.confirm) {
+                    AUTH.httpPost('order/UpdateOrder', {oid: orderId, act: 4})
+                        .then((result) => {
+                            that.setData({
+                                PageIndex: 1,
+                                orderList: [],
+                            })
+                            that.doneShow();
+                        })
+                        .catch(() => {
+
+                        })
+                }
+            }
+        })
+    },
     refundApply(e) {
         // 申请售后
         const orderId = e.currentTarget.dataset.id;

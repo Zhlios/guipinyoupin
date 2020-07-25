@@ -1,5 +1,6 @@
 const WXAPI = require('apifm-wxapi')
 const AUTH = require('../../utils/auth')
+const CONFIG = require('../../config');
 Page({
     data: {
         orderId: 1,
@@ -9,7 +10,6 @@ Page({
 
         type: null,
         typeItems: [
-            '',
             '我要退款(无需退货)',
             '我要退货退款',
         ],
@@ -140,11 +140,29 @@ Page({
     async uploadPics() {
         const _this = this;
         for (let i = 0; i < _this.data.files.length; i++) {
-            const res = await WXAPI.uploadFile(wx.getStorageSync('token'), _this.data.files[i])
-            if (res.code == 0) {
-                _this.data.pics.push(res.data.url)
-            }
+            const res = await this.uploadFile(i);
+            // if (res.code == 0) {
+            //     _this.data.pics.push(res.data.url)
+            // }
         }
+    },
+    uploadFile(i) {
+        const _this = this;
+        return new Promise(((resolve, reject) => {
+            wx.uploadFile({
+                url: CONFIG.baseUrl + "order/UploadImgFile", filePath: _this.data.files[i], name: "file", formData: {
+                    'operation': 'uploadsaleserviceimage',
+                    'osn': _this.data.orderId,
+                },
+                header: {'Cookie': wx.getStorageSync('cookie')},
+                success: (result) => {
+                    resolve(result.data)
+                },
+                fail: (err) => {
+                    reject(err)
+                }
+            })
+        }))
     },
     async bindSave(e) {
         // 提交保存
@@ -159,10 +177,12 @@ Page({
         }
         let act = this.data.type === "1" ? 2 : 3;
         // 上传图片
-        // await _this.uploadPics()
+        wx.showLoading({title: '正在上传', mask: true})
+        _this.data.type == 2 && await _this.uploadPics();
         // _this.data.pics
         AUTH.httpPost('order/UpdateOrder', {desc: remark, oid: _this.data.orderId, act})
             .then(res => {
+                wx.hideLoading()
                 wx.showModal({
                     title: '成功',
                     content: '提交成功，请耐心等待我们处理！',
@@ -173,8 +193,9 @@ Page({
                     }
                 })
             })
-            .catch((err)=>{
-
+            .catch((err) => {
+                wx.hideLoading();
+                wx.navigateBack();
             })
-    }
+    },
 });

@@ -294,6 +294,14 @@ swiper-item image {
 	right: 30rpx;
 	width: 90rpx;
 	height: 90rpx;
+	background-color: rgba(0, 0, 0, 0.5);
+	border-radius: 10rpx;
+}
+
+.goods-button .share-title {
+	font-size: 28rpx;
+	color: white;
+	text-align: center;
 }
 
 .goods-button image {

@@ -292,8 +292,10 @@ swiper-item image {
 	position: fixed;
 	bottom: 200rpx;
 	right: 30rpx;
-	width: 90rpx;
-	height: 90rpx;
+	width: 110rpx;
+	height: 110rpx;
+	background-color: rgba(0, 0, 0, 0.5);
+	border-radius: 10rpx;
 }
 
 .goods-button image {
@@ -305,6 +307,12 @@ swiper-item image {
 	margin: 0 auto;
 	margin-top: 10rpx;
 	position: relative;
+}
+
+.goods-button .share-title {
+	font-size: 28rpx;
+	color: white;
+	text-align: center;
 }
 
 .goods-button image button {

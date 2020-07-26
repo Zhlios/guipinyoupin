@@ -1,0 +1,154 @@
+{
+	"description": "项目配置文件",
+	"packOptions": {
+		"ignore": []
+	},
+	"setting": {
+		"urlCheck": false,
+		"es6": true,
+		"enhance": true,
+		"postcss": false,
+		"preloadBackgroundData": false,
+		"minified": true,
+		"newFeature": true,
+		"coverView": true,
+		"nodeModules": true,
+		"autoAudits": false,
+		"showShadowRootInWxmlPanel": true,
+		"scopeDataCheck": false,
+		"checkInvalidKey": true,
+		"checkSiteMap": true,
+		"uploadWithSourceMap": true,
+		"compileHotReLoad": false,
+		"babelSetting": {
+			"ignore": [],
+			"disablePlugins": [],
+			"outputPath": ""
+		},
+		"useIsolateContext": true,
+		"useCompilerModule": false,
+		"userConfirmedUseCompilerModuleSwitch": false
+	},
+	"compileType": "miniprogram",
+	"libVersion": "2.11.2",
+	"appid": "wx5b78b1b8d2dd440d",
+	"projectname": "%E6%96%B0%E7%9A%84%E5%88%86%E9%94%80",
+	"cloudfunctionTemplateRoot": "",
+	"watchOptions": {
+		"ignore": []
+	},
+	"debugOptions": {
+		"hidedInDevtools": []
+	},
+	"scripts": {},
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"list": []
+		},
+		"gamePlugin": {
+			"current": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": -1,
+			"list": [
+				{
+					"id": -1,
+					"name": "我的砍价",
+					"pathName": "pages/my-kanjia/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "我的拼团",
+					"pathName": "pages/my-pintuan/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "专栏",
+					"pathName": "pages/topic-list/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "新人领券",
+					"pathName": "pages/freshman/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "home",
+					"pathName": "pages/index/index",
+					"query": "inviter_id=1210945",
+					"scene": 1011
+				},
+				{
+					"id": -1,
+					"name": "商品详情页面",
+					"pathName": "pages/goods-details/index",
+					"query": "id=115291&inviter_id=456",
+					"scene": 1011
+				},
+				{
+					"id": -1,
+					"name": "商品详情页面",
+					"pathName": "pages/goods-details/index",
+					"query": "id=266924",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "砍价详情页面",
+					"pathName": "pages/goods-details/index",
+					"query": "id=115288",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "砍价详情页面2",
+					"pathName": "pages/goods-details/index",
+					"query": "id=115288&kjJoinUid=1210945",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "拼团",
+					"pathName": "pages/goods-details/index",
+					"query": "id=6761",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "生成海报",
+					"pathName": "pages/goods-details/poster",
+					"query": "goodsid=6761",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "分销中心",
+					"pathName": "pages/fx/apply-status",
+					"query": "",
+					"scene": null
+				}
+			]
+		}
+	}
+}

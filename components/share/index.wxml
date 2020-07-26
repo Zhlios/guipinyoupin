@@ -1,6 +1,7 @@
 <!--components/share/index.wxml-->
 <view class="goods-button" bindtap="switchShow">
 	<image src="{{icon}}"></image>
+	<view class="share-title">分享</view>
 </view>
 <view class="cu-modal bottom-modal {{show?'show':''}}" style="z-index: {{zIndex}};">
 	<view class="cu-dialog">

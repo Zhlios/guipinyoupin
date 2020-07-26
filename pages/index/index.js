@@ -31,7 +31,7 @@ Page({
         cateScrollTop: 0,
         dotStyle: "square-dot", //swiper指示点样式可选square-dot round-dot
         navigation: [
-            {title: "礼券", image: '/images/index_item01.png', url: '/pages/coupons/index'},
+            {title: "礼券", image: '/images/index_item01.png', url: '/pages/coupons/list'},
             {title: "签到", image: '/images/index_item02.png', url: '/pages/sign/index'},
             {title: "抢票", image: '/images/index_item03.png', url: '/pages/bidding/bidding'},
             {title: "积分商城", image: '/images/index_item04.png', url: '/pages/integral/list'},

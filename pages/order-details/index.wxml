@@ -15,7 +15,16 @@
                        src="/images/order-details/icon-jycg.png"></image>
             </view>
             <view class="right-text">
-                <view class="status red">{{OrderAllInfo.orderstate}}</view>
+                <view wx:if="{{OrderAllInfo.oState==1}}">
+                    <view class="text-red" wx:if="{{OrderAllInfo.SpellproductListInfo}}">
+                        <view class="status red" wx:if="{{item.SpellproductListInfo.status===1}}">拼购成功</view>
+                        <view class="status red" wx:if="{{item.SpellproductListInfo.status===0}}">正在进行中</view>
+                    </view>
+                    <view wx:else class="status red">{{OrderAllInfo.orderstate}}</view>
+                 </view>
+                <view class="status red" wx:else>{{OrderAllInfo.orderstate}}</view>
+
+                <!-- <view class="status red">{{OrderAllInfo.orderstate}}</view> -->
                 <view class="des" hidden="true">请于11时59分59秒内付款，超时订单将自动关闭</view>
             </view>
         </view>

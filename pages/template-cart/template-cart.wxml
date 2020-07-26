@@ -36,6 +36,10 @@
                                   catchtap="jiaBtnTap" data-index="{{index}}">+
                             </view>
                         </view>
+                        <view class="card-delete" data-key="{{item.recordid}}" catchtap="delItem">
+                            <image src="../../images/cart-delete.png" mode="aspectFill"></image>
+                        </view>
+
                     </view>
                 </view>
                 <view class="delete-btn" data-key="{{item.recordid}}" catchtap="delItem">

@@ -115,7 +115,7 @@
   height: 48rpx;
   line-height: 48rpx;
   position: absolute;
-  right: 30rpx;
+  right: 100rpx;
   bottom: 0;
   display: flex;
   /*justify-content: space-between;*/
@@ -123,6 +123,18 @@
   text-align: center;
 }
 
+.goods-info .text-box .card-delete {
+  position: absolute;
+  right: 30rpx;
+  bottom: 0;
+  height: 60rpx;
+  width: 60rpx;
+}
+
+.goods-info .text-box .card-delete image {
+  width: 100%;
+  height: 100%;
+}
 .goods-info .text-box .buy-num .jian-btn {
   width: 48rpx;
   height: 100%;

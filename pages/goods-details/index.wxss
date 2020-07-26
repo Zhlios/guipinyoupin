@@ -292,8 +292,8 @@ swiper-item image {
 	position: fixed;
 	bottom: 200rpx;
 	right: 30rpx;
-	width: 110rpx;
-	height: 110rpx;
+	width: 115rpx;
+	height: 115rpx;
 	background-color: rgba(0, 0, 0, 0.5);
 	border-radius: 10rpx;
 }

@@ -139,8 +139,8 @@
   position: fixed;
   bottom: 200rpx;
   right: 30rpx;
-  width: 90rpx;
-  height: 90rpx;
+  width: 115rpx;
+  height: 115rpx;
   background-color: rgba(0, 0, 0, 0.5);
 	border-radius: 10rpx;
 }

@@ -78,6 +78,7 @@ Page({
                 pid,
                 buycount: buyNumber,
             });
+            console.log(result,'lijigoumai');
             this.setData({
                 ...result.content,
 
@@ -356,12 +357,8 @@ Page({
         if (options.orderType === "integral") {
 
         } else {
-            let coupop = 0;
-            if (this.data.CouponMM.length) {
-                coupop = this.data.CouponMM[0].Money;
-            }
             let pointMoney = this.data.integral / this.data.PointsInfo.MoneyToPoints;
-            let realMonery = (this.data.TotalMoney - this.data.CutMoney - coupop - pointMoney - this.data.commission).toFixed(2);
+            let realMonery = (this.data.TotalMoney - this.data.CutMoney - pointMoney - this.data.commission).toFixed(2);
             this.setData({
                 realMoney: realMonery,
             });
@@ -373,13 +370,10 @@ Page({
     commission: 0,
     //最终金额实时计算
     getRealMoneyRealTime: function () {
-        let coupop = 0;
-        if (this.data.CouponMM.length) {
-            coupop = this.data.CouponMM[0].Money;
-        }
+    
         let pointMoney = this.integral / this.data.PointsInfo.MoneyToPoints;
 
-        let realMonery = (this.data.TotalMoney - this.data.CutMoney - coupop - pointMoney - this.commission);
+        let realMonery = (this.data.TotalMoney - this.data.CutMoney - pointMoney - this.commission);
         return realMonery;
     },
     // 积分
@@ -397,11 +391,8 @@ Page({
         } else {
             //如果实时计算价格小于等于0  则将积分设置为实付款金额 * 积分兑换比例
             if (this.getRealMoneyRealTime() <= 0) {
-                let coupop = 0;
-                if (this.data.CouponMM.length) {
-                    coupop = this.data.CouponMM[0].Money;
-                }
-                currentValue = (this.data.TotalMoney - this.data.commission - this.data.CutMoney - coupop) * this.data.PointsInfo.MoneyToPoints;
+
+                currentValue = (this.data.TotalMoney - this.data.commission - this.data.CutMoney ) * this.data.PointsInfo.MoneyToPoints;
                 this.integral = currentValue;
             }
 

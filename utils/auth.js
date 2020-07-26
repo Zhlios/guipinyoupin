@@ -1,4 +1,4 @@
-const base_url = "https://www.ynhcn.net/mobile/";
+const base_url = "http://www.szynh.com/mobile/";
 
 // const base_url = "http://121.196.23.109:8001/mobile/";
 async function checkSession() {

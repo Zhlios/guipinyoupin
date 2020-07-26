@@ -24,10 +24,12 @@
                                     data-num="{{item.osn}}">复制
                             </button>
                         </view>
-                        <view class="text-red" wx:if="{{item.SpellproductListInfo}}">
-                           <view wx:if="{{item.SpellproductListInfo.status===1}}">拼购成功</view>
-                           <view wx:if="{{item.SpellproductListInfo.status===2}}">已过期</view>
-                           <view wx:if="{{item.SpellproductListInfo.status===0}}">正在进行中</view>
+                        <view wx:if="{{item.oState==1}}">
+                            <view class="text-red" wx:if="{{item.SpellproductListInfo}}">
+                                <view wx:if="{{item.SpellproductListInfo.status===1}}">拼购成功</view>
+                                <view wx:if="{{item.SpellproductListInfo.status===0}}">正在进行中</view>
+                            </view>
+                            <view wx:else>{{item.orderstate}}</view>
                         </view>
                         <view class="text-red" wx:else>{{item.orderstate}}</view>
                     </view>

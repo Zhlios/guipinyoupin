@@ -292,10 +292,11 @@ swiper-item image {
 	position: fixed;
 	bottom: 200rpx;
 	right: 30rpx;
-	width: 115rpx;
-	height: 115rpx;
+	width: 120rpx;
+	height: 120rpx;
 	background-color: rgba(0, 0, 0, 0.5);
 	border-radius: 10rpx;
+	padding: 10rpx;
 }
 
 .goods-button image {
@@ -305,7 +306,6 @@ swiper-item image {
 	border-radius: 50%;
 	display: block;
 	margin: 0 auto;
-	margin-top: 10rpx;
 	position: relative;
 }
 

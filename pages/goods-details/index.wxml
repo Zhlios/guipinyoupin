@@ -175,7 +175,7 @@
 				</view>
 				<view class="pop-goods-close" bindtap="closePopupTap"></view>
 			</view>
-			<view class="size-label-box">
+			<view class="size-label-box" wx:if="{{!initManySpecData}}">
 				<block wx:for="{{goodsDetail.SKUListInfo}}" wx:for-item="property" wx:for-index="idx" wx:key="id">
 					<view class="label">{{property.ItemAttrInfo.Key.AttrName}}</view>
 					<view class="label-item-box">
@@ -186,6 +186,9 @@
 						</view>
 					</view>
 				</block>
+			</view>
+			<view style="color: #666666;padding: 0 40rpx;margin-top: 20rpx" wx:else>
+				已选：{{initManySpecData}}
 			</view>
 			<view class="buy-num-box">
 				<view class="num-label">购买数量</view>

@@ -134,6 +134,7 @@
 .goods-info .text-box .card-delete image {
   width: 100%;
   height: 100%;
+  margin-top: 6rpx;
 }
 .goods-info .text-box .buy-num .jian-btn {
   width: 48rpx;

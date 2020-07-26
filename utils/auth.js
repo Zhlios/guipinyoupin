@@ -1,6 +1,5 @@
-const base_url = "http://www.szynh.com/mobile/";
-
-// const base_url = "http://121.196.23.109:8001/mobile/";
+const CONFIG = require("../config");
+const base_url = CONFIG.baseUrl;
 async function checkSession() {
     return new Promise((resolve, reject) => {
         wx.checkSession({

@@ -17,11 +17,12 @@
             <view class="right-text">
                 <view wx:if="{{OrderAllInfo.oState==1}}">
                     <view class="text-red" wx:if="{{OrderAllInfo.SpellproductListInfo}}">
-                        <view class="status red" wx:if="{{item.SpellproductListInfo.status===1}}">拼购成功</view>
-                        <view class="status red" wx:if="{{item.SpellproductListInfo.status===0}}">正在进行中</view>
+                        <view class="status red" wx:if="{{OrderAllInfo.SpellproductListInfo.status===1}}">拼购成功</view>
+                        <view class="status red" wx:if="{{OrderAllInfo.SpellproductListInfo.status===0}}">正在进行中</view>
+                        <view class="status" wx:if="{{OrderAllInfo.SpellproductListInfo.status===2}}">拼购已过期</view>
                     </view>
                     <view wx:else class="status red">{{OrderAllInfo.orderstate}}</view>
-                 </view>
+                </view>
                 <view class="status red" wx:else>{{OrderAllInfo.orderstate}}</view>
 
                 <!-- <view class="status red">{{OrderAllInfo.orderstate}}</view> -->
@@ -35,7 +36,7 @@
             <!--                </view>-->
             <!--                <view class="right-text" bindtap="wuliuDetailsTap" data-id="{{orderDetail.orderInfo.id}}">-->
             <!--                    <view class="order-number">快递单号：{{OrderAllInfo.osn}}</view>-->
-            <!--                    <block wx:if="{{orderDetail.logisticsTraces}}">-->
+            <!--                    <block>-->
             <!--                        <view class="wuliu-text">-->
             <!--                            {{orderDetail.logisticsTraces[orderDetail.logisticsTraces.length-1].AcceptStation}}-->
             <!--                        </view>-->
@@ -52,10 +53,10 @@
                 <view class="icon-box">
                     <image class="icon" src="/images/order-details/icon-wuliu.png"></image>
                 </view>
-                <view class="right-text" wx:if="{{OrderAllInfo.ShipData.length}}" bindtap="navigateToLogisticDetail">
+                <view class="right-text" wx:if="{{OrderAllInfo.shipsn}}">
                     <view class="order-number">快递单号：{{OrderAllInfo.shipsn}}</view>
                     <view class="wuliu-text">{{OrderAllInfo.shipfriendname}}</view>
-                    <view class="wuliu-text">查看详情</view>
+                    <!--                    <view class="wuliu-text">查看详情</view>-->
                 </view>
                 <view wx:else class="right-text">
                     <view class="order-number">暂无快递信息</view>
@@ -97,7 +98,8 @@
                     <view class="row-box" style="margin-top:35rpx">
                         <view class="row-label">备注</view>
                         <input name="orderGoodsId{{index}}" value="{{item.id}}" style="display:none;"/>
-                        <textarea disabled name="goodReputationRemark{{index}}" style="margin-top:35rpx;width:100%;height: 100rpx;color: #999999"
+                        <textarea disabled name="goodReputationRemark{{index}}"
+                                  style="margin-top:35rpx;width:100%;height: 100rpx;color: #999999"
                                   value="{{OrderAllInfo.buyerremark}}"/>
                     </view>
                 </view>
@@ -153,8 +155,12 @@
             </view>
         </view>
     </view>
-<!--    <view class="buy-again" data-type="{{OrderAllInfo.orderType}}" data-id="{{OrderAllInfo.actId}}" bindtap="navigateToPayOrder">-->
-<!--        再次购买-->
-<!--    </view>-->
+    <view wx:if="{{OrderProductInfo.length<=1}}" class="buy-again" data-type="{{OrderAllInfo.orderType}}" data-id="{{OrderAllInfo.scfgId}}"
+          bindtap="navigateToPayOrder">
+        再次购买
+    </view>
+    <view wx:else class="buy-again" bindtap="addToShoppingCart">
+        加入购物车
+    </view>
 </view>
 <float-menu/>

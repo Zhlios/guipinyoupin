@@ -65,21 +65,39 @@ Page({
             url: '/pages/order-details/logistic_detail?osn=' + this.data.OrderAllInfo.osn,
         })
     },
+    /**
+     * 再来一单
+     * @param e
+     */
     navigateToPayOrder(e) {
         const id = e.currentTarget.dataset.id;
         const orderType = e.currentTarget.dataset.type;
+        const num = this.data.OrderProductInfo[0].BuyCount;
+        const pid = this.data.OrderProductInfo[0].Pid;
         let type = "buyNow";
         if (orderType == "0") {
             type = "buyNow";
             wx.navigateTo({
-                url: `/pages/to-pay-order/index?orderType=${type}&pid=${id}`
+                url: `/pages/to-pay-order/index?orderType=${type}&pid=${pid}&buyNumber=${num}`
             })
         }
         if (orderType == "2") {
             type = "toPintuan";
             wx.navigateTo({
-                url: `/pages/to-pay-order/index?orderType=${type}&pintuanID=${id}&pintuanType=0`
+                url: `/pages/to-pay-order/index?orderType=${type}&pintuanID=${id}&pintuanType=0&buyNumber=${num}`
             })
         }
+    },
+    /**
+     * 添加到购物车
+     */
+    addToShoppingCart() {
+        this.data.OrderProductInfo.map(async (item) => {
+            await AUTH.httpPost('Order/AddCartProduct', {
+                pid: item.Pid,
+                count: item.BuyCount,
+            });
+        });
+        wx.switchTab({url:"/pages/shop-cart/index"});
     }
 })

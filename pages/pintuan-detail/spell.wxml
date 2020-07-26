@@ -17,7 +17,7 @@
                     {{item.img?"":"?"}}
                 </view>
             </view>
-            <view class="text-black text-lg  margin-top-sm padding-right-sm padding-left-sm">
+            <view class="text-black text-lg  margin-top-sm padding-right-sm padding-left-sm" wx:if="{{countTime}}">
                 仅剩 <text class="text-lg text-red">{{spellGoods.cntTotal - spellGoods.cntBuy}}</text> 个名额，<text
                     class="text-lg text-bold text-black">{{countTime}}</text>后结束
             </view>

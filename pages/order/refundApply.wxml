@@ -35,35 +35,38 @@
             <!--                    <view class="picker">{{reasonIndex?reasons[reasonIndex]:"请选择售后原因"}}</view>-->
             <!--                </picker>-->
             <!--            </view>-->
-<!--            <view class="cu-form-group" wx:if="{{type != 2}}">-->
-<!--                <view class="title">退款金额</view>-->
-<!--                <input type="text" name='amount' value='{{amount}}'/>-->
-<!--            </view>-->
+            <!--            <view class="cu-form-group" wx:if="{{type != 2}}">-->
+            <!--                <view class="title">退款金额</view>-->
+            <!--                <input type="text" name='amount' value='{{amount}}'/>-->
+            <!--            </view>-->
             <view class="cu-form-group align-start">
                 <view class="title">售后说明</view>
                 <textarea name='remark' placeholder="请输入退款说明"/>
             </view>
-            <!--            <view class="cu-bar bg-white margin-top">-->
-            <!--                <view class="action">-->
-            <!--                    图片上传-->
-            <!--                </view>-->
-            <!--                <view class="action">-->
-            <!--                    {{files.length}}/{{maxImgCount}}-->
-            <!--                </view>-->
-            <!--            </view>-->
-            <!--            <view class="cu-form-group">-->
-            <!--                <view class="grid col-4 grid-square flex-sub">-->
-            <!--                    <view class="bg-img" wx:for="{{files}}" wx:key="index" bindtap="ViewImage" data-url="{{item}}">-->
-            <!--                        <image src='{{item}}' mode='aspectFill'></image>-->
-            <!--                        <view class="cu-tag bg-red" catchtap="delImg" data-index="{{index}}">-->
-            <!--                            <text class="cuIcon-close"></text>-->
-            <!--                        </view>-->
-            <!--                    </view>-->
-            <!--                    <view class="solids" bindtap="chooseImage" wx:if="{{files.length<maxImgCount}}">-->
-            <!--                        <text class="cuIcon-cameraadd"></text>-->
-            <!--                    </view>-->
-            <!--                </view>-->
-            <!--            </view>-->
+            <template wx:if="{{type == 2}}">
+                <view class="cu-bar bg-white margin-top">
+                    <view class="action">
+                        图片上传
+                    </view>
+                    <view class="action">
+                        {{files.length}}/{{maxImgCount}}
+                    </view>
+                </view>
+                <view class="cu-form-group">
+                    <view class="grid col-4 grid-square flex-sub">
+                        <view class="bg-img" wx:for="{{files}}" wx:key="index" bindtap="previewImage"
+                              data-url="{{item}}">
+                            <image src='{{item}}' mode='aspectFill'></image>
+                            <view class="cu-tag bg-red" catchtap="delImg" data-index="{{index}}">
+                                <text class="cuIcon-close"></text>
+                            </view>
+                        </view>
+                        <view class="solids" bindtap="chooseImage" wx:if="{{files.length<maxImgCount}}">
+                            <text class="cuIcon-cameraadd"></text>
+                        </view>
+                    </view>
+                </view>
+            </template>
 
             <view class="padding flex flex-direction">
                 <!--      <button wx:if="{{refundApplyDetail && refundApplyDetail.baseInfo.status == 0}}" class="cu-btn bg-orange lg" bindtap='refundApplyCancel'>撤回本次申请</button>-->

@@ -60,10 +60,26 @@ Page({
     /**
      *  跳转到物流详情界面
      * */
-    navigateToLogisticDetail:function(e) {
+    navigateToLogisticDetail: function (e) {
         wx.navigateTo({
-            url: '/pages/order-details/logistic_detail?osn='+this.data.OrderAllInfo.osn,
+            url: '/pages/order-details/logistic_detail?osn=' + this.data.OrderAllInfo.osn,
         })
+    },
+    navigateToPayOrder(e) {
+        const id = e.currentTarget.dataset.id;
+        const orderType = e.currentTarget.dataset.type;
+        let type = "buyNow";
+        if (orderType == "0") {
+            type = "buyNow";
+            wx.navigateTo({
+                url: `/pages/to-pay-order/index?orderType=${type}&pid=${id}`
+            })
+        }
+        if (orderType == "2") {
+            type = "toPintuan";
+            wx.navigateTo({
+                url: `/pages/to-pay-order/index?orderType=${type}&pintuanID=${id}&pintuanType=0`
+            })
+        }
     }
-    
 })

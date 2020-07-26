@@ -1,18 +1,24 @@
 <view class="container">
-	<view class="coupons-list">
-		<view class="coupons-item" wx:for-items="{{coupons}}" wx:key="id" bindtap="gitCoupon" data-id="{{item.id}}">
-			<view class="coupons-item-box">
-				<view class="money-left">{{item.money}}
-					<text>元</text>
-				</view>
-				<view class="money-right">
-					<view class="money-name">{{item.name}}</view>
-					<view class="money-hold">{{item.name}}</view>
-				</view>
-				<view class="money-home" bindtap="givecoupons" data-id="{{item.coupontypeid}}">立即领取</view>
-			</view>
-			<view class="money-line"></view>
-		</view>
-	</view>
+    <view class="coupons-list">
+        <view class="coupons-item {{item.flag?'disable':''}}" wx:for-items="{{coupons}}" wx:key="id" bindtap="gitCoupon"
+              data-id="{{item.id}}">
+            <view class="coupons-item-box">
+                <view class="money-left">{{item.money}}
+                    <text>元</text>
+                </view>
+                <view class="money-right">
+                    <view class="money-name">{{item.name}}</view>
+                    <view class="money-hold">{{item.name}}</view>
+                </view>
+                <view class="money-home" bindtap="givecoupons" wx:if="{{!item.flag}}" data-id="{{item.coupontypeid}}">
+                    立即领取
+                </view>
+                <view class="disable-money-home" wx:if="{{item.flag}}">
+                    已领
+                </view>
+            </view>
+            <view class="money-line"></view>
+        </view>
+    </view>
 </view>
 <auth is-hidden="{{wxlogin}}" bind:afterAuth="afterAuth"></auth>

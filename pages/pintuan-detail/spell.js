@@ -39,13 +39,20 @@ Page({
         AUTH.httpGet("outapi/GetSpellproductInfo", {sId})
             .then((result) => {
                 let i = 1;
-                const countTime = TOOLS.countTime(result.content.endTime, i);
+                const endTime = TOOLS.timeChange(result.content.endTime);
+                const newTime = new Date().getTime();
+                const countDown = endTime - Number(newTime);
+                let countTime = undefined;
                 if (!_this.timer) {
-                    _this.timer = setInterval(() => {
-                        i++;
-                        const countTimeLoop = TOOLS.countTime(result.content.endTime, i);
-                        _this.setData({countTime: countTimeLoop});
-                    }, 1000)
+                    if (countDown <= 0) {
+                        countTime = undefined;
+                    } else {
+                        _this.timer = setInterval(() => {
+                            i++;
+                            const countTimeLoop = this.countTimeFun(countDown, i);
+                            _this.setData({countTime: countTimeLoop});
+                        }, 1000)
+                    }
                 }
                 const status = result.content.status;
                 let spellMessage = "";
@@ -62,6 +69,24 @@ Page({
                 _this.spellUserImg(cntTotal, list)
             })
             .catch()
+    },
+
+    countTimeFun(cellval, i) {
+        let date = cellval - 1000 * i;
+        //定义变量 d,h,m,s保存倒计时的时间
+        let d, h, m, s;
+        if (date >= 0) {
+            // d = Math.floor(date / 1000 / 60 / 60 / 24);
+            h = Math.floor(date / 1000 / 60 / 60 % 24);
+            m = Math.floor(date / 1000 / 60 % 60);
+            s = Math.floor(date / 1000 % 60);
+            h = h < 10 ? ("0" + h) : h;
+            m = m < 10 ? ("0" + m) : m;
+            s = s < 10 ? ("0" + s) : s;
+            return `${h}:${m}:${s}`;
+        } else {
+            return "00:00:00"
+        }
     },
     /**
      * 设置页面高度

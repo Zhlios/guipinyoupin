@@ -30,6 +30,7 @@
                                 <view wx:if="{{item.SpellproductListInfo.status===0}}">正在进行中</view>
                             </view>
                             <view wx:else>{{item.orderstate}}</view>
+
                         </view>
                         <view class="text-red" wx:else>{{item.orderstate}}</view>
                     </view>
@@ -39,7 +40,7 @@
                           wx:key="id">
                         <image src="{{imagePath+img220+goods.ShowImg}}" class="goods-img"></image>
                         <view class="goods-info-detail">
-                            <text>{{goods.Name}}}</text>
+                            <text>{{goods.Name}}</text>
                             <view class="goods-info-price">
                                 <text>￥{{goods.ShopPrice}}</text>
                                 <text>x{{goods.BuyCount}}</text>
@@ -67,7 +68,10 @@
                     <view class="btn active" hidden="{{item.oState!==0}}" catchtap="toPayTap" data-id="{{item.oid}}"
                           data-money="{{item.amountReal}}" data-score="{{item.score}}">马上付款
                     </view>
-                    <view class="btn active" hidden="{{item.IsRefund !== 1&&item.IsRefund !== 2}}"
+                    <view class="btn active" wx:if="{{item.ConfirmReceipt}}" catchtap="shouhuo" data-id="{{item.oid}}">
+                        确认收货
+                    </view>
+                    <view class="btn active" wx:if="{{item.IsRefund == 1 || item.IsRefund == 2}}"
                           catchtap="refundApply"
                           data-type="{{item.IsRefund}}"
                           data-id="{{item.oid}}">申请售后

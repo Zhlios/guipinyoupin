@@ -3,11 +3,11 @@ page {
 }
 
 .swiper-container {
-	height: 750rpx;
+	height: 350rpx;
 }
 
 .swiper-container .screen-swiper {
-	height: 750rpx;
+	height: 350rpx;
 }
 
 .index-menu-bg {

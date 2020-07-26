@@ -113,6 +113,10 @@
         </view>
     </view>
     <view class="goods-info">
+        <view class="row-box">
+            <view class="row-label">订单时间</view>
+            <view class="right-text text-gray">{{OrderAllInfo.addtime}}</view>
+        </view>
         <view class="row-box" wx:if="{{OrderAllInfo.paycreditmoney}}">
             <view class="row-label">积分支付</view>
             <view class="right-text">{{OrderAllInfo.paycreditmoney}}</view>
@@ -140,5 +144,8 @@
             </view>
         </view>
     </view>
+<!--    <view class="buy-again" data-type="{{OrderAllInfo.orderType}}" data-id="{{OrderAllInfo.actId}}" bindtap="navigateToPayOrder">-->
+<!--        再次购买-->
+<!--    </view>-->
 </view>
 <float-menu/>

@@ -53,7 +53,6 @@ async function httpGet(url, data = {}) {
             header: {
                 "content-type": "application/json",
                 'Cookie': wx.getStorageSync('cookie'),
-
             },
             data: data,
             success(res) {

@@ -29,7 +29,7 @@ Page({
         MinMoney: 0,
         MaxMoney: 0,
         canCashInMaxMoney: 0,
-        fazhanjijin: 0,
+        // fazhanjijin: 0,
         canCashInMinMoney: 0,
         MobileSmsCodeExpirationTime: 60, // 短信时间
         isNeedCash: false, // 是否需要转账
@@ -152,11 +152,11 @@ Page({
 
 
         let money = this.PointNum(e.detail.value);
-        let fazhanjijin = 0;
+        // let fazhanjijin = 0;
         if (money > this.data.canCashInMaxMoney) {
             money = this.data.canCashInMaxMoney;
         }
-        fazhanjijin = money * this.data.DevelopmentFundPercentConfig / 100;
+        // fazhanjijin = money * this.data.DevelopmentFundPercentConfig / 100;
         let deductTheTax = 0;
         if (this.data.accountInfo.CashMonthTotalMoney >= this.data.TaxStarting) {
             deductTheTax = money * (this.data.TaxPercent / 100);
@@ -170,7 +170,7 @@ Page({
         this.setData({
             cashModel: {...this.data.cashModel, cashNumber: money},
             deductTheTax,
-            fazhanjijin
+            // fazhanjijin
         })
     },
     bindPickerChange: function (e) {
@@ -450,7 +450,7 @@ Page({
                         bankAddress: ''
                     },
                     deductTheTax: 0,
-                    fazhanjijin: 0
+                    // fazhanjijin: 0
                 })
             }, () => {
                 _this.getMoney();

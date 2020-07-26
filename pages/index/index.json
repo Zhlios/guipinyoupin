@@ -1,6 +1,6 @@
 {
 	"enablePullDownRefresh": true,
-	"navigationStyle": "custom",
+	"navigationBarTitleText": "予农惠",
 	"usingComponents": {
 		"navigation": "/components/navigation/navigation"
 	}

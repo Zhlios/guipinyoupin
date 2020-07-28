@@ -29,12 +29,15 @@ Page({
         pintuanType: "0",   //拼团类型0发起 1选择别人的拼团
         pintuanID: 0,        //拼团id
         showShare: false,
+        initManySpecData: undefined, //单商品
         tab: {
             curHdIndex: 0,
             curBdIndex: 0
         },
         dotStyle: "square-dot",
     },
+    // 记录规格的数组
+    goods_spec_arr: [],
     async onLoad(e) {
         ApifmShare.init(this)
         if (e && e.scene) {
@@ -55,6 +58,12 @@ Page({
     async getGoodDetail(pid) {
         let goodsDetail = await AUTH.httpGet("outapi/productshow", {pid});
         const buyNumber = goodsDetail.content.Number > 0 ? 1 : 0;
+        const attSku = goodsDetail.content.AttrGroupInfo;
+        let initManySpecData = undefined;
+        const SKUListInfo = goodsDetail.content.SKUListInfo;
+        if (SKUListInfo.length === 0) {
+            initManySpecData = this.initManySpecData(attSku);
+        }
         const buyNumMax = goodsDetail.content.Number;
         const spellproductcfgInfo = goodsDetail.content.SpellproductInfo.SpellproductcfgInfo;
         const spellproductListInfo = goodsDetail.content.SpellproductInfo.SpellproductListInfo;
@@ -65,7 +74,8 @@ Page({
             buyNumMax,
             spellproductListInfo,
             spellproductcfgInfo,
-            bargainProductEditResModel
+            bargainProductEditResModel,
+            initManySpecData
         });
         WxParse.wxParse('article', 'html', goodsDetail.content.Description, this, 5);
     },
@@ -101,6 +111,22 @@ Page({
         });
         this.bindGuiGeTap();
     },
+    /**
+     * 初始化商品多规格
+     */
+    initManySpecData(data) {
+        let attrInfoValue = [];
+        for (let i in data) {
+            for (let j in data[i].AttrInfo) {
+                if (j < 1) {
+                    attrInfoValue[i] = data[i].AttrInfo[0].AttrValue;
+                }
+            }
+        }
+        attrInfoValue = attrInfoValue.join("-");
+        return attrInfoValue;
+    },
+
     /**
      * 发起砍价
      */

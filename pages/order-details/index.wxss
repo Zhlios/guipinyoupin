@@ -238,7 +238,7 @@ page{
 .goods-info{
     width: 100%;
     background-color: #fff;
-    margin-bottom: 120rpx;
+    margin-bottom: 80rpx;
     padding-bottom: 24rpx;
 }
 .goods-info .row-box{
@@ -293,10 +293,10 @@ page{
     text-align: right;
 }
 .buy-again{
-    width: 90vw;
+    width: 80vw;
     height: 80rpx;
     margin: 0 auto;
-    margin-top: 20rpx;
+    margin-bottom: 30rpx;
     color: #ffffff;
     background-color: #e64340;
     line-height: 80rpx;

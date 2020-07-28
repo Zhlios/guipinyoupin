@@ -5,7 +5,7 @@
             autoplay="true"
             interval="5000" duration="500">
         <swiper-item wx:for="{{banners}}" wx:key="id" bindtap="tapBanner" data-id="{{item.ExtField1}}">
-            <image src="{{bannerPath+img800+item.Image}}" mode="aspectFill"></image>
+            <image src="{{bannerPath+imgBanner+item.Image}}" mode="aspectFill"></image>
         </swiper-item>
     </swiper>
 </view>
@@ -105,7 +105,7 @@
                    wx:key="id">
             <image src="{{imagePath+img420+item.ShowImg}}" mode="aspectFill"></image>
             <view class="goods-list-title">{{item.Name}}</view>
-            <view class="goods-list-text">{{item.Pdescription}}</view>
+            <view class="goods-list-text">{{item.Pdescription?item.Pdescription:' '}}</view>
             <view class="goods-list-money">Ұ{{item.ShopPrice}}</view>
         </navigator>
     </view>
@@ -121,7 +121,7 @@
                    wx:key="id">
             <image src="{{imagePath+img420+item.ShowImg}}" mode="aspectFill"></image>
             <view class="goods-list-title">{{item.Name}}</view>
-            <view class="goods-list-text">{{item.Pdescription}}</view>
+            <view class="goods-list-text">{{item.Pdescription?item.Pdescription:' '}}</view>
             <view class="goods-list-money">Ұ{{item.ShopPrice}}</view>
         </navigator>
     </view>

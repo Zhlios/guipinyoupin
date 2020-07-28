@@ -11,7 +11,7 @@ Page({
         flashSalePath: CONFIG.flashSalePath,    //秒杀
         spellPath: CONFIG.spellPath,            //拼购
         bargainPath: CONFIG.bargainPath,            //砍价
-        img800: CONFIG.imgType.img800,
+        imgBanner: CONFIG.imgType.imgBanner,
         img420: CONFIG.imgType.img420,
         img180: CONFIG.imgType.img180,
         inputVal: "", // 搜索框内容

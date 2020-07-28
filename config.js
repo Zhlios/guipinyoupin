@@ -1,5 +1,6 @@
-const baseUrl = "https://www.ynhcn.net";
-// const baseUrl = "http://121.196.23.109:8001";
+//const baseUrl = "https://www.ynhcn.net";
+const baseUrl = "https://www.hnxyql.com";
+// const baseUrl = "http://www.szynh.com";
 const type = "/mobile/"
 module.exports = {
     url: baseUrl,
@@ -17,7 +18,8 @@ module.exports = {
         img180: "180_180/",
         img220: "220_220/",
         img420: "420_420/",
-        img800: "750_350/",
+        img800: "800_800/",
+        imgBanner:"750_350/"
     },
     version: "2.1.0",
     note: '增加小程序直播功能', // 这个为版本描述，无需修改

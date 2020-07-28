@@ -19,7 +19,7 @@
                 <view class="cell-right">
                     <view class="right-top">
                         <view class="cell-title">{{item.Name}}</view>
-                        <view class="">{{item.Pdescription}} </view>
+                        <view class="">{{item.Pdescription?item.Pdescription:''}}</view>
                         <view class="cell-des">
                             <view wx:if="{{item.IsNew}}" class="cell-new">新品</view>
                             <view wx:if="{{item.IsHot}}" class="cell-hot">热销</view>

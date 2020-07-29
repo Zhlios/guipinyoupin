@@ -6,3 +6,7 @@ textarea{
   padding: 0;
   margin: 0;
 }
+
+.refunddes {
+  padding: 30rpx;
+}

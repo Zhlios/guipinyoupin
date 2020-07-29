@@ -12,7 +12,9 @@ Page({
         countTime: "",
         spellMessage: undefined,
         isSelf: true,
+        pingtuanSuccess: false,
     },
+   
     timer: undefined,
     sId: undefined,
     onLoad(options) {
@@ -63,7 +65,11 @@ Page({
                     spellMessage = "拼单已过期"
                 }
                 const isSelf = result.flag === 1;
-                _this.setData({spellGoods: result.content, countTime, isSelf, spellMessage});
+                let pingtuanSuccess = false;
+                if(result.content.cntTotal ===result.content.cntBuy){
+                    pingtuanSuccess = true;
+                }
+                _this.setData({spellGoods: result.content, countTime, isSelf, spellMessage,pingtuanSuccess:pingtuanSuccess});
                 const cntTotal = result.content.cntTotal;
                 const list = result.content.SpellUserListInfo;
                 _this.spellUserImg(cntTotal, list)

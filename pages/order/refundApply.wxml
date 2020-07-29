@@ -74,6 +74,21 @@
                 <!--      <button wx:if="{{refundApplyDetail && refundApplyDetail.baseInfo.status == 4}}" class="cu-btn bg-gray lg" disabled>处理完毕</button>-->
                 <button class="cu-btn lg bg-red margin-top" formType="submit">立即申请售后</button>
             </view>
+            <view class="refunddes">
+                <view>退款规则:</view>
+                <view>
+                1.漏发、少发、错发、质量问题，会员在签收3日之内联系客服并提供相关凭证，视频或照片申请退换货，退换商品的运费由我方承担。
+                </view>
+                 <view>
+                2.原则上，APP商城一经售出产品不存在质量问题不给予退换货
+                </view>
+                <view>
+                3.如买家需发票，请在下单时备注需要开发票，并提供开票信息，提供邮箱信息，否则商品一旦售出，将无法再次开取发票，后果由买家自行承担。
+                </view>
+                <view>
+                4.予农惠APP线上商品均不支持7天无理由退换货。
+                </view>
+            </view>
         </view>
     </form>
 </view>

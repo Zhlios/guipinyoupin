@@ -26,10 +26,11 @@ Page({
         LessMoney: 0, // 总牛牛豆
         TotalMoney: 0, // 总价格
         CutMoney: 0, // 满减价格. 满减在最后
+        CutMoneyTxt: '',
         RegionOrderInfo: null, //地址信息
         commission: 0, // 牛牛豆兑换
         realMoney: 0, // 实际支付金额
-        selectCoupon: 0,      //优惠券 减去的价格
+        selectCoupon: {CouponId: 0, Money: 0,Name:'不使用优惠券'},      //优惠券 减去的价格
         integral: 0, // 积分兑换
         showcommission: true,  //是否需要展示牛牛豆购买
         wechatPayContent: {},
@@ -70,7 +71,6 @@ Page({
             });
             return;
         }
-
         // 立即购买
         if (options.orderType === "buyNow") {
             const {pid, buyNumber} = options;
@@ -228,7 +228,7 @@ Page({
                 ...postData,
                 Pid: options.pid,
                 Said: this.data.RegionOrderInfo.said,
-                CouponId: this.data.CutID,
+                CouponId: this.data.selectCoupon.CouponId,
                 PaycReditCount: this.data.integral,
                 BuyCount: options.buyNumber,
             }
@@ -250,7 +250,7 @@ Page({
                 ...postData,
                 RecordId: JSON.parse(this.data.options.recordIds),
                 Said: this.data.RegionOrderInfo.said,
-                CouponId: this.data.CouponMM.length ? this.data.CouponMM[0].CouponId : 0,
+                CouponId: this.data.selectCoupon.CouponId,
                 PaycReditCount: this.data.integral
             }
             AUTH.httpPost('order/CreateOrder', {jsonString: JSON.stringify(params)})
@@ -331,17 +331,14 @@ Page({
         const selIndex = e.detail.value[0] - 1;
         if (selIndex == -1) {
             this.setData({
-                CutMoney: 0,
-                CutID: 0,
+                selectCoupon: {CouponId: 0, Money: 0,Name:'不使用优惠券'},
             },()=>{
                 this.getRealMonery();
             });
             return;
         }
-        const money = Number(this.data.CouponMM[selIndex].Money);
         this.setData({
-            CutMoney: money,
-            CutID: this.data.CouponMM[selIndex].CutID,
+            selectCoupon: this.data.CouponMM[selIndex]
         }, () => {
             this.getRealMonery();
         });
@@ -358,7 +355,7 @@ Page({
 
         } else {
             let pointMoney = this.data.integral / this.data.PointsInfo.MoneyToPoints;
-            let realMonery = (this.data.TotalMoney - this.data.CutMoney - pointMoney - this.data.commission).toFixed(2);
+            let realMonery = (this.data.TotalMoney - this.data.CutMoney - this.data.selectCoupon.Money  - pointMoney - this.data.commission).toFixed(2);
             this.setData({
                 realMoney: realMonery,
             });
@@ -373,7 +370,7 @@ Page({
     
         let pointMoney = this.integral / this.data.PointsInfo.MoneyToPoints;
 
-        let realMonery = (this.data.TotalMoney - this.data.CutMoney - pointMoney - this.commission);
+        let realMonery = (this.data.TotalMoney - this.data.CutMoney - this.data.selectCoupon.Money - pointMoney - this.commission);
         return realMonery;
     },
     // 积分
@@ -392,7 +389,7 @@ Page({
             //如果实时计算价格小于等于0  则将积分设置为实付款金额 * 积分兑换比例
             if (this.getRealMoneyRealTime() <= 0) {
 
-                currentValue = (this.data.TotalMoney - this.data.commission - this.data.CutMoney ) * this.data.PointsInfo.MoneyToPoints;
+                currentValue = (this.data.TotalMoney - this.data.commission - this.data.selectCoupon.Money - this.data.CutMoney ) * this.data.PointsInfo.MoneyToPoints;
                 this.integral = currentValue;
             }
 
@@ -417,11 +414,8 @@ Page({
             })
         } else {
             if (this.getRealMoneyRealTime() <= 0) {
-                let coupop = 0;
-                if (this.data.CouponMM.length) {
-                    coupop = this.data.CouponMM[0].Money;
-                }
-                currentValue = this.data.TotalMoney - this.integral / this.data.PointsInfo.MoneyToPoints - this.data.CutMoney - coupop;
+            
+                currentValue = this.data.TotalMoney - this.integral / this.data.PointsInfo.MoneyToPoints - this.data.CutMoney - this.data.selectCoupon.Money;
                 this.commission = currentValue;
             }
             this.setData({

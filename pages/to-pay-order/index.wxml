@@ -95,10 +95,13 @@
             <view class="row-label">运费</view>
             <view class="right-text">+ ¥ {{yunPrice}}</view>
         </view>
-
-        <view class="row-box" wx:if="{{options.orderType === 'buyNow'}}">
-            <view class="row-label">优惠券</view>
+        <view class="row-box" wx:if="{{CutMoney>0}}">
+            <view class="row-label">满减({{CutMoneyTxt}})</view>
             <view class="right-text">- ¥ {{CutMoney}}</view>
+        </view>
+        <view class="row-box" wx:if="{{options.orderType === 'buyNow'||options.orderType === 'car'}}">
+            <view class="row-label">优惠券({{selectCoupon.Name}})</view>
+            <view class="right-text">- ¥ {{selectCoupon.Money}}</view>
         </view>
 
     </view>

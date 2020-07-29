@@ -62,6 +62,9 @@ Page({
             .then((result) => {
                 console.log(result,"?????????//")
                 const items = result.content.map(e => {
+                    if(e.SkuInfo ===null) {
+                        e.SkuInfo = "";
+                    }
                     e.selected = this.data.allSelect;
                     return e;
                 });

@@ -13,7 +13,6 @@
 	</view>
 </view>
 <view class="flex padding bg-red justify-end" wx:if="{{ rechargeOpen}}">
-	<navigator url="/pages/recharge/index" class="cu-btn line-white">充值</navigator>
 	<navigator url="/pages/withdraw/index" class="cu-btn line-white margin-left">提现</navigator>
 	<navigator url="/pages/deposit/pay" class="cu-btn line-white margin-left">押金</navigator>
 </view>

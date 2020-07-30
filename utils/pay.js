@@ -1,7 +1,7 @@
 const AUTH = require('./auth')
 
 /**
- * type: order 支付订单 recharge 充值 paybill 优惠买单
+ * type: order 支付订单  paybill 优惠买单
  * data: 扩展数据对象，用于保存参数
  */
 function wxpay(json, redirectUrl) {

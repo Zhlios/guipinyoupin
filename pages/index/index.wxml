@@ -94,6 +94,22 @@
         </navigator>
     </scroll-view>
 </view>
+<view wx:if="{{hotList.length > 0}}" class="goods-container">
+    <view class="goods-title bg-orange light" style="margin-bottom: 30rpx;">
+        <view class="line"></view>
+        <view class="text">热销区</view>
+        <view class="line"></view>
+    </view>
+    <view class="goods-list flex justify-between padding-top padding-lr flex-wrap">
+        <navigator url="/pages/goods-details/index?id={{item.Pid}}" class="list-item" wx:for="{{jingpinList}}"
+                   wx:key="id">
+            <image src="{{imagePath+img420+item.ShowImg}}" mode="aspectFill"></image>
+            <view class="goods-list-title">{{item.Name}}</view>
+            <view class="goods-list-text">{{item.Pdescription?item.Pdescription:' '}}</view>
+            <view class="goods-list-money">Ұ{{item.ShopPrice}}</view>
+        </navigator>
+    </view>
+</view>
 <view wx:if="{{jingpinList.length > 0}}" class="goods-container">
     <view class="goods-title bg-olive light" style="margin-bottom: 30rpx;">
         <view class="line"></view>
@@ -111,7 +127,7 @@
     </view>
 </view>
 <view wx:if="{{newList.length > 0}}" class="goods-container">
-    <view class="goods-title bg-olive light" style="margin-bottom: 30rpx;">
+    <view class="goods-title bg-cyan light" style="margin-bottom: 30rpx;">
         <view class="line"></view>
         <view class="text">新品区</view>
         <view class="line"></view>

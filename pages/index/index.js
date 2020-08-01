@@ -20,6 +20,7 @@ Page({
         pingtuanList: [], //拼团商品列表
         miaoshaList: [],//秒杀商品列表
         jingpinList: [],//精品商品列表
+        hotList:[], //热销商品列表
         newList: [], //新品商品列表
         selectCurrent: 0,
         goods: [],
@@ -145,6 +146,7 @@ Page({
                 pingtuanList: that.getGoodsByType(4),
                 jingpinList: that.getGoodsByType(1),
                 newList: that.getGoodsByType(2),
+                hotList:that.getGoodsByType(6),
                 miaoshaList: that.getGoodsByType(3),
                 loadingMoreHidden: false
             })

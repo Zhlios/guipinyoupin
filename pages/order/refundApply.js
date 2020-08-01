@@ -8,7 +8,7 @@ Page({
 
         refundApplyDetail: undefined,
 
-        type: null,
+        type: 0,
         typeItems: [
             '',
             '我要退款(无需退货)',

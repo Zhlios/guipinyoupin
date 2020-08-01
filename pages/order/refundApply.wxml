@@ -43,7 +43,7 @@
                 <view class="title">售后说明</view>
                 <textarea name='remark' placeholder="请输入退款说明"/>
             </view>
-            <template wx:if="{{type == 2}}">
+            <view wx:if="{{type == 2}}">
                 <view class="cu-bar bg-white margin-top">
                     <view class="action">
                         图片上传
@@ -66,7 +66,7 @@
                         </view>
                     </view>
                 </view>
-            </template>
+            </view>
 
             <view class="padding flex flex-direction">
                 <!--      <button wx:if="{{refundApplyDetail && refundApplyDetail.baseInfo.status == 0}}" class="cu-btn bg-orange lg" bindtap='refundApplyCancel'>撤回本次申请</button>-->

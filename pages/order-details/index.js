@@ -34,12 +34,6 @@ Page({
 
             })
     },
-    wuliuDetailsTap: function (e) {
-        let orderId = e.currentTarget.dataset.id;
-        wx.navigateTo({
-            url: "/pages/wuliu/index?id=" + orderId
-        })
-    },
     confirmBtnTap: function (e) {
         let that = this;
         let orderId = this.data.orderId;

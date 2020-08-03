@@ -14,15 +14,17 @@ function isStrInArray(item, arr) {
 function showTabBarBadge() {
     AUTH.httpGet('order/GetCart')
         .then((result) => {
-            if (result.content.length === 0) {
-                wx.removeTabBarBadge({
-                    index: 2
-                });
-            } else {
-                wx.setTabBarBadge({
-                    index: 2,
-                    text: `${result.content.length}`
-                });
+            if (Array.isArray(result.content)) {
+                if (result.content.length === 0) {
+                    wx.removeTabBarBadge({
+                        index: 2
+                    });
+                } else {
+                    wx.setTabBarBadge({
+                        index: 2,
+                        text: `${result.content.length}`
+                    });
+                }
             }
         })
         .catch((err) => {
@@ -114,7 +116,8 @@ function countTime(cellval, i) {
     }
     return `${h}:${m}:${s}`;
 }
-function timeChange(cellval){
+
+function timeChange(cellval) {
     let time = parseInt(cellval.replace("/Date(", "").replace(")/", ""), 10);
     return time;
 }

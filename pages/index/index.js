@@ -155,7 +155,6 @@ Page({
     //获取指定商品 1精品2新品3秒杀4拼购5砍价
     getGoodsByType(type) {
         const goods = this.data.allGoods.find(item => item.DataType === type);
-        console.log(goods, "@@@@@@@@@@@@@@")
         return goods ? goods.Data : [];
     },
     goCoupons: function (e) {

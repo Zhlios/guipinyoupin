@@ -101,7 +101,7 @@
         <view class="line"></view>
     </view>
     <view class="goods-list flex justify-between padding-top padding-lr flex-wrap">
-        <navigator url="/pages/goods-details/index?id={{item.Pid}}" class="list-item" wx:for="{{jingpinList}}"
+        <navigator url="/pages/goods-details/index?id={{item.Pid}}" class="list-item" wx:for="{{hotList}}"
                    wx:key="id">
             <image src="{{imagePath+img420+item.ShowImg}}" mode="aspectFill"></image>
             <view class="goods-list-title">{{item.Name}}</view>

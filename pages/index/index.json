@@ -1,7 +1,8 @@
 {
-	"enablePullDownRefresh": true,
-	"navigationBarTitleText": "予农惠",
-	"usingComponents": {
-		"navigation": "/components/navigation/navigation"
-	}
+  "navigationBarBackgroundColor": "#3D8356",
+  "navigationBarTitleText": "予农惠",
+  "navigationBarTextStyle": "white",
+  "usingComponents": {
+    "navigation": "/components/navigation/navigation"
+  }
 }

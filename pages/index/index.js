@@ -6,6 +6,7 @@ const AUTH = require('../../utils/auth')
 var app = getApp()
 Page({
     data: {
+        triggered:false,
         bannerPath: CONFIG.imageThumbPath,
         imagePath: CONFIG.imagePath,
         flashSalePath: CONFIG.flashSalePath,    //秒杀
@@ -20,8 +21,9 @@ Page({
         pingtuanList: [], //拼团商品列表
         miaoshaList: [],//秒杀商品列表
         jingpinList: [],//精品商品列表
-        hotList:[], //热销商品列表
+        hotList: [], //热销商品列表
         newList: [], //新品商品列表
+        pageHeight: 0,
         selectCurrent: 0,
         goods: [],
         scrollTop: 0,
@@ -69,6 +71,7 @@ Page({
         })
     },
     onLoad: function (e) {
+        this.setHeight();
         wx.showShareMenu({
             withShareTicket: true
         })
@@ -123,12 +126,19 @@ Page({
         //     })
         // }
     },
-    onReachBottom: function () {
-        this.setData({
-            curPage: this.data.curPage + 1
-        });
-    },
-    onPullDownRefresh: function () {
+    // onReachBottom: function () {
+    //     this.setData({
+    //         curPage: this.data.curPage + 1
+    //     });
+    // },
+    // onPullDownRefresh: function () {
+    //     this.setData({
+    //         curPage: 1
+    //     });
+    //     this.initPage()
+    //     wx.stopPullDownRefresh()
+    // },
+    bindrefresherrefresh: function () {
         this.setData({
             curPage: 1
         });
@@ -146,7 +156,7 @@ Page({
                 pingtuanList: that.getGoodsByType(4),
                 jingpinList: that.getGoodsByType(1),
                 newList: that.getGoodsByType(2),
-                hotList:that.getGoodsByType(6),
+                hotList: that.getGoodsByType(6),
                 miaoshaList: that.getGoodsByType(3),
                 loadingMoreHidden: false
             })
@@ -172,6 +182,25 @@ Page({
                     pingtuanList: res.data
                 })
             }
+        })
+    },
+    /**
+     * 设置页面高度
+     */
+    setHeight: function () {
+        let _this = this;
+        wx.getSystemInfo({
+            success: function (res) {
+                console.log(res, "????????????????????????");
+                _this.setData({
+                    pageHeight: res.windowHeight - 50,
+                });
+            }
+        });
+    },
+    toSearch() {
+        wx.navigateTo({
+            url: '/pages/search/index'
         })
     },
     bindinput(e) {

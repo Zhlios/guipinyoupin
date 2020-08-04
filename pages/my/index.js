@@ -2,9 +2,12 @@ const app = getApp()
 const AUTH = require('../../utils/auth')
 Page({
     data: {
-        score: 0,
-        money: 0,
-        hujianguo: 0,
+        score: 0,  //已到积分
+        unscore: 0,  //未到积分
+        money: 0,    //  已经到的通政票
+        unmoney: 0,  //  未到的通政票
+        hujianguo: 0,   // 已经到账的虎坚果
+        unhujianguo: 0,  // 未到账 虎坚果
         score_sign_continuous: 0,
         userInfo: null,
         wxlogin: true, //是否隐藏登录弹窗
@@ -78,19 +81,23 @@ Page({
                 that.setData({userInfo: result.content})
             })
             .catch((err) => {
-
+            
             })
     },
     getUserAmount: function () {
         AUTH.httpGet("user/GetAccountInfo")
             .then((result) => {
-                const score = result.content.LessPoints;
-                const hujianguo = result.content.LessMoney;
-                const money = result.content.CpassTicketLessCount;
-                this.setData({score, hujianguo, money})
+                console.log(result,'收益数据');
+                const score = result.content.LessPoints;  // 积分
+                const unscore = result.content.UnPoints;  // 
+                const hujianguo = result.content.LessMoney;  // 虎坚果
+                const unhujianguo = result.content.UnMoney;
+                const money = result.content.CpassTicketLessCount; 
+                const unmoney = result.content.UnCpassTicketLessCount; // 通政票
+                this.setData({score, hujianguo, money, unscore, unhujianguo,unmoney})
             })
             .catch((err) => {
-
+                console.log(err,'err');
             })
     },
     score: function () {
@@ -123,6 +130,11 @@ Page({
     navigateToPage(e) {
         wx.navigateTo({
             url: e.currentTarget.dataset.url
+        })
+    },
+    userInfoSet(e) {
+        wx.navigateTo({
+          url: '/pages/userInfo/userInfo',
         })
     }
 })

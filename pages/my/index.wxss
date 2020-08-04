@@ -30,15 +30,18 @@ page {
 
 .currency-container {
     display: flex;
+    width: 100%;
     align-items: center;
     margin: 0 auto;
-    width: 60vw;
     position: absolute;
     bottom: 10rpx;
-    margin-left: 20vw;
     z-index: 1;
 }
+.currency-border {
 
+    /* border-style:solid; */
+    border-right: 1rpx solid white;
+}
 .currency-item {
     width: 33%;
     color: #ffffff;
@@ -75,6 +78,14 @@ page {
     overflow: hidden;
     width: 150rpx;
     height: 150rpx;
+}
+
+.userInfoset {
+    position: absolute;
+    top:200rpx;
+    right: 30rpx;
+    width: 60rpx;
+    height: 60rpx;
 }
 
 .iser-info-box {
@@ -263,4 +274,12 @@ page {
 
 .cu-item .contact:after {
     border: none;
+}
+
+
+.money-between {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 40rpx;
 }

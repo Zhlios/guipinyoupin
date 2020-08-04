@@ -1,0 +1,119 @@
+<!--pages/user/userinfo.wxml-->
+
+<view wx:if="{{userInfo}}">
+    <view class="menus-list">
+        <form report-submit="true">
+            <view class="menus-item dis-flex b-f">
+                <view class="menus-item__left flex-box dis-flex flex-y-center">
+                    <text class="menus-item__name f-30">头像</text>
+                </view>
+                <view class="menus-item__right flex-box dis-flex flex-x-end flex-y-center">
+                    <open-data class="" class="avatar" lang="zh_CN" type="userAvatarUrl"></open-data>
+                </view>
+            </view>
+        </form>
+        <form report-submit="true">
+            <view class="menus-item dis-flex b-f">
+                <view class="menus-item__left flex-box dis-flex flex-y-center">
+                    <text class="menus-item__name f-30">等级</text>
+                </view>
+                <view class="menus-item__right flex-box dis-flex flex-x-end flex-y-center">
+                    <text class="menus-item__name f-30">{{userInfo.UserLevel}}</text>
+                </view>
+            </view>
+        </form>
+
+        <form report-submit="true">
+            <view class="menus-item dis-flex b-f">
+                <view class="menus-item__left flex-box dis-flex flex-y-center">
+                    <text class="menus-item__name f-30">号码</text>
+                </view>
+                <view class="menus-item__right flex-box dis-flex flex-x-end flex-y-center">
+                    <text class="menus-item__name f-30">{{userInfo.Mobile}}</text>
+                </view>
+            </view>
+        </form>
+
+        <form>
+            <view class="menus-item dis-flex b-f">
+                <view class="menus-item__left flex-box dis-flex flex-y-center">
+                    <text class="menus-item__name f-30">性别(可修改)</text>
+                </view>
+                <view class="menus-item__right flex-box dis-flex flex-x-end flex-y-center">
+                    <picker range-key="name" bindchange="bindPickerChange" value="{{index}}" range="{{sexList}}"
+                            style="z-index:1000;">
+                        <view class="picker">
+                            {{userInfo.Gender===0?'男': '女'}}
+                        </view>
+                    </picker>
+                </view>
+            </view>
+        </form>
+
+        <form>
+            <view class="menus-item dis-flex b-f">
+                <view class="menus-item__left flex-box dis-flex flex-y-center">
+                    <text class="menus-item__name f-30">昵称</text>
+                </view>
+                <view class="menus-item__right flex-box dis-flex flex-x-end flex-y-center">
+                    <input maxlength="15" placeholder="请输入昵称" disabled value="{{userInfo.NickName}}" class="menu-input"></input>
+                </view>
+            </view>
+
+        </form>
+        <form>
+            <view class="menus-item dis-flex b-f">
+                <view class="menus-item__left flex-box dis-flex flex-y-center">
+                    <text class="menus-item__name f-30">真实姓名(可修改)</text>
+                </view>
+                <view class="menus-item__right flex-box dis-flex flex-x-end flex-y-center">
+                    <input maxlength="15" placeholder="请输入"  value="{{userInfo.RealName}}" class="menu-input"
+                           bindinput="changeName"></input>
+                </view>
+            </view>
+        </form>
+
+        <form wx:if="{{userInfo.IsShop}}">
+            <view class="menus-item dis-flex b-f">
+                <view class="menus-item__left flex-box dis-flex flex-y-center">
+                    <text class="menus-item__name f-30">客服微信(可修改)</text>
+                </view>
+                <view class="menus-item__right flex-box dis-flex flex-x-end flex-y-center">
+                    <input maxlength="15" placeholder="请输入"  value="{{userInfo.WeiChat}}" class="menu-input"
+                           bindinput="changeContactWechat" type="text"></input>
+                </view>
+            </view>
+        </form>
+
+        <form wx:if="{{userInfo.IsShop}}"> 
+            <view class="menus-item dis-flex b-f">
+                <view class="menus-item__left flex-box dis-flex flex-y-center">
+                    <text class="menus-item__name f-30">客服电话(可修改)</text>
+                </view>
+                <view class="menus-item__right flex-box dis-flex flex-x-end flex-y-center">
+                    <input maxlength="15" placeholder="请输入"  value="{{userInfo.CustomerService}}" class="menu-input"
+                           bindinput="changeContactPhone" type="number"></input>
+                </view>
+            </view>
+        </form>
+
+
+
+        <form>
+            <view class="menus-item dis-flex b-f" bindtap="toAddressPage">
+                <view class="menus-item__left flex-box dis-flex flex-y-center">
+                    <text class="menus-item__name f-30">地址</text>
+                </view>
+                <view class="menus-item__right flex-box dis-flex flex-x-end  flex-y-center">
+                    <view class="menus-item__right flex-box dis-flex flex-x-end flex-y-center f-24 col-8">
+                        {{userInfo.regionTxt+userInfo.Address}}
+                        <text class="iconfont icon-xiangyoujiantou f-26 col-7"></text>
+                    </view>
+                </view>
+            </view>
+        </form>
+
+    </view>
+    <button class="user-save" bindtap="updateUserInfo">保存</button>
+</view>
+

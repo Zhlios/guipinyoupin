@@ -62,7 +62,7 @@
         </view>
 
         <view class="row-box" wx:if="{{options.orderType != 'integral'}}">
-            <view class="row-label">虎坚果({{PointsInfo.Points}})</view>
+            <view class="row-label">虎坚果({{LessMoney}})</view>
             <view class="right-text">
                 <input type="number" style="text-align: right" placeholder="输入虎坚果" bindinput="bindCommissionInput"
                        value="{{commission}}"></input>

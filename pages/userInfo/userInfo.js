@@ -71,21 +71,27 @@ Page({
         json.WeiChat = userInfo.WeiChat;
         json.CustomerService = userInfo.CustomerService;
       }
-
-        AUTH.httpPost('User/UpdateUserInfo',json, function (result) {
+        AUTH.httpPost('User/UpdateUserInfo',json)
+        .then(function(result){
             wx.showToast({
                 title: '修改成功',
             })
             _this.getUserInfo();
+        }).catch(function(error){
+
         })
+
     },
     getUserInfo: function () {
         let _this = this;
-        AUTH.httpGet('User/GetUserInfo', {}, function (result) {
-            console.log(result, 'lkkk')
+        AUTH.httpGet('User/GetUserInfo',{})
+        .then( function(result){
+            console.log(result,'ussss');
             _this.setData({
                 userInfo: result.content,
             })
+        }).catch(function(error){
+
         })
     },
     bindPickerChange: function (e) {
@@ -120,7 +126,7 @@ Page({
         let _this = this;
         if (this.data.userInfo.regionTxt) {
             wx.navigateTo({
-                url: "/pages/address/detail?" + App.urlEncode({
+                url: "/pages/address/detail?" + AUTH.urlEncode({
                     provinceiId: _this.data.userInfo.ProvinceiId,
                     cityId: _this.data.userInfo.CityId,
                     regionId: _this.data.userInfo.RegionId,
@@ -129,6 +135,7 @@ Page({
                     type: 'userInfo'
                 })
             })
+            return;
         }
         wx.navigateTo({url: "/pages/address/create?type=userInfo"});
     },

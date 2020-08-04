@@ -1,5 +1,5 @@
 <!--<navigation id='Navigation' show-search='{{true}}' disable-search-jump="{{disableSearchJump}}" class="fix-top"-->
-<!--            animation="{{fadeAni}}"></navigation>-->
+        <!--            animation="{{fadeAni}}"></navigation>-->
 <view class="swiper-container">
     <swiper class="screen-swiper {{dotStyle?'square-dot':'round-dot'}}" indicator-dots="true" circular="true"
             autoplay="true"
@@ -25,10 +25,18 @@
     </view>
 </view>
 <view class="pingtuan" wx:if="{{pingtuanList.length > 0}}">
-    <view class="goods-title bg-cyan light">
-        <view class="line"></view>
+    <view class="goods-title light">
+        <view class="line-container">
+            <view class="line"></view>
+            <view class="line"></view>
+            <view class="line"></view>
+        </view>
         <view class="text">正在拼团</view>
-        <view class="line"></view>
+        <view class="line-container flex-row-reverse">
+            <view class="line"></view>
+            <view class="line"></view>
+            <view class="line"></view>
+        </view>
     </view>
     <scroll-view scroll-x="true" class="scroll" enable-flex="true">
         <navigator hover-class="none" url="/pages/goods-details/index?id={{item.pid}}"
@@ -60,10 +68,18 @@
     </scroll-view>
 </view>
 <view class="pingtuan" wx:if="{{kanjiaList.length > 0}}">
-    <view class="goods-title bg-yellow light">
-        <view class="line"></view>
+    <view class="goods-title light">
+        <view class="line-container">
+            <view class="line"></view>
+            <view class="line"></view>
+            <view class="line"></view>
+        </view>
         <view class="text">正在砍价</view>
-        <view class="line"></view>
+        <view class="line-container flex-row-reverse">
+            <view class="line"></view>
+            <view class="line"></view>
+            <view class="line"></view>
+        </view>
     </view>
     <scroll-view scroll-x="true" class="scroll" enable-flex="true">
         <navigator hover-class="none" url="/pages/goods-details/index?id={{item.pid}}"
@@ -95,17 +111,25 @@
     </scroll-view>
 </view>
 <view wx:if="{{hotList.length > 0}}" class="goods-container">
-    <view class="goods-title bg-orange light" style="margin-bottom: 30rpx;">
-        <view class="line"></view>
+    <view class="goods-title light" style="margin-bottom: 30rpx;">
+        <view class="line-container">
+            <view class="line"></view>
+            <view class="line"></view>
+            <view class="line"></view>
+        </view>
         <view class="text">热销区</view>
-        <view class="line"></view>
+        <view class="line-container flex-row-reverse">
+            <view class="line"></view>
+            <view class="line"></view>
+            <view class="line"></view>
+        </view>
     </view>
     <view class="goods-list flex justify-between padding-top padding-lr flex-wrap">
         <navigator url="/pages/goods-details/index?id={{item.Pid}}" class="list-item" wx:for="{{hotList}}"
                    wx:key="id">
             <image src="{{imagePath+img420+item.ShowImg}}" mode="aspectFill"></image>
             <view class="goods-list-title">{{item.Name}}</view>
-            <view class="goods-list-text">{{item.Pdescription?item.Pdescription:' '}}</view>
+            <view class="goods-list-text">{{item.Pdescription ? item.Pdescription : ' '}}</view>
             <view class="goods-list-money">Ұ{{item.ShopPrice}}</view>
         </navigator>
     </view>
@@ -121,7 +145,7 @@
                    wx:key="id">
             <image src="{{imagePath+img420+item.ShowImg}}" mode="aspectFill"></image>
             <view class="goods-list-title">{{item.Name}}</view>
-            <view class="goods-list-text">{{item.Pdescription?item.Pdescription:' '}}</view>
+            <view class="goods-list-text">{{item.Pdescription ? item.Pdescription : ' '}}</view>
             <view class="goods-list-money">Ұ{{item.ShopPrice}}</view>
         </navigator>
     </view>
@@ -137,7 +161,7 @@
                    wx:key="id">
             <image src="{{imagePath+img420+item.ShowImg}}" mode="aspectFill"></image>
             <view class="goods-list-title">{{item.Name}}</view>
-            <view class="goods-list-text">{{item.Pdescription?item.Pdescription:' '}}</view>
+            <view class="goods-list-text">{{item.Pdescription ? item.Pdescription : ' '}}</view>
             <view class="goods-list-money">Ұ{{item.ShopPrice}}</view>
         </navigator>
     </view>

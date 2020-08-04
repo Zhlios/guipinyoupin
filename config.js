@@ -1,5 +1,5 @@
-const baseUrl = "https://www.ynhcn.net";
-// const baseUrl = "https://www.hnxyql.com";
+// const baseUrl = "https://www.ynhcn.net";
+const baseUrl = "https://www.hnxyql.com";
 // const baseUrl = "http://www.szynh.com";
 const type = "/mobile/"
 module.exports = {

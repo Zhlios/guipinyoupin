@@ -4,12 +4,19 @@ page {
 
 .swiper-container {
 	height: 350rpx;
+	width: 100vw;
+	background-color: #ffffff;
 }
 
 .swiper-container .screen-swiper {
 	height: 350rpx;
+	width: 100%;
 }
-
+.screen-swiper image{
+	width: 95%;
+	border-radius: 40rpx;
+	margin: 0 auto;
+}
 .index-menu-bg {
 	/* position: relative;
 	width: 710rpx;
@@ -63,28 +70,44 @@ page {
 }
 
 .goods-title {
-	text-align: center;
 	height: 90rpx;
-	line-height: 90rpx;
-	color: #333;
-	font-size: 32rpx;
+	align-items: center;
 	display: flex;
 	justify-content: center;
+	background-color: #F6F6F6;
 }
 
 .goods-title .text {
+	color: #333;
+	font-size: 32rpx;
 	display: inline-block;
 	margin-left: 10rpx;
 	margin-right: 10rpx;
 }
-
+.line-container{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 0 10rpx;
+}
+.flex-row-reverse{
+	flex-direction: row-reverse;
+}
 .goods-title .line {
-	width: 20rpx;
-	border-top: 1rpx solid #b4282d;
-	margin-top: 45rpx;
-	height: 1rpx;
+	width: 8rpx;
+	height: 35rpx;
+}
+.goods-title .line:first-child{
+	background-color: #E1EAE6;
+}
+.goods-title .line:nth-child(2){
+	background-color: #B8D2C5;
+	margin: 0 12rpx;
 }
 
+.goods-title .line:nth-child(3) {
+	background-color: #3A8157;
+}
 .goods-title image {
 	width: 36rpx;
 	height: 36rpx;

@@ -6,7 +6,7 @@ const AUTH = require('../../utils/auth')
 var app = getApp()
 Page({
     data: {
-        triggered:false,
+        triggered: false,
         bannerPath: CONFIG.imageThumbPath,
         imagePath: CONFIG.imagePath,
         flashSalePath: CONFIG.flashSalePath,    //秒杀
@@ -139,11 +139,12 @@ Page({
     //     wx.stopPullDownRefresh()
     // },
     bindrefresherrefresh: function () {
+
         this.setData({
-            curPage: 1
+            curPage: 1,
+            triggered: true
         });
         this.initPage()
-        wx.stopPullDownRefresh()
     },
     //获取首页所有商品
     async getGoods() {
@@ -158,7 +159,8 @@ Page({
                 newList: that.getGoodsByType(2),
                 hotList: that.getGoodsByType(6),
                 miaoshaList: that.getGoodsByType(3),
-                loadingMoreHidden: false
+                loadingMoreHidden: false,
+                triggered: false,
             })
         });
     },

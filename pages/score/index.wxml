@@ -24,31 +24,42 @@
         <!--	<view class="text-xxl text-white">{{score}}</view>-->
         <!--	<view class="text-white">可用积分</view>-->
         <!--</view>-->
-<view class='no-data' wx:if="{{!cashlogs}}">暂无积分明细~</view>
-<scroll-view wx:if="{{cashlogs}}" bindscrolltolower="bindDownLoad" style="height: calc(100vh - 60px)" scroll-y="true">
+<view class='no-data' wx:if="{{cashlogs.length===0}}">暂无明细~</view>
+<scroll-view wx:if="{{cashlogs.length>=1}}" bindscrolltolower="bindDownLoad" style="height: calc(100vh - 60px)" scroll-y="true">
     <view class="cu-list menu">
         <view class="cu-item" wx:for="{{cashlogs}}" wx:key="id">
             <view class="content padding-tb-sm">
                 <view>
                     <text class="cuIcon-messagefill text-blue text-sm text-cut margin-right-xs"></text>
-                    {{ item.typeStr }} {{ item.remark? '('+ item.remark +')' : '' }}
+                    {{ item.typeStr }} {{ item.remark ? '(' + item.remark + ')' : '' }}
                 </view>
                 <view class="text-gray text-sm">
                     <text class="cuIcon-time margin-right-xs"></text>
                     {{ item.paytime }}
                 </view>
             </view>
-            <view class="action">
-                <view wx:if="{{item.mode == 0}}">
-                    <text class="cuIcon-add text-green"></text>
-                    <text class="text-green">{{item.money}}</text>
+            <view class="flex">
+                <view class="action">
+                    <view wx:if="{{item.mode == 0}}">
+                        <text class="cuIcon-add text-green"></text>
+                        <text class="text-green">{{item.money}}</text>
+                    </view>
+                    <view wx:else>
+                        <text class="cuIcon-move text-black"></text>
+                        <text class="text-black">{{item.money}}</text>
+                    </view>
                 </view>
-                <view wx:else>
-                    <text class="cuIcon-move text-black"></text>
-                    <text class="text-black">{{item.money}}</text>
+                <view wx:if="{{item.ispay==='是'}}" class="margin-left-lg text-green}}">
+                    已到账
+                </view>
+                <view wx:if="{{item.ispay==='否'}}" class="margin-left-lg text-red}}">
+                    未到账
                 </view>
             </view>
         </view>
+    </view>
+    <view wx:if="{{no_more}}" style="text-align: center;line-height: 80rpx;color: #999999">
+        没有更多啦
     </view>
 </scroll-view>
 <float-menu/>

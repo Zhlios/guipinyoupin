@@ -10,22 +10,29 @@ Page({
     data: {
         total: 0,
         date: "",
+        no_more:false,
         dataType: [{value: "全部", key: -1}, {value: "已到账", key: 1}, {value: "未到账", key: 0}],
         dataTypeValue: "全部",
         currencyTypeValue: "积分",
-        currencyType: [{value: "虎坚果", key: 0}, {value: "积分", key: 1}, {value: "通证票", key: 2}],
+        currencyType: [{value: "全部", key: -1},{value: "虎坚果", key: 0}, {value: "积分", key: 1}, {value: "通证票", key: 2}],
         cashlogs: undefined
     },
     startTime: "",
     endTime: '',
     Ispay: -1,
-    Mtype: 0,
+    Mtype: -1,
+    page: 1,
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
         this.nowDate();
-        this.Mtype = options.type;
+        if(options.type){
+            this.Mtype = options.type;
+        }
+        if (this.Mtype == -1) {
+            this.setData({currencyTypeValue: "全部"});
+        }
         if (this.Mtype == 0) {
             this.setData({currencyTypeValue: "虎坚果"});
         }
@@ -43,7 +50,7 @@ Page({
     onShow: function () {
         AUTH.checkHasLogined().then(isLogined => {
             if (isLogined) {
-                this.doneShow();
+                this.doneShow(1);
             } else {
                 wx.showModal({
                     title: '提示',
@@ -64,6 +71,7 @@ Page({
         })
     },
     doneShow: function (page) {
+        this.page = page;
         const _this = this
         let obj = {
             Mtype: this.Mtype,
@@ -75,7 +83,11 @@ Page({
         }
         AUTH.httpGet("user/CommissionList", obj)
             .then((result) => {
-                _this.setData({cashlogs: result.rows});
+                if (page === 1) {
+                    _this.setData({cashlogs: result.rows, total: result.total});
+                    return;
+                }
+                _this.setData({cashlogs: [..._this.data.cashlogs, ...result.rows], total: result.total});
             })
             .catch((err) => {
 
@@ -104,7 +116,7 @@ Page({
     bindDownLoad: function () {
         // 已经是最后一页
         const total = this.data.total;
-        const data = this.data.score;
+        const data = this.data.cashlogs;
         if (data.length >= total) {
             this.setData({no_more: true});
             return false;

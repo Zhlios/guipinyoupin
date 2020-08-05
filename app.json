@@ -50,8 +50,8 @@
     "onReachBottomDistance": 50
   },
   "tabBar": {
-    "color": "#838383",
-    "selectedColor": "#b4282d",
+    "color": "#222222",
+    "selectedColor": "#128552",
     "borderStyle": "white",
     "backgroundColor": "#fff",
     "list": [

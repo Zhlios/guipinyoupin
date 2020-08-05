@@ -1,9 +1,9 @@
 <!--<navigation id='Navigation' show-search='{{true}}' disable-search-jump="{{disableSearchJump}}" class="fix-top"-->
         <!--                    animation="{{fadeAni}}"></navigation>-->
 <view class="search-container">
-    <view class="mall-name">予农惠</view>
     <view class="index-search" bindtap="toSearch">
-        <text class="cuIcon-search text-black"></text>
+        <text class="cuIcon-search text-black margin-right-xs"></text>
+        请输入搜索内容
     </view>
 </view>
 <scroll-view  scroll-y refresher-enabled="{{true}}" refresher-triggered="{{triggered}}"
@@ -49,7 +49,7 @@
                 <view class="line"></view>
             </view>
         </view>
-        <scroll-view scroll-x="true" class="scroll" enable-flex="true">
+        <scroll-view scroll-x="true" class="scroll" enable-flex="true" bindrefresherrefresh="bindrefresherrefresh" refresher-triggered="{{triggered}}">
             <navigator hover-class="none" url="/pages/goods-details/index?id={{item.pid}}"
                        class="scroll-item shadow shadow-lg bg-white margin-left margin-top" wx:for="{{pingtuanList}}"
                        wx:key="id">
@@ -146,8 +146,7 @@
         </view>
     </view>
     <view wx:if="{{jingpinList.length > 0}}" class="goods-container">
-        <view class="goods-title bg-olive light" style="margin-bottom: 30rpx;">
-
+        <view class="goods-title light" style="margin-bottom: 30rpx;">
             <view class="line-container">
                 <view class="line"></view>
                 <view class="line"></view>
@@ -172,7 +171,7 @@
         </view>
     </view>
     <view wx:if="{{newList.length > 0}}" class="goods-container">
-        <view class="goods-title bg-cyan light" style="margin-bottom: 30rpx;">
+        <view class="goods-title light" style="margin-bottom: 30rpx;">
             <view class="line-container">
                 <view class="line"></view>
                 <view class="line"></view>

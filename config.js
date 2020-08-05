@@ -1,5 +1,5 @@
-const baseUrl = "https://www.ynhcn.net"; // 这个是予农惠的
-//const baseUrl = "https://www.hnxyql.com"; //  这个是予农惠优选的
+//const baseUrl = "https://www.ynhcn.net"; // 这个是予农惠的
+const baseUrl = "https://app.hnxyql.com"; //  这个是予农惠优选的
 // const baseUrl = "http://www.szynh.com";
 const type = "/mobile/"
 module.exports = {

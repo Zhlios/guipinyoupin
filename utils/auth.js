@@ -1,24 +1,23 @@
-
 // const base_url = "http://121.196.23.109:8001/mobile/";
 const CONFIG = require("../config");
 const base_url = CONFIG.baseUrl;
 
 /**
-     * 对象转URL
-     */
+ * 对象转URL
+ */
 function urlEncode(data) {
-        var _result = [];
-        for (var key in data) {
-            var value = data[key];
-            if (value.constructor == Array) {
-                value.forEach(function (_value) {
-                    _result.push(key + "=" + _value);
-                });
-            } else {
-                _result.push(key + "=" + value);
-            }
+    var _result = [];
+    for (var key in data) {
+        var value = data[key];
+        if (value.constructor == Array) {
+            value.forEach(function (_value) {
+                _result.push(key + "=" + _value);
+            });
+        } else {
+            _result.push(key + "=" + value);
         }
-        return _result.join("&");
+    }
+    return _result.join("&");
 }
 
 
@@ -77,7 +76,6 @@ async function httpGet(url, data = {}) {
             },
             data: data,
             success(res) {
-
                 if (res.statusCode !== 200 || typeof res.data !== "object") {
                     wx.showModal({
                         title: '友情提示',
@@ -96,14 +94,18 @@ async function httpGet(url, data = {}) {
                     resolve(res.data);
                     return;
                 }
-                wx.showModal({
-                    title: '友情提示',
-                    content: "网络请求出错",
-                    showCancel: false,
-                    success: function () {
-                        reject(res)
-                    }
-                });
+                if (res.data.code === 2) {
+                    reject(res);
+                    return;
+                }
+                if (res.data.code === 4) {
+                    wx.showModal({
+                        title: '友情提示',
+                        content: "服务器开小差了,请稍后再试。",
+                        showCancel: false
+                    })
+                    reject(res);
+                }
             },
             fail(res) {
                 wx.showModal({
@@ -161,14 +163,18 @@ async function httpPost(url, data = {}) {
                     resolve(res.data);
                     return
                 }
-                wx.showModal({
-                    title: '友情提示',
-                    content: res.data.content,
-                    showCancel: false,
-                    success: function () {
-                        reject(res)
-                    }
-                });
+                if (res.data.code === 2) {
+                    reject(res);
+                    return;
+                }
+                if (res.data.code === 4) {
+                    wx.showModal({
+                        title: '友情提示',
+                        content: "服务器开小差了,请稍后再试。",
+                        showCancel: false
+                    })
+                    reject(res);
+                }
             },
             fail(res) {
                 wx.showModal({

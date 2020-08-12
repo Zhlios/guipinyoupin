@@ -24,7 +24,7 @@ Page({
     },
     onLoad: function (e) {
         if (e.scene) {
-            const reid = decodeURIComponent(options.scene);
+            const reid = decodeURIComponent(scene.scene);
             wx.setStorageSync('reid', reid);
         }
         if (e.reid) {

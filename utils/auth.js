@@ -64,7 +64,7 @@ function loginOut() {
 /**
  * get请求
  */
-async function httpGet(url, data = {}) {
+async function httpGet(url, data = {},isArraybuffer = false) {
     wx.showNavigationBarLoading();
     data = data || {};
     return new Promise((resolve, reject) => {
@@ -75,6 +75,7 @@ async function httpGet(url, data = {}) {
                 'Cookie': wx.getStorageSync('cookie'),
             },
             data: data,
+            responseType:isArraybuffer?"arraybuffer":"text",
             success(res) {
                 if (res.statusCode !== 200 || typeof res.data !== "object") {
                     wx.showModal({
@@ -105,7 +106,13 @@ async function httpGet(url, data = {}) {
                         showCancel: false
                     })
                     reject(res);
+                    return;
                 }
+                wx.showModal({
+                    title: '友情提示',
+                    content: "未知错误",
+                    showCancel: false
+                })
             },
             fail(res) {
                 wx.showModal({
@@ -174,7 +181,13 @@ async function httpPost(url, data = {}) {
                         showCancel: false
                     })
                     reject(res);
+                    return;
                 }
+                wx.showModal({
+                    title: '友情提示',
+                    content: "未知错误",
+                    showCancel: false
+                })
             },
             fail(res) {
                 wx.showModal({

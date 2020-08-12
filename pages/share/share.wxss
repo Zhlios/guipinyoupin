@@ -1,18 +1,45 @@
 .share-button {
     height: 80rpx;
     width: 500rpx;
-    margin: 0 auto;
     background: #ffe00d;
     text-align: center;
-    position: fixed;
-    bottom: 600rpx;
-    left: calc(50vw - 250rpx);
     line-height: 80rpx;
     border-radius: 20rpx;
     letter-spacing: 3rpx;
     border: none;
     font-size: 28rpx;
+    margin-top: 50rpx;
     color: #ffffff;
+}
+
+.content {
+    width: 500rpx;
+    position: fixed;
+    top: 25vh;
+    left: calc(50vw - 250rpx);
+}
+
+.qrcode-container {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.qrcode-explain {
+    text-align: center;
+    color: aliceblue;
+    font-size: 16px;
+    margin-bottom: 20rpx;
+}
+
+.qrcode-explain text {
+    font-size: 14px;
+}
+
+.qrcode-container image {
+    width: 160px;
+    height: 160px;
+    border-radius: 10px;
+    margin: 0 auto;
 }
 
 button::after {

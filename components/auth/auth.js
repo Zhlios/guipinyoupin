@@ -55,8 +55,6 @@ Component({
                         .then((result) => {
                             that.didClick = false;
                             that.openIdContent = result.content;
-                            console.log(result,"===============");
-                            console.log(res,"++++++++++++++++++")
                             that.setData({openId: result.content.openid})
                         })
                         .catch()

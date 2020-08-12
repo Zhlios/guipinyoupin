@@ -23,7 +23,10 @@ Page({
         QuanBu: 0,
     },
     onLoad: function (e) {
-        console.log(e,"============")
+        if (e.scene) {
+            const reid = decodeURIComponent(options.scene);
+            wx.setStorageSync('reid', reid);
+        }
         if (e.reid) {
             wx.setStorageSync('reid', e.reid);
         }
@@ -92,10 +95,10 @@ Page({
                 const unhujianguo = result.content.UnMoney;
                 const money = result.content.CpassTicketLessCount;
                 const unmoney = result.content.UnCpassTicketLessCount; // 通政票
-                this.setData({score, hujianguo, money, unscore, unhujianguo,unmoney})
+                this.setData({score, hujianguo, money, unscore, unhujianguo, unmoney})
             })
             .catch((err) => {
-                console.log(err,'err');
+                console.log(err, 'err');
             })
     },
     score: function () {
@@ -132,7 +135,7 @@ Page({
     },
     userInfoSet(e) {
         wx.navigateTo({
-          url: '/pages/userInfo/userInfo',
+            url: '/pages/userInfo/userInfo',
         })
     }
 })

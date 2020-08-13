@@ -89,6 +89,12 @@ Component({
                         })
                     })
                     .catch((err) => {
+                        console.log(err,'登录失败,手机号码登录');
+                        wx.showModal({
+                            title: '友情提示',
+                            content: err.data.content,
+                            showCancel: false
+                        });
 
                     })
             }

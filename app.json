@@ -40,7 +40,8 @@
     "pages/order-details/logistic_detail",
     "pages/userInfo/userInfo",
     "pages/address/create",
-    "pages/address/detail"
+    "pages/address/detail",
+    "pages/fx/myAch"
   ],
   "window": {
     "backgroundTextStyle": "light",

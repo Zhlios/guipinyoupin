@@ -1,0 +1,39 @@
+<!--pages/fx/myAch.wxml-->
+<view>
+  <view class="arh-time">
+    <view class="arh-left">开始时间</view>
+    <view class="arh-right">
+      <picker mode="date" value="{{startTime}}" start="2020-06-01" end="2050-01-01" bindchange="clickChooseStartTime">
+        <view class="picker" wx:if="{{startTime.length}}">
+          {{startTime}}
+        </view>
+        <view class="picker" wx:else>
+          请选择
+        </view>
+      </picker>
+    </view>
+  </view>
+  <view class="arh-time">
+    <view class="arh-left">结束时间</view>
+    <view class="arh-right">
+      <picker mode="date" value="{{endTime}}" start="2020-06-01" end="2050-01-01" bindchange="clickChooseEndTime">
+        <view class="picker" wx:if="{{endTime.length}}">
+          {{endTime}}
+        </view>
+        <view class="picker" wx:else>
+          请选择
+        </view>
+      </picker>
+    </view>
+  </view>
+  <view class="arh-msg">
+    <view style="padding:10rpx 0rpx;">
+      <text class="arh-msg-title">PV:</text>
+      <text class="arh-msg-number">{{pvamount}}</text>
+    </view>
+    <view style="padding:10rpx 0rpx;">
+      <text class="arh-msg-title">总支付:</text>
+      <text class="arh-msg-number">{{surplusmoney}}</text>
+    </view>
+  </view>
+</view>

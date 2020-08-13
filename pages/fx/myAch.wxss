@@ -1,0 +1,43 @@
+/* pages/fx/myAch.wxss */
+
+.arh-time {
+  height: 100rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0rpx 30rpx;
+  background: white;
+  margin-top: 30rpx;
+}
+.arh-left {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #333;
+}
+.arh-right {
+  font-size: 30rpx;
+  color: #666;
+}
+
+.arh-msg {
+  margin: 50rpx auto;
+  width: 300rpx;
+  height: 300rpx;
+  border-radius: 150rpx;
+  background: yellow;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.arh-msg-title {
+  font-size: 35rpx;
+  color: #333;
+
+}
+.arh-msg-number {
+  font-size: 35rpx;
+  color: #666;
+}

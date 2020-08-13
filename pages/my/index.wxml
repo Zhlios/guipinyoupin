@@ -153,6 +153,12 @@
                 <text class="text-grey">我的竞标</text>
             </navigator>
         </view>
+        <view class="cu-item arrow">
+            <navigator class="content" url="/pages/fx/myAch" hover-class="none">
+                <text class="cuIcon-refund text-yellow"></text>
+                <text class="text-grey">我的业绩</text>
+            </navigator>
+        </view>
     </view>
     <view class="cu-bar" style="width: 100%;">
         <view class="action">

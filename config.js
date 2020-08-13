@@ -1,6 +1,7 @@
-//const baseUrl = "https://www.ynhcn.net"; // 这个是予农惠的
+//const baseUrl = "https://app.ynhcn.net"; // 这个是予农惠的
 const baseUrl = "https://app.hnxyql.com"; //  这个是予农惠优选的
-// const baseUrl = "http://www.szynh.com";
+// id : wx027ca1f05063fc1e  // 这个是严选的
+// appid :  wx5b78b1b8d2dd440d 这个是 予农惠的 
 const type = "/mobile/"
 module.exports = {
     url: baseUrl,

@@ -9,7 +9,7 @@
                 <view class="userinfo-nickname" wx:if="{{userInfo}}">
                     <open-data class="userinfo-nickname" type="userNickName"></open-data>
                     <view class="user-level margin-bottom-xs text-sm">(等级: {{userInfo.UserLevel}})</view>
-                    
+
                 </view>
                 <view class="login-btn" wx:else bindtap="showAuth">请登录</view>
                 <view wx:if="{{!isSignIn}}" class="userinfo-score-day" bindtap="score">
@@ -27,7 +27,7 @@
                     <view class="currency-num money-between">
                         <text>可提现</text>
                         <text>{{hujianguo}}</text>
-                    </view> 
+                    </view>
                     <view class="currency-num money-between">
                         <text>预计收益</text>
                         <text>{{unhujianguo}}</text>
@@ -44,7 +44,7 @@
                     <view class="currency-num money-between">
                         <text>未到账</text>
                         <text>{{unscore}}</text>
-                    </view>                
+                    </view>
                 </view>
             </navigator>
             <navigator url="/pages/score/index?type=2" class="currency-item">
@@ -188,7 +188,7 @@
         <view class="cu-item arrow">
             <navigator class="content" url="/pages/fx/rank" hover-class="none">
                 <text class="cuIcon-refund text-yellow"></text>
-                <text class="text-grey">虎坚果排名</text>
+                <text class="text-grey">业绩排名</text>
             </navigator>
         </view>
     </view>

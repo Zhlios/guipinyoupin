@@ -23,7 +23,10 @@ Page({
         QuanBu: 0,
     },
     onLoad: function (e) {
-        console.log(e);
+        if (e.scene) {
+            const reid = decodeURIComponent(scene.scene);
+            wx.setStorageSync('reid', reid);
+        }
         if (e.reid) {
             wx.setStorageSync('reid', e.reid);
         }
@@ -77,27 +80,25 @@ Page({
         let that = this;
         AUTH.httpGet('User/GetUserInfo', {},)
             .then((result) => {
-                console.log(result,'userInfo')
                 that.setData({userInfo: result.content})
             })
             .catch((err) => {
-            
+
             })
     },
     getUserAmount: function () {
         AUTH.httpGet("user/GetAccountInfo")
             .then((result) => {
-                console.log(result,'收益数据');
                 const score = result.content.LessPoints;  // 积分
-                const unscore = result.content.UnPoints;  // 
+                const unscore = result.content.UnPoints;  //
                 const hujianguo = result.content.LessMoney;  // 虎坚果
                 const unhujianguo = result.content.UnMoney;
-                const money = result.content.CpassTicketLessCount; 
+                const money = result.content.CpassTicketLessCount;
                 const unmoney = result.content.UnCpassTicketLessCount; // 通政票
-                this.setData({score, hujianguo, money, unscore, unhujianguo,unmoney})
+                this.setData({score, hujianguo, money, unscore, unhujianguo, unmoney})
             })
             .catch((err) => {
-                console.log(err,'err');
+                console.log(err, 'err');
             })
     },
     score: function () {
@@ -134,7 +135,7 @@ Page({
     },
     userInfoSet(e) {
         wx.navigateTo({
-          url: '/pages/userInfo/userInfo',
+            url: '/pages/userInfo/userInfo',
         })
     }
 })

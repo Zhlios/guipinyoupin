@@ -64,33 +64,34 @@ Component({
         bindgetphonenumber: function (e) {
             let that = this;
             const userInfo = that.userInfo;
-            wx.showLoading({title: "正在手机号码登录", mask: true});
-            const params = {
-                openid: that.data.openId,
-                iv: e.detail.iv,
-                data: e.detail.encryptedData,
-                reid: wx.getStorageSync('reid'),
-                oath_token: that.openIdContent.oath_token,
-                timestamp: that.openIdContent.timestamp,
-                session_key: that.openIdContent.session_key,
-                nickName: userInfo.nickName,
-            }
-            console.log(params,'params');
-            authUtils.httpPost("outapi/LoginByOpenId", params)
-                .then((res) => {
-                    console.log(res,'res');
-                    wx.setStorageSync("Uid", res.content.Uid);
-                    wx.setStorageSync("token", res.content.UserToken);
-                    wx.setStorageSync("userImg", userInfo.avatarUrl);
-                    wx.removeStorageSync("reid");
-                    that.pageClose();
-                    authUtils.imgToBase64(userInfo.avatarUrl, function () {
-                        that.setData({openId: ""})
+            if (e.detail.errMsg == 'getPhoneNumber:ok') {
+                wx.showLoading({title: "正在手机号码登录", mask: true});
+                const params = {
+                    openid: that.data.openId,
+                    iv: e.detail.iv,
+                    data: e.detail.encryptedData,
+                    reid: wx.getStorageSync('reid'),
+                    oath_token: that.openIdContent.oath_token,
+                    timestamp: that.openIdContent.timestamp,
+                    session_key: that.openIdContent.session_key,
+                    nickName: userInfo.nickName,
+                }
+                authUtils.httpPost("outapi/LoginByOpenId", params)
+                    .then((res) => {
+                        console.log(res,'res');
+                        wx.setStorageSync("Uid", res.content.Uid);
+                        wx.setStorageSync("token", res.content.UserToken);
+                        wx.setStorageSync("userImg", userInfo.avatarUrl);
+                        wx.removeStorageSync("reid");
+                        that.pageClose();
+                        authUtils.imgToBase64(userInfo.avatarUrl, function () {
+                            that.setData({openId: ""})
+                        })
                     })
-                })
-                .catch((err) => {
+                    .catch((err) => {
 
-                })
+                    })
+            }
         },
     }
 })

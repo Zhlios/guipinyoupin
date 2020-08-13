@@ -193,7 +193,6 @@ Page({
         let _this = this;
         wx.getSystemInfo({
             success: function (res) {
-                console.log(res, "????????????????????????");
                 _this.setData({
                     pageHeight: res.windowHeight - 50,
                 });

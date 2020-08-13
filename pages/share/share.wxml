@@ -1,4 +1,12 @@
 <view style="background-image: url('{{baseUrl+'/content/image/kanjia.png'}}');background-size:cover;height: {{pageHeight}}px;">
-    <button open-type="share" class="share-button">去分享</button>
+    <view class="content">
+        <view class="qrcode-container">
+            <view class="qrcode-explain">邀请码
+                <text>(长按保存到相册)</text>
+            </view>
+            <image bindlongpress="checkAuthorize" src="{{qrCode}}"></image>
+        </view>
+        <button open-type="share" class="share-button">去分享</button>
+    </view>
 </view>
 <auth is-hidden="{{wxlogin}}" bind:afterAuth="afterAuth"></auth>

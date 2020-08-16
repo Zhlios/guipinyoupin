@@ -8,7 +8,7 @@
         </view>
     </scroll-view>
     <view class="fans">
-        粉丝：{{teamMessage.FansCount}}
+        会员：{{teamMessage.FansCount}}
     </view>
     <view class="team-leave" hidden="{{activeIndex != 1}}">
         <view class="team-message-item">消费商：{{teamMessage.ConsumerCount1}}</view>
@@ -43,35 +43,28 @@
             </view>
         </view>
     </scroll-view>
-    <view class="tab-content" hidden="{{activeIndex != 2}}">
-        <view wx:if="{{number2 <= 0}}" class="text-center" style='margin-top:300rpx;'>
+    <scroll-view class="tab-content" hidden="{{activeIndex != 2}}" bindscrolltolower="bindDownLoad"
+                 style="height: {{pageHeight}}px" scroll-y="true">
+        <view wx:if="{{teamList.length <= 0}}"class="text-center" style='margin-top:300rpx;'>
             <view class="text-gray">暂无数据</view>
         </view>
-        <view wx:if="{{number2 > 0}}" class="cu-list menu-avatar">
-            <view class="cu-item margin-top-xs" wx:if="{{item.level == 2}}" wx:for="{{members}}" wx:key="id">
-                <view class="cu-avatar lg" style="background-image:url({{item.avatarUrls}});"></view>
-                <view class="content">
+          <view wx:if="{{teamList.length > 0}}" class="cu-list menu-avatar">
+            <view class="cu-item margin-top-xs" wx:for="{{teamList}}" wx:key="id">
+                <!--                <view class="cu-avatar lg" style="background-image:url({{item.avatarUrls}});"></view>-->
+                <view class="content" style="left: 20rpx">
                     <view class="text-grey">
-                        <text class="text-cut">{{item.nicks}}</text>
+                        <text class="text-cut">{{item.Mobile}}</text>
                     </view>
                     <view class="text-gray text-sm flex">
-                        {{ item.dateAdd }}
+                        {{ item.CreateTime }}
                     </view>
                 </view>
                 <view class="action">
-                    <view class="text-gray text-xs">{{ item.mobileMasks }}</view>
-                </view>
-            </view>
-            <view class="weui-panel__bd">
-                <view wx:if="{{item.level == 1}}" wx:for="{{members}}" wx:key="*this"
-                      class="weui-media-box weui-media-box_text">
-                    <view class="weui-media-box__title weui-media-box__title_in-text">{{ item.nicks }} {{
-                        item.mobileMasks }}
-                    </view>
-                    <view class="weui-media-box__desc">{{ item.dateAdd }}</view>
+                    <view class="text-gray text-xs">{{ item.Level}}</view>
+                    <view class="text-gray text-xs">{{ item.Ulevel}}</view>
                 </view>
             </view>
         </view>
-    </view>
+    </scroll-view>
 </view>
 <float-menu/>

@@ -20,13 +20,13 @@ Page({
 				that.getAllScore();
 				that.getTodayisSign();
 				that.getSignHistory();
-				// 如果登录成功了 就去 获取所有的通证票， 获取是否已经签到 。 获取到当月的签到
+				// 如果登录成功了 就去 获取所有的粮票， 获取是否已经签到 。 获取到当月的签到
 			}
 		})
 	},
 	afterAuth(e) {
 		this.setData({
-			wxlogin: true, 
+			wxlogin: true,
 		})
 		that.getAllScore();
 		that.getTodayisSign();
@@ -57,7 +57,7 @@ Page({
 	// 获取到本月签到列表
 	getSignHistory: function(year,month) {
 		let that = this;
-		console.log(this.calendar.getCurrentYM(),'calender')	
+		console.log(this.calendar.getCurrentYM(),'calender')
 		let json = this.calendar.getCurrentYM();
 		AUTH.httpGet('user/GetSignInInfo', json,)
 		.then((result) => {
@@ -78,7 +78,7 @@ Page({
 			})
 		})
 		.catch((err) => {
-		})	
+		})
 	},
 	// 当改变日期
 	whenChangeDate:function(e) {
@@ -88,7 +88,7 @@ Page({
 	//签到按钮
 	scoreSign: function() {
 	 // 进行签到
-	 let that = this; 
+	 let that = this;
 		AUTH.httpPost('user/DailySignIn',{})
 		.then(result => {
 			console.log(result,'sign')
@@ -102,7 +102,7 @@ Page({
 			that.getSignHistory();
 		})
 		.catch(error =>{
-		})	
+		})
 	},
 
 	onLoad: function() {

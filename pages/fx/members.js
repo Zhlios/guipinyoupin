@@ -77,7 +77,7 @@ Page({
                 const teamMessage = result.content.MyTeamUserCount;
                 const total = result.content.TotalItemCount;
                 const teamList = result.content.MyTeamList;
-                if (teamMessage) {
+                if (teamMessage&&this.page===1) {
                     _this.setData({teamMessage, total, teamList});
                     return;
                 }

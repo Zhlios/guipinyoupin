@@ -11,7 +11,7 @@ Page({
   data: {
     list: [],
     query: {
-      pageIndex: 0,
+      pageIndex: 1,
       pageSize: 20,
     }
   },
@@ -27,15 +27,14 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   getBidsList: function(e) {
-    var that = this;
+    const that = this;
     AUTH.httpGet('user/UserPassTicketList',this.data.query)
     .then(result => {
-      console.log(result);
       result.rows.map(e =>{
         e.endtime = TOOLS.changeDateFormat(e.endtime)
         e.starttime = TOOLS.changeDateFormat(e.starttime)
       })
-      if(that.data.query.pageIndex == 0) {
+      if(that.data.query.pageIndex == 1) {
         that.setData({
           list: result.rows,
         })
@@ -82,13 +81,13 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    var that = this;
+    const that = this;
     this.setData({
       query: {
-        PageIndex: 0,
+        pageIndex: 1,
         PageSize: 20,
       },
-    },function() {
+    },()=>{
       that.getBidsList();
     })
   },
@@ -101,10 +100,10 @@ Page({
     var that = this;
     this.setData({
       query: {
-        PageIndex: this.data.query.PageIndex+1,
+        pageIndex: this.data.query.pageIndex+1,
         PageSize: 20,
       },
-    },function() {
+    },()=> {
       that.getBidsList();
     })
   },

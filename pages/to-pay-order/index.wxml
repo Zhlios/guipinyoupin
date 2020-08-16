@@ -52,14 +52,14 @@
                 <input bindinput="remarkChange" type="text" class="liuyan" placeholder="如需备注请输入"/>
             </view>
         </view>
-        <view class="row-box">
+        <!-- <view class="row-box">
             <view class="row-label">积分兑换({{PointsInfo.Points}})</view>
             <view class="right-text">
                 <input disabled="{{options.orderType=='integral'}}" type="number" style="text-align: right"
                        placeholder="兑换积分" bindinput="bindPointsInput"
                        value="{{integral}}"></input>
             </view>
-        </view>
+        </view> -->
 
         <view class="row-box" wx:if="{{options.orderType != 'integral'}}">
             <view class="row-label">虎坚果({{LessMoney}})</view>

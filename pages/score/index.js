@@ -14,7 +14,7 @@ Page({
         dataType: [{value: "全部", key: -1}, {value: "已到账", key: 1}, {value: "未到账", key: 0}],
         dataTypeValue: "全部",
         currencyTypeValue: "积分",
-        currencyType: [{value: "全部", key: -1},{value: "虎坚果", key: 0}, {value: "积分", key: 1}, {value: "通证票", key: 2}],
+        currencyType: [{value: "全部", key: -1},{value: "虎坚果", key: 0}, {value: "积分", key: 1}, {value: "粮票", key: 2}],
         cashlogs: undefined
     },
     startTime: "",
@@ -40,7 +40,7 @@ Page({
             this.setData({currencyTypeValue: "积分"});
         }
         if (this.Mtype == 2) {
-            this.setData({currencyTypeValue: "通证票"});
+            this.setData({currencyTypeValue: "粮票"});
         }
     },
 

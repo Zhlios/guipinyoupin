@@ -24,7 +24,9 @@ Page({
     },
     onLoad: function (e) {
         if (e.scene) {
-            const reid = decodeURIComponent(scene.scene);
+            let qrcodeParams = decodeURIComponent(e.scene);
+            const breakPoint = qrcodeParams.indexOf("=");
+            const reid = qrcodeParams.substring(breakPoint + 1, qrcodeParams.length);
             wx.setStorageSync('reid', reid);
         }
         if (e.reid) {

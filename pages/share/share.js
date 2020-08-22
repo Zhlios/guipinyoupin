@@ -68,7 +68,7 @@ Page({
      * 获取二维码
      */
     getQrCode() {
-        AUTH.httpGet("user/GetReCode", {page: "pages/my/index", scene: `reid=${this.userID}`})
+        AUTH.httpPost("user/GetReCode", {page: "pages/my/index", scene: `reid=${this.userID}`,test:"test",name:'wang'})
             .then((result) => {
                 let url = 'data:image/png;base64,' + result.content;
                 this.qrcode = result.content;

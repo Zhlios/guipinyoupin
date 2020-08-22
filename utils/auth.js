@@ -64,7 +64,7 @@ function loginOut() {
 /**
  * get请求
  */
-async function httpGet(url, data = {},isArraybuffer = false) {
+async function httpGet(url, data = {}) {
     wx.showNavigationBarLoading();
     data = data || {};
     return new Promise((resolve, reject) => {
@@ -75,7 +75,6 @@ async function httpGet(url, data = {},isArraybuffer = false) {
                 'Cookie': wx.getStorageSync('cookie'),
             },
             data: data,
-            responseType:isArraybuffer?"arraybuffer":"text",
             success(res) {
                 if (res.statusCode !== 200 || typeof res.data !== "object") {
                     wx.showModal({

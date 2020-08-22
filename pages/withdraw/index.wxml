@@ -7,12 +7,12 @@
         </view>
     </view>
     <view class="lable-text">
-        扣税说明:当月红包累计超过{{TaxStarting}}后，超出部分按{{TaxPercent}}%扣税。
+        扣税说明:当月收取种子累计超过{{TaxStarting}}后，超出部分按{{TaxPercent}}%扣税。
     </view>
     <form bindsubmit="bindSave">
         <view>
             <view class="row-wrap">
-                <view class="label">红包金额：</view>
+                <view class="label">收取种子：</view>
                 <view class="label-right">
                     <text class="lable-amount">¥</text>
                     <input name="amount" value="{{cashModel.cashNumber}}"
@@ -24,12 +24,12 @@
                 </view>
             </view>
             <view class="row-wrap">
-                <view class="label">红包类型：</view>
+                <view class="label">收取种子类型：</view>
                 <view class="label-right" style="height: auto">
                     <picker bindchange="bindChooseItemChange" value="{{index}}" range="{{chooseItem}}" range-key="title"
                             style="z-index:1500;">
                         <view class="picker">
-                            {{selectItem ? selectItem.title: "请选择红包类型" }}
+                            {{selectItem ? selectItem.title: "请选择收取种子类型" }}
                         </view>
                     </picker>
                 </view>
@@ -96,6 +96,6 @@
             </view>
         </view>
     </form>
-    <button class="save-btn" bindtap="submitCash">确认红包</button>
+    <button class="save-btn" bindtap="submitCash">确认收取种子</button>
 </view>
 <auth is-hidden="{{wxlogin}}" bind:afterAuth="afterAuth"></auth>

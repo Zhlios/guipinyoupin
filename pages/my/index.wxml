@@ -25,11 +25,11 @@
                 <view class="currency-name">虎坚果</view>
                 <view class="currency-border">
                     <view class="currency-num money-between">
-                        <text>可用</text>
+                        <text>可用种子</text>
                         <text>{{hujianguo}}</text>
                     </view>
                     <view class="currency-num money-between">
-                        <text>预计收益</text>
+                        <text>预收种子</text>
                         <text>{{unhujianguo}}</text>
                     </view>
                 </view>
@@ -48,7 +48,7 @@
                 </view>
             </navigator>
             <navigator url="/pages/score/index?type=2" class="currency-item">
-                <view class="currency-name">粮票</view>
+                <view class="currency-name">油（酒）票</view>
                 <view class="currency-num money-between">
                     <text>可用</text>
                     <text>{{money}}</text>
@@ -176,7 +176,7 @@
         <view class="cu-item arrow">
             <navigator class="content" url="/pages/withdraw/index" hover-class="none">
                 <text class="cuIcon-friend text-red"></text>
-                <text class="text-grey">红包</text>
+                <text class="text-grey">种子收取</text>
             </navigator>
         </view>
         <view class="cu-item arrow">

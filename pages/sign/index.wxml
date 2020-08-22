@@ -1,7 +1,7 @@
 <view class="container">
 	<view class="score-title">
 		<image class="score-img" src="../../images/score_bg.png"></image>
-		<view class="score-title-name">您的粮票</view>
+		<view class="score-title-name">您的油（酒）票</view>
 		<view class="score-title-score">{{score}}</view>
 	</view>
 	<view class="score-center">

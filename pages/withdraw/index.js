@@ -222,6 +222,7 @@ Page({
             for (var i = 0; i < this.data.Rules.length; i++) {
                 var data = this.data.Rules[i];
                 if (this.data.accountInfo.LessMoney >= data.fromNumber && this.data.accountInfo.LessMoney <= data.toNumber) {
+                    console.log(data)
                     this.setData({
                         canCashInMaxMoney: this.data.accountInfo.LessMoney * data.percentNumber / 100,
                         canCashInMinMoney: 2000,
@@ -451,13 +452,13 @@ Page({
                     },
                     deductTheTax: 0,
                     // fazhanjijin: 0
+                },() => {
+                    _this.getMoney();
+                    _this.clickToGetCashType();
                 })
-            }, () => {
-                _this.getMoney();
-                _this.clickToGetCashType();
             })
             .catch((err) => {
-
+                console.log(err);
             })
     },
 })

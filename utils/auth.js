@@ -171,6 +171,11 @@ async function httpPost(url, data = {}) {
                 }
                 if (res.data.code === 2) {
                     reject(res);
+                    wx.showModal({
+                        title: '友情提示',
+                        content: res.data.content,
+                        showCancel: false
+                    })
                     return;
                 }
                 if (res.data.code === 4) {

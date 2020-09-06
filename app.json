@@ -41,7 +41,8 @@
     "pages/userInfo/userInfo",
     "pages/address/create",
     "pages/address/detail",
-    "pages/fx/myAch"
+    "pages/fx/myAch",
+    "pages/release-money/release"
   ],
   "window": {
     "backgroundTextStyle": "light",

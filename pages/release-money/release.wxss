@@ -1,0 +1,15 @@
+.list-item {
+    background-color: #ffffff;
+    margin-bottom: 20rpx;
+    padding: 10rpx 20rpx;
+}
+
+.list-item-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.list-item-common {
+    padding: 10rpx 0;
+}

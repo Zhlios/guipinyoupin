@@ -1,0 +1,30 @@
+<scroll-view bindscrolltolower="bindDownLoad" style="height: 100vh;padding-top: 20rpx" scroll-y="true">
+    <view class="list-item" wx:for="{{data}}">
+        <view class="list-item-common">
+            状态：<text class="text-gray">{{item.lockState}}</text>
+        </view>
+        <view class="list-item-row">
+            <view class="list-item-common">
+                <text>锁定时间：</text>
+                <text class="text-gray">{{item.createTime}}</text>
+            </view>
+            <view class="list-item-common">
+                <text>锁定数量：</text>
+                <text class="text-red">{{item.number}}</text>
+            </view>
+        </view>
+        <view class="list-item-row">
+            <view class="list-item-common">
+                <text>释放时间：</text>
+                <text class="text-gray">{{item.unlockTime}}</text>
+            </view>
+            <view class="list-item-common">
+                <text>剩余数量：</text>
+                <text class="text-blue">{{item.lessNumber}}</text>
+            </view>
+        </view>
+    </view>
+    <view wx:if="{{no_more}}" style="text-align: center;line-height: 80rpx;color: #999999">
+        没有更多啦
+    </view>
+</scroll-view>

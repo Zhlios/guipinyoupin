@@ -137,7 +137,7 @@
         </view>
         <view class="cu-item arrow">
             <navigator class="content" url="/pages/development-fund/index" hover-class="none">
-                <text class="cuIcon-pic text-green"></text>
+                <text class="cuIcon-pic text-blue"></text>
                 <text class="text-grey">发展基金</text>
             </navigator>
         </view>
@@ -157,6 +157,12 @@
             <navigator class="content" url="/pages/fx/myAch" hover-class="none">
                 <text class="cuIcon-refund text-yellow"></text>
                 <text class="text-grey">我的业绩</text>
+            </navigator>
+        </view>
+        <view class="cu-item arrow">
+            <navigator class="content" url="/pages/release-money/release" hover-class="none">
+                <text class="cuIcon-vip text-red"></text>
+                <text class="text-grey">油酒票释放</text>
             </navigator>
         </view>
     </view>
